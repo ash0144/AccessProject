@@ -13,7 +13,7 @@ Begin Form
     Width =6236
     DatasheetFontHeight =11
     ItemSuffix =10
-    Right =20208
+    Right =14640
     Bottom =11568
     RecSrcDt = Begin
         0xc541a593813be640
@@ -395,15 +395,13 @@ Begin Form
                     OverlapFlags =85
                     TextFontFamily =50
                     IMEMode =2
-                    ColumnCount =2
                     Left =2271
                     Top =2051
                     Width =3402
                     TabIndex =4
-                    BoundColumn =1
                     Name ="cmbCkomoku"
                     RowSourceType ="Table/Query"
-                    ColumnWidths ="0;1701"
+                    ColumnWidths ="1701"
                     Format ="@"
 
                     LayoutCachedLeft =2271

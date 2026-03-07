@@ -13,7 +13,7 @@ Begin Form
     Width =8333
     DatasheetFontHeight =11
     ItemSuffix =28
-    Right =20208
+    Right =14640
     Bottom =11568
     RecSrcDt = Begin
         0x2d1d1047d67fe640
@@ -281,7 +281,7 @@ Begin Form
                     Height =567
                     TabIndex =4
                     Name ="cmdKomoku"
-                    Caption ="大項目の明細"
+                    Caption ="項目明細"
                     OnClick ="[Event Procedure]"
 
                     LayoutCachedLeft =3675
@@ -298,7 +298,7 @@ Begin Form
                     Width =1125
                     Height =270
                     Name ="lblDkomoku"
-                    Caption ="　大項目："
+                    Caption ="項目："
                     LayoutCachedLeft =1089
                     LayoutCachedTop =4357
                     LayoutCachedWidth =2214

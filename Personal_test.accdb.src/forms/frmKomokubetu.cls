@@ -7,6 +7,10 @@ Option Explicit
 Private App As New clsAppStore
 Private btnGroup As New Collection ' ボタン監視インスタンスを保管する袋
 
+Private Sub cmdClose_Click()
+    DoCmd.Close acForm, Me.name
+End Sub
+
 Private Sub Form_Open(Cancel As Integer)
     Dim subCDs As Variant
     Dim i As Integer
@@ -14,6 +18,9 @@ Private Sub Form_Open(Cancel As Integer)
     Dim btnHandler As clsMyButton
 
     Me!txtRange = pubFromTo
+    Me!txtDkomoku = DLookup("大項目", "大項目", "大項目CD=" & pubDkomoku)
+    Me!txtGokei = DSum("金額（円）", "抽出テーブル", "大項目CD=" & pubDkomoku)
+
     ' 中項目リストを取得
     subCDs = App.Selector.GetSubCategoryList(pubDkomoku)
 

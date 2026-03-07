@@ -8,8 +8,15 @@ Option Explicit
 Private App As New clsAppStore
 
 Private Sub cmdAll_Click()
+    Dim isType1 As Boolean: isType1 = (optBunrui = 1)
+    Dim dF As Date: dF = App.Period.GetMinDate(Me!txtFrom)
+    Dim dT As Date: dT = App.Period.GetMaxDate(Me!txtTo)
 
-    App.ExtractAndShow Me!txtFrom, Me!txtTo
+    App.Selector.ExtractToWorkTable dF, dT
+
+    pubFromTo = App.Period.GetString(dF, dT)
+    pubTitle = IIf(isType1, "項目別一覧", "勘定科目別一覧")
+
     DoCmd.OpenForm "frmZenkomoku"
 
 End Sub

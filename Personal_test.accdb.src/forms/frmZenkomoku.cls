@@ -7,6 +7,10 @@ Option Explicit
 Private App As New clsAppStore
 Private btnGroup As New Collection ' ボタンクラスをまとめて入れておく袋
 
+Private Sub cmdClose_Click()
+    DoCmd.Close acForm, Me.name
+End Sub
+
 Private Sub Form_Open(Cancel As Integer)
     Dim mainCDs As Variant
     Dim i As Integer
@@ -14,6 +18,9 @@ Private Sub Form_Open(Cancel As Integer)
     Dim btnHandler As clsMyButton
 
     Me!txtRange = pubFromTo
+    Me!txtGokei = DSum("金額（円）", "抽出テーブル")
+
+
     mainCDs = App.Selector.GetMainCategoryList()
 
     If IsEmpty(mainCDs) Then Exit Sub
@@ -24,6 +31,7 @@ Private Sub Form_Open(Cancel As Integer)
         mCD = mainCDs(i)
         ' コントロールの初期設定
         Me("lblCkomoku" & i) = Nz(DLookup("大項目", "大項目", "大項目CD=" & mCD), "")
+        Me("txtCkomoku" & i) = Nz(DLookup("金額（円）", "抽出テーブル", "大項目CD=" & mCD), "")
         Me("cmdMeisai" & i).Visible = True
 
         ' --- ここでイベントを共通化 ---

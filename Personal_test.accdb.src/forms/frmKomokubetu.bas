@@ -11,8 +11,8 @@ Begin Form
     GridY =10
     Width =20409
     DatasheetFontHeight =11
-    ItemSuffix =71
-    Right =20208
+    ItemSuffix =73
+    Right =14640
     Bottom =11568
     RecSrcDt = Begin
         0x86cd6396dc3be640
@@ -105,6 +105,61 @@ Begin Form
             GridlineShade =65.0
             BorderShade =65.0
             ShowPageHeaderAndPageFooter =1
+        End
+        Begin EmptyCell
+            Height =240
+            GridlineThemeColorIndex =1
+            GridlineShade =65.0
+        End
+        Begin FormHeader
+            Height =550
+            Name ="フォームヘッダー"
+            AlternateBackThemeColorIndex =1
+            AlternateBackShade =95.0
+            BackThemeColorIndex =2
+            BackTint =20.0
+            Begin
+                Begin EmptyCell
+                    Left =300
+                    Top =60
+                    Width =684
+                    Height =460
+                    Name ="Auto_LogoEmptyCell"
+                    GroupTable =1
+                    LayoutCachedLeft =300
+                    LayoutCachedTop =60
+                    LayoutCachedWidth =984
+                    LayoutCachedHeight =520
+                    LayoutGroup =1
+                    GroupTable =1
+                End
+                Begin Label
+                    OverlapFlags =85
+                    TextAlign =1
+                    TextFontFamily =50
+                    Left =1044
+                    Top =60
+                    Width =17628
+                    Height =460
+                    FontSize =18
+                    Name ="Auto_Header0"
+                    Caption ="項目別明細"
+                    GroupTable =1
+                    LayoutCachedLeft =1044
+                    LayoutCachedTop =60
+                    LayoutCachedWidth =18672
+                    LayoutCachedHeight =520
+                    ColumnStart =1
+                    ColumnEnd =1
+                    LayoutGroup =1
+                    ThemeFontIndex =0
+                    BorderThemeColorIndex =2
+                    BorderTint =100.0
+                    ForeThemeColorIndex =2
+                    ForeTint =100.0
+                    GroupTable =1
+                End
+            End
         End
         Begin Section
             CanGrow = NotDefault
@@ -1360,6 +1415,66 @@ Begin Form
                     LayoutCachedWidth =5054
                     LayoutCachedHeight =1642
                     CurrencySymbol ="¥"
+                End
+            End
+        End
+        Begin FormFooter
+            Height =850
+            Name ="フォームフッター"
+            AlternateBackThemeColorIndex =1
+            AlternateBackShade =95.0
+            BackThemeColorIndex =1
+            Begin
+                Begin CommandButton
+                    OverlapFlags =85
+                    TextFontFamily =50
+                    Left =4764
+                    Top =108
+                    Width =567
+                    Height =567
+                    Name ="cmdClose"
+                    OnClick ="[Event Procedure]"
+                    ImageData = Begin
+                        0x2800000010000000100000000100200000000000000000000000000000000000 ,
+                        0x000000000000000000000000000000000000000082c2ea0982c2ea4b82c2ea90 ,
+                        0x82c2eade00000000000000000000000000000000000000000000000000000000 ,
+                        0x000000000000000082c2ea2182c2ea7582c2eab782c2eaf982c2eaff82c2eaff ,
+                        0x82c2eaff00000000000000000000000000000000000000000000000000000000 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff000000000000000000000000 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaffffffffffffffffffffffffff82c2eaff000000000000000000000000 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaffffffffffffffffffffffffa500000000000000000000000000000000 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaffffffffffffffffc000000000b17d4a90b17d4affb17d4af0b17d4a36 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaffffffffedffffff30b17d4a87b17d4affb17d4af0b17d4a3600000000 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaffffffffffd7ecf8ff82c2eaff ,
+                        0x82c2eaffffffff30b17d4a81b17d4affb17d4affb17d4affb17d4affb17d4aff ,
+                        0xb17d4affb17d4aff82c2eaff82c2eaff82c2eaffdceef9ffc4e2f5ff82c2eaff ,
+                        0x82c2eaffffffff27b17d4a7eb17d4affb17d4affb17d4affb17d4affb17d4aff ,
+                        0xb17d4affb17d4aff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaffffffffe4ffffff27b17d4a84b17d4affb17d4af0b17d4a3900000000 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaffffffffffffffffbd00000000b17d4a8db17d4affb17d4af0b17d4a39 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaffffffffffffffffffffffffa500000000000000000000000000000000 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaffffffffffffffffffffffffff82c2eaff000000000000000000000000 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff000000000000000000000000 ,
+                        0x000000000000000082c2ea2182c2ea6f82c2eab782c2eaf982c2eaff82c2eaff ,
+                        0x82c2eaff00000000000000000000000000000000000000000000000000000000 ,
+                        0x000000000000000000000000000000000000000082c2ea0982c2ea4e82c2ea96 ,
+                        0x82c2eae400000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000
+                    End
+
+                    LayoutCachedLeft =4764
+                    LayoutCachedTop =108
+                    LayoutCachedWidth =5331
+                    LayoutCachedHeight =675
                 End
             End
         End
