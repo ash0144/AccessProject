@@ -1,0 +1,4 @@
+﻿CREATE TABLE [勘定分類] (
+  [勘定分類CD] LONG CONSTRAINT [PrimaryKey] PRIMARY KEY UNIQUE NOT NULL,
+  [勘定分類] VARCHAR (255)
+)

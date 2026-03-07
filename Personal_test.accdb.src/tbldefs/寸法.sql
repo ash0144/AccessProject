@@ -1,0 +1,9 @@
+﻿CREATE TABLE [寸法] (
+  [寸法CD] LONG CONSTRAINT [PrimaryKey] PRIMARY KEY UNIQUE NOT NULL,
+  [品名] VARCHAR (255),
+  [W] DOUBLE,
+  [D] DOUBLE,
+  [H] DOUBLE,
+  [質量] DOUBLE,
+  [備考] VARCHAR (255)
+)

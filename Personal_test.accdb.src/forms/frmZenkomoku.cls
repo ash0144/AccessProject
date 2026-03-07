@@ -1,0 +1,45 @@
+﻿Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Option Explicit
+
+Private App As New clsAppStore
+Private btnGroup As New Collection ' ボタンクラスをまとめて入れておく袋
+
+Private Sub Form_Open(Cancel As Integer)
+    Dim mainCDs As Variant
+    Dim i As Integer
+    Dim mCD As Long
+    Dim btnHandler As clsMyButton
+
+    Me!txtRange = pubFromTo
+    mainCDs = App.Selector.GetMainCategoryList()
+
+    If IsEmpty(mainCDs) Then Exit Sub
+
+    For i = 1 To UBound(mainCDs)
+        If i > 19 Then Exit For
+
+        mCD = mainCDs(i)
+        ' コントロールの初期設定
+        Me("lblCkomoku" & i) = Nz(DLookup("大項目", "大項目", "大項目CD=" & mCD), "")
+        Me("cmdMeisai" & i).Visible = True
+
+        ' --- ここでイベントを共通化 ---
+        Set btnHandler = New clsMyButton
+        ' ボタン、ID、自分自身(Me)をクラスに渡して袋に入れる
+        btnHandler.Setup Me("cmdMeisai" & i), mCD, Me
+        btnGroup.Add btnHandler
+    Next i
+End Sub
+
+' クラスから呼び出される共通メソッド
+' ※ Publicにする必要があります
+Public Sub ShowMeisaiFromClass(targetCD As Long)
+    App.Selector.CreateMainMeisai targetCD
+    Me!subMeisai.Visible = True
+    Me!subMeisai.Requery
+End Sub
+
+' ★ cmdMeisai1_Click() ～ cmdMeisai19_Click() はすべて削除してOK！

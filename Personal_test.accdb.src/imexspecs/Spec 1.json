@@ -1,0 +1,102 @@
+﻿{
+  "Info": {
+    "Class": "clsDbImexSpec",
+    "Description": "Import/Export Specification from MSysIMEXSpecs"
+  },
+  "Items": {
+    "DateDelim": "/",
+    "DateFourDigitYear": false,
+    "DateLeadingZeros": false,
+    "DateOrder": 5,
+    "DecimalPoint": "",
+    "FieldSeparator": "\u0001",
+    "FileType": 0,
+    "SpecName": "",
+    "SpecType": 0,
+    "StartRow": 1,
+    "TextDelim": "\u0002",
+    "TimeDelim": ":",
+    "Columns": {
+      "ID": {
+        "Attributes": 0,
+        "DataType": 10,
+        "IndexType": 0,
+        "SkipColumn": false,
+        "Start": 135,
+        "Width": 44
+      },
+      "メモ": {
+        "Attributes": 0,
+        "DataType": 10,
+        "IndexType": 0,
+        "SkipColumn": false,
+        "Start": 125,
+        "Width": 5
+      },
+      "金額（円）": {
+        "Attributes": 0,
+        "DataType": 7,
+        "IndexType": 0,
+        "SkipColumn": false,
+        "Start": 51,
+        "Width": 11
+      },
+      "計算対象": {
+        "Attributes": 0,
+        "DataType": 4,
+        "IndexType": 0,
+        "SkipColumn": false,
+        "Start": 1,
+        "Width": 9
+      },
+      "振替": {
+        "Attributes": 0,
+        "DataType": 4,
+        "IndexType": 0,
+        "SkipColumn": false,
+        "Start": 130,
+        "Width": 5
+      },
+      "大項目": {
+        "Attributes": 0,
+        "DataType": 10,
+        "IndexType": 0,
+        "SkipColumn": false,
+        "Start": 93,
+        "Width": 13
+      },
+      "中項目": {
+        "Attributes": 0,
+        "DataType": 10,
+        "IndexType": 0,
+        "SkipColumn": false,
+        "Start": 106,
+        "Width": 19
+      },
+      "内容": {
+        "Attributes": 0,
+        "DataType": 10,
+        "IndexType": 0,
+        "SkipColumn": false,
+        "Start": 21,
+        "Width": 30
+      },
+      "日付": {
+        "Attributes": 0,
+        "DataType": 8,
+        "IndexType": 0,
+        "SkipColumn": false,
+        "Start": 10,
+        "Width": 11
+      },
+      "保有金融機関": {
+        "Attributes": 0,
+        "DataType": 10,
+        "IndexType": 0,
+        "SkipColumn": false,
+        "Start": 62,
+        "Width": 31
+      }
+    }
+  }
+}

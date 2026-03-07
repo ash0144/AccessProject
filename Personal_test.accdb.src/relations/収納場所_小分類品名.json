@@ -1,0 +1,18 @@
+﻿{
+  "Info": {
+    "Class": "clsDbRelation",
+    "Description": "Database relationship"
+  },
+  "Items": {
+    "Name": "収納場所_小分類品名",
+    "Attributes": 0,
+    "Table": "収納場所_小分類",
+    "ForeignTable": "品名",
+    "Fields": [
+      {
+        "Name": "小分類CD",
+        "ForeignName": "収納場所CD"
+      }
+    ]
+  }
+}

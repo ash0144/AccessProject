@@ -1,0 +1,4 @@
+﻿CREATE TABLE [使用場所] (
+  [使用場所CD] LONG CONSTRAINT [PrimaryKey] PRIMARY KEY UNIQUE NOT NULL,
+  [使用場所] VARCHAR (255)
+)

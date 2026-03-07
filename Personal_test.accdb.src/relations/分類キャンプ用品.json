@@ -1,0 +1,18 @@
+﻿{
+  "Info": {
+    "Class": "clsDbRelation",
+    "Description": "Database relationship"
+  },
+  "Items": {
+    "Name": "分類キャンプ用品",
+    "Attributes": 0,
+    "Table": "用途",
+    "ForeignTable": "品名",
+    "Fields": [
+      {
+        "Name": "用途CD",
+        "ForeignName": "用途CD"
+      }
+    ]
+  }
+}

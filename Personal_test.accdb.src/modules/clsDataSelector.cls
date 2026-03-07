@@ -1,0 +1,108 @@
+﻿VERSION 1.0 CLASS
+BEGIN
+  MultiUse = -1  'True
+END
+Attribute VB_Name = "clsDataSelector"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = False
+' --- clsDataSelector ---
+Option Explicit
+
+' 抽出テーブルへのインサート
+Public Sub ExtractToWorkTable(dFrom As Date, dTo As Date, Optional dKomokuCD As Variant = Null)
+
+    Dim db As DAO.Database: Set db = CurrentDb
+    Dim qdf As DAO.QueryDef
+    Dim strSQL As String
+
+    Call tblClr("抽出テーブル")
+    strSQL = "INSERT INTO 抽出テーブル ( 日付, 内容, [金額（円）], 保有金融機関, 大項目, 中項目, 大項目CD, 中項目CD, ID ) " & _
+             "SELECT 日付, 内容, [金額（円）], 保有金融機関, M.大項目, M.中項目, C.大項目CD, C.中項目CD, ID " & _
+             "FROM MoneyForward AS M " & _
+             "INNER JOIN (大項目 AS D INNER JOIN 中項目 AS C ON D.大項目CD = C.大項目CD) ON M.中項目 = C.中項目 " & _
+             "WHERE (日付 Between [pFrom] And [pTo]) AND (計算対象=1) "
+
+    If Not IsNull(dKomokuCD) Then strSQL = strSQL & "AND (C.大項目CD = [pCD]) "
+
+    Set qdf = db.CreateQueryDef("", strSQL)
+    qdf.Parameters("pFrom").Value = dFrom
+    qdf.Parameters("pTo").Value = dTo
+    If Not IsNull(dKomokuCD) Then qdf.Parameters("pCD").Value = dKomokuCD
+    qdf.Execute dbFailOnError
+End Sub
+
+' 1. 抽出テーブルに含まれる大項目CDのリストを取得
+Public Function GetMainCategoryList() As Variant
+    Dim rs As DAO.Recordset
+    Dim strSQL As String
+    Dim result() As Long
+    Dim i As Integer
+
+    strSQL = "SELECT DISTINCT 大項目CD FROM 抽出テーブル ORDER BY 大項目CD;"
+    Set rs = CurrentDb.OpenRecordset(strSQL)
+
+    If rs.EOF Then
+        GetMainCategoryList = Empty
+    Else
+        rs.MoveLast
+        ReDim result(1 To rs.RecordCount)
+        rs.MoveFirst
+        For i = 1 To UBound(result)
+            result(i) = rs!大項目CD
+            rs.MoveNext
+        Next i
+        GetMainCategoryList = result
+    End If
+    rs.Close: Set rs = Nothing
+
+End Function
+
+'中項目CDのリストを配列で取得する
+Public Function GetSubCategoryList(dKomokuCD As Variant) As Variant
+    Dim rs As DAO.Recordset
+    Dim strSQL As String
+    Dim result() As Long
+    Dim i As Integer
+
+    strSQL = "SELECT DISTINCT 中項目CD FROM 抽出テーブル WHERE 大項目CD=" & dKomokuCD & " ORDER BY 中項目CD;"
+    Set rs = CurrentDb.OpenRecordset(strSQL)
+
+    If rs.EOF Then
+        GetSubCategoryList = Empty
+    Else
+        rs.MoveLast
+        ReDim result(1 To rs.RecordCount)
+        rs.MoveFirst
+        For i = 1 To UBound(result)
+            result(i) = rs!中項目CD
+            rs.MoveNext
+        Next i
+        GetSubCategoryList = result
+    End If
+    rs.Close: Set rs = Nothing
+
+End Function
+
+' 中項目用の明細作成 (frmKomokubetu用)
+Public Sub CreateMeisai(subCategoryCD As Long)
+
+    Call tblClr("明細")
+    Dim strSQL As String
+
+    strSQL = "INSERT INTO 明細 SELECT * FROM 抽出テーブル WHERE 中項目CD=" & subCategoryCD & ";"
+    CurrentDb.Execute strSQL, dbFailOnError
+
+End Sub
+
+' 大項目用の明細作成 (frmZenkomoku用)
+Public Sub CreateMainMeisai(mainCategoryCD As Long)
+
+    Call tblClr("明細")
+    Dim strSQL As String
+
+    strSQL = "INSERT INTO 明細 SELECT * FROM 抽出テーブル WHERE 大項目CD=" & mainCategoryCD & ";"
+    CurrentDb.Execute strSQL, dbFailOnError
+
+End Sub

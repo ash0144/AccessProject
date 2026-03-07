@@ -1,0 +1,14 @@
+﻿CREATE TABLE [仕様] (
+  [仕様CD] LONG CONSTRAINT [PrimaryKey] PRIMARY KEY UNIQUE NOT NULL,
+  [品名] VARCHAR (255),
+  [項目1] VARCHAR (255),
+  [項目2] VARCHAR (255),
+  [項目3] VARCHAR (255),
+  [項目4] VARCHAR (255),
+  [項目5] VARCHAR (255),
+  [項目6] VARCHAR (255),
+  [項目7] VARCHAR (255),
+  [項目8] VARCHAR (255),
+  [項目9] VARCHAR (255),
+  [項目10] VARCHAR (255)
+)

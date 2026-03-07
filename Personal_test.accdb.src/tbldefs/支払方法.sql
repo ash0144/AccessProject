@@ -1,0 +1,4 @@
+﻿CREATE TABLE [支払方法] (
+  [支払方法CD] VARCHAR (255) CONSTRAINT [PrimaryKey] PRIMARY KEY UNIQUE NOT NULL,
+  [支払方法] VARCHAR (255)
+)

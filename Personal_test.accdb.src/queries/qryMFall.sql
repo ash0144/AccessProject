@@ -1,0 +1,3 @@
+﻿DELETE MoneyForward.*
+FROM
+  MoneyForward;
