@@ -20,12 +20,12 @@ Public Property Get Period() As clsPeriodManager:   Set Period = pPeriod:     En
 Public Property Get Selector() As clsDataSelector: Set Selector = pSelector: End Property
 Public Property Get Registry() As clsDataRegistry: Set Registry = pRegistry: End Property
 
-' よく使う一連の流れを「セットメニュー」として提供することも可能
-Public Sub ExtractAndShow(dFromRaw As Variant, dToRaw As Variant, Optional dCD As Variant = Null)
-    Dim dF As Date: dF = pPeriod.GetMinDate(dFromRaw)
-    Dim dT As Date: dT = pPeriod.GetMaxDate(dToRaw)
-
-    ' 抽出して、期間表示用文字列をグローバル変数へセット
-    pSelector.ExtractToWorkTable dF, dT, dCD
-    pubFromTo = pPeriod.GetString(dF, dT)
-End Sub
+'' よく使う一連の流れを「セットメニュー」として提供することも可能
+'Public Sub ExtractAndShow(dFromRaw As Variant, dToRaw As Variant, Optional dCD As Variant = Null)
+'    Dim dF As Date: dF = pPeriod.GetMinDate(dFromRaw)
+'    Dim dT As Date: dT = pPeriod.GetMaxDate(dToRaw)
+'
+'    ' 抽出して、期間表示用文字列をグローバル変数へセット
+'    pSelector.ExtractToWorkTable dF, dT, dCD
+'    pubFromTo = pPeriod.GetString(dF, dT)
+'End Sub

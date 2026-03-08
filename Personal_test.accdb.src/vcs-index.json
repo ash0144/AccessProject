@@ -6,7 +6,7 @@
   "Items": {
     "MergeBuildDate": null,
     "FullBuildDate": "2026-03-07T06:45:55.000Z",
-    "ExportDate": "2026-03-07T14:23:06.000Z",
+    "ExportDate": "2026-03-08T17:04:44.000Z",
     "FullExportDate": "2026-03-07T02:45:49.000Z",
     "OptionsHash": "1e652c7",
     "LastMergedCommit": "",
@@ -51,12 +51,12 @@
           "OtherHash": "57769a6"
         },
         "frmKSmenu.bas": {
-          "FileHash": "08f90a5",
-          "ExportDate": "2026-03-07T14:23:06.000Z",
+          "FileHash": "db8e3af",
+          "ExportDate": "2026-03-08T17:04:44.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "36dd519",
+          "FilePropertiesHash": "1fa61d8",
           "ImportDate": "2026-03-07T06:45:52.000Z",
-          "OtherHash": "b0d7763"
+          "OtherHash": "a530810"
         },
         "frmKSmenuB.bas": {
           "FileHash": "3a5bf5e",
@@ -85,6 +85,13 @@
           "FilePropertiesHash": "bd88e19",
           "ImportDate": "2026-03-07T06:45:52.000Z",
           "OtherHash": "a94df22"
+        },
+        "frmSinkoku.bas": {
+          "FileHash": "600eb4f",
+          "OtherHash": "d95f14c",
+          "ExportDate": "2026-03-08T17:04:44.000Z",
+          "SourceModified": null,
+          "FilePropertiesHash": "1f423e2"
         },
         "frmSinput.bas": {
           "FileHash": "c5f084a",
@@ -140,12 +147,12 @@
       },
       "Modules": {
         "clsAppStore.cls": {
-          "FileHash": "c33d1be",
-          "ExportDate": "2026-03-07T08:16:06.000Z",
+          "FileHash": "d1ee1cc",
+          "ExportDate": "2026-03-08T17:04:44.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "35e3025",
+          "FilePropertiesHash": "2a7b04a",
           "ImportDate": "2026-03-07T06:45:51.000Z",
-          "OtherHash": "46cf69c"
+          "OtherHash": "37f0ab1"
         },
         "clsDataRegistry.cls": {
           "FileHash": "cc3e0f9",
@@ -156,12 +163,12 @@
           "OtherHash": "a735ff3"
         },
         "clsDataSelector.cls": {
-          "FileHash": "cc69295",
-          "ExportDate": "2026-03-07T08:16:06.000Z",
+          "FileHash": "8d09a01",
+          "ExportDate": "2026-03-08T17:04:44.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "88caa57",
+          "FilePropertiesHash": "e5a409a",
           "ImportDate": "2026-03-07T06:45:51.000Z",
-          "OtherHash": "7896cbb"
+          "OtherHash": "395d496"
         },
         "clsMyButton.cls": {
           "FileHash": "f2999c6",
@@ -188,12 +195,12 @@
           "OtherHash": "ca44951"
         },
         "共通モジュール.bas": {
-          "FileHash": "ac66110",
-          "ExportDate": "2026-03-07T14:23:05.000Z",
+          "FileHash": "05a7021",
+          "ExportDate": "2026-03-08T17:04:44.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "4c61f2f",
+          "FilePropertiesHash": "24bc574",
           "ImportDate": "2026-03-07T06:45:51.000Z",
-          "OtherHash": "76f7d98"
+          "OtherHash": "c4e2d68"
         }
       },
       "Nav Pane Groups": {

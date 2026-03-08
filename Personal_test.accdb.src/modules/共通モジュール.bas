@@ -8,7 +8,6 @@ Private Const C_DELIMITER   As String = ","
 
 Public pubDkomoku As Integer
 Public pubFromTo As String
-Public pubTitle As String
 
 '***************************************************************************
 '名称　：GetFileName

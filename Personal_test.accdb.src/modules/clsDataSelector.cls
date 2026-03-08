@@ -11,26 +11,36 @@ Attribute VB_Exposed = False
 Option Explicit
 
 ' 抽出テーブルへのインサート
-Public Sub ExtractToWorkTable(dFrom As Date, dTo As Date, Optional dKomokuCD As Variant = Null)
+Public Sub ExtractToWorkTable(dFrom As Date, dTo As Date, optB As Integer, Optional dKomokuCD As Variant = Null)
 
     Dim db As DAO.Database: Set db = CurrentDb
     Dim qdf As DAO.QueryDef
     Dim strSQL As String
 
     Call tblClr("抽出テーブル")
-    strSQL = "INSERT INTO 抽出テーブル ( 日付, 内容, [金額（円）], 保有金融機関, 大項目, 中項目, 大項目CD, 中項目CD, ID ) " & _
-             "SELECT 日付, 内容, [金額（円）], 保有金融機関, M.大項目, M.中項目, C.大項目CD, C.中項目CD, ID " & _
-             "FROM MoneyForward AS M " & _
-             "INNER JOIN (大項目 AS D INNER JOIN 中項目 AS C ON D.大項目CD = C.大項目CD) ON M.中項目 = C.中項目 " & _
-             "WHERE (日付 Between [pFrom] And [pTo]) AND (計算対象=1) "
 
-    If Not IsNull(dKomokuCD) Then strSQL = strSQL & "AND (C.大項目CD = [pCD]) "
+    If optB = 1 Then
+        strSQL = "INSERT INTO 抽出テーブル ( 日付, 内容, [金額（円）], 保有金融機関, 大項目, 中項目, 大項目CD, 中項目CD, ID ) " & _
+                 "SELECT 日付, 内容, [金額（円）], 保有金融機関, M.大項目, M.中項目, C.大項目CD, C.中項目CD, ID " & _
+                 "FROM MoneyForward AS M " & _
+                 "INNER JOIN (大項目 AS D INNER JOIN 中項目 AS C ON D.大項目CD = C.大項目CD) ON M.中項目 = C.中項目 " & _
+                 "WHERE (日付 Between [pFrom] And [pTo]) AND (計算対象=1) AND (C.家計簿=True) "
+        If Not IsNull(dKomokuCD) Then strSQL = strSQL & "AND (C.大項目CD = [pCD]) "
+    Else
+        strSQL = "抽出テーブル ( 日付, 内容, 金額（円）, 保有金融機関, 中項目CD, 中項目, 勘定科目CD, 勘定科目, 勘定分類CD, ID ) " & _
+                 "SELECT 日付, 内容, [金額（円）], 保有金融機関, M.中項目CD, M.中項目, 勘定科目CD, 勘定科目, 勘定分類CD, ID " & _
+                 "FROM (MoneyForward AS M " & _
+                 "INNER JOIN 勘定科目 ON M.中項目CD = K.中項目CD) INNER JOIN 中項目 AS C ON M.中項目CD = C.中項目CD " & _
+                 "WHERE (日付 Between [pFrom] And [pTo]) AND (計算対象=1) AND (C.確定申告=True) "
+    End If
 
     Set qdf = db.CreateQueryDef("", strSQL)
     qdf.Parameters("pFrom").Value = dFrom
     qdf.Parameters("pTo").Value = dTo
     If Not IsNull(dKomokuCD) Then qdf.Parameters("pCD").Value = dKomokuCD
+
     qdf.Execute dbFailOnError
+
 End Sub
 
 ' 1. 抽出テーブルに含まれる大項目CDのリストを取得

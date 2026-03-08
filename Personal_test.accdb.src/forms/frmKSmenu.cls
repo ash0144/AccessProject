@@ -8,26 +8,34 @@ Option Explicit
 Private App As New clsAppStore
 
 Private Sub cmdAll_Click()
-    Dim isType1 As Boolean: isType1 = (optBunrui = 1)
+
     Dim dF As Date: dF = App.Period.GetMinDate(Me!txtFrom)
     Dim dT As Date: dT = App.Period.GetMaxDate(Me!txtTo)
+    Dim optB As Integer
 
-    App.Selector.ExtractToWorkTable dF, dT
+    optB = Me!optBunrui
 
     pubFromTo = App.Period.GetString(dF, dT)
-    pubTitle = IIf(isType1, "項目別一覧", "勘定科目別一覧")
+    App.Selector.ExtractToWorkTable dF, dT, optB
 
-    DoCmd.OpenForm "frmZenkomoku"
+    If optB = 1 Then
+        DoCmd.OpenForm "frmZenkomoku"
+    Else
+        DoCmd.OpenForm "frmSinkoku"
+    End If
 
 End Sub
 Private Sub cmdKomoku_Click()
 
     Dim dF As Date: dF = App.Period.GetMinDate(Me!txtFrom)
     Dim dT As Date: dT = App.Period.GetMaxDate(Me!txtTo)
+    Dim optB As Integer
+
+    optB = Me!optBunrui
 
     If IsNull(Me!cmbDkomoku) Then MsgBox "項目を選択してください": Exit Sub
 
-    App.Selector.ExtractToWorkTable dF, dT, Me!cmbDkomoku
+    App.Selector.ExtractToWorkTable dF, dT, optB, Me!cmbDkomoku
 
     pubDkomoku = Me!cmbDkomoku
     pubFromTo = App.Period.GetString(dF, dT)
