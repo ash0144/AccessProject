@@ -30,7 +30,7 @@ Private Sub Form_Open(Cancel As Integer)
         mCD = mainCDs(i)
         ' コントロールの初期設定
         Me("lblCkomoku" & i) = Nz(DLookup("勘定科目", "勘定科目", "勘定科目CD=" & mCD), "")
-        Me("txtCkomoku" & i) = Nz(DLookup("金額（円）", "抽出テーブル", "勘定科目CD=" & mCD), "")
+        Me("txtCkomoku" & i) = Nz(DSum("金額（円）", "抽出テーブル", "勘定科目CD=" & mCD), "")
         Me("cmdMeisai" & i).Visible = True
 
         ' --- ここでイベントを共通化 ---
@@ -44,7 +44,7 @@ End Sub
 ' クラスから呼び出される共通メソッド
 ' ※ Publicにする必要があります
 Public Sub ShowMeisaiFromClass(targetCD As Long)
-    App.Selector.CreateMainMeisai targetCD
+    App.Selector.CreateMeisai targetCD, "勘定科目CD"
     Me!subMeisai.Visible = True
     Me!subMeisai.Requery
 End Sub

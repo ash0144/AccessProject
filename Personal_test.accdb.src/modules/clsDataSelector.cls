@@ -27,11 +27,12 @@ Public Sub ExtractToWorkTable(dFrom As Date, dTo As Date, optB As Integer, Optio
                  "WHERE (日付 Between [pFrom] And [pTo]) AND (計算対象=1) AND (C.家計簿=True) "
         If Not IsNull(dKomokuCD) Then strSQL = strSQL & "AND (C.大項目CD = [pCD]) "
     Else
-        strSQL = "抽出テーブル ( 日付, 内容, 金額（円）, 保有金融機関, 中項目CD, 中項目, 勘定科目CD, 勘定科目, 勘定分類CD, ID ) " & _
-                 "SELECT 日付, 内容, [金額（円）], 保有金融機関, M.中項目CD, M.中項目, 勘定科目CD, 勘定科目, 勘定分類CD, ID " & _
-                 "FROM (MoneyForward AS M " & _
-                 "INNER JOIN 勘定科目 ON M.中項目CD = K.中項目CD) INNER JOIN 中項目 AS C ON M.中項目CD = C.中項目CD " & _
+        strSQL = "INSERT INTO 抽出テーブル ( 日付, 内容, 金額（円）, 保有金融機関, 中項目CD, 中項目, 勘定科目CD, 勘定科目, 勘定分類CD, ID ) " & _
+                 "SELECT 日付, 内容, [金額（円）], 保有金融機関, M.中項目CD, M.中項目, C.勘定科目CD, K.勘定科目, K.勘定分類CD, ID " & _
+                 "FROM MoneyForward AS M " & _
+                 "INNER JOIN (勘定科目 AS K INNER JOIN 中項目 AS C ON K.中項目CD = C.中項目CD) ON M.中項目CD = K.中項目CD " & _
                  "WHERE (日付 Between [pFrom] And [pTo]) AND (計算対象=1) AND (C.確定申告=True) "
+        If Not IsNull(dKomokuCD) Then strSQL = strSQL & "AND (C.勘定科目CD = [pCD]) "
     End If
 
     Set qdf = db.CreateQueryDef("", strSQL)
@@ -44,7 +45,7 @@ Public Sub ExtractToWorkTable(dFrom As Date, dTo As Date, optB As Integer, Optio
 End Sub
 
 '抽出テーブルに含まれる大項目CD/中項目CD/勘定科目CDのリストを取得
-Public Function GetCategoryList(strB As String, Optional dKomokuCD As Variant) As Variant
+Public Function GetCategoryList(strB As String, Optional dKomokuCD As Variant = Null) As Variant
 
     Dim rs As DAO.Recordset
     Dim strSQL As String
@@ -62,6 +63,9 @@ Public Function GetCategoryList(strB As String, Optional dKomokuCD As Variant) A
         Case "Sinkoku"
             strSQL = "SELECT DISTINCT 勘定科目CD FROM 抽出テーブル ORDER BY 勘定科目CD;"
             strCD = "勘定科目CD"
+        Case "Kamokubetu"
+            strSQL = "SELECT DISTINCT 中項目CD FROM 抽出テーブル WHERE 勘定科目CD=" & dKomokuCD & " ORDER BY 中項目CD;"
+            strCD = "中項目CD"
     End Select
 
     Set rs = CurrentDb.OpenRecordset(strSQL)
@@ -134,24 +138,42 @@ End Function
 '
 'End Function
 
+' 明細用列名検証
+Private Function NormalizeColumnName(strCD As String) As String
+
+    Select Case strCD
+        Case "大項目CD", "中項目CD", "勘定科目CD"
+            NormalizeColumnName = strCD
+        Case Else
+            Err.Raise vbObjectError + 1, "clsDataSelector", "許可されていない列名です。"
+    End Select
+
+End Function
+
 ' 明細作成
 Public Sub CreateMeisai(CategoryCD As Long, strCD As String)
 
     Call tblClr("明細")
     Dim strSQL As String
+    Dim colName As String
+    Dim qdf As DAO.QueryDef
 
-    strSQL = "INSERT INTO 明細 SELECT * FROM 抽出テーブル WHERE [" & strCD & "]=" & CategoryCD & ";"
-    CurrentDb.Execute strSQL, dbFailOnError
+    colName = NormalizeColumnName(strCD)
 
-End Sub
-
-' 大項目用の明細作成 (frmZenkomoku用)
-Public Sub CreateMainMeisai(mainCategoryCD As Long)
-
-    Call tblClr("明細")
-    Dim strSQL As String
-
-    strSQL = "INSERT INTO 明細 SELECT * FROM 抽出テーブル WHERE 大項目CD=" & mainCategoryCD & ";"
-    CurrentDb.Execute strSQL, dbFailOnError
+    strSQL = "INSERT INTO 明細 SELECT * FROM 抽出テーブル WHERE [" & colName & "] = [pValue];"
+    Set qdf = CurrentDb.CreateQueryDef("", strSQL)
+    qdf.Parameters("pValue").Value = CategoryCD
+    qdf.Execute dbFailOnError
 
 End Sub
+
+' ' 大項目用の明細作成 (frmZenkomoku用)
+' Public Sub CreateMainMeisai(mainCategoryCD As Long)
+
+'     Call tblClr("明細")
+'     Dim strSQL As String
+
+'     strSQL = "INSERT INTO 明細 SELECT * FROM 抽出テーブル WHERE 大項目CD=" & mainCategoryCD & ";"
+'     CurrentDb.Execute strSQL, dbFailOnError
+
+' End Sub

@@ -9,15 +9,15 @@ Begin Form
     PictureAlignment =2
     DatasheetGridlinesBehavior =3
     GridY =10
-    Width =14173
+    Width =20409
     DatasheetFontHeight =11
-    ItemSuffix =113
-    Right =25968
-    Bottom =13368
+    ItemSuffix =73
+    Right =26220
+    Bottom =13620
     RecSrcDt = Begin
         0x86cd6396dc3be640
     End
-    Caption ="項目別一覧"
+    Caption ="項目別明細"
     OnOpen ="[Event Procedure]"
     DatasheetFontName ="ＭＳ Ｐゴシック"
     FilterOnLoad =0
@@ -139,15 +139,15 @@ Begin Form
                     TextFontFamily =50
                     Left =1044
                     Top =60
-                    Width =11388
+                    Width =17628
                     Height =460
                     FontSize =18
                     Name ="Auto_Header0"
-                    Caption ="項目別一覧"
+                    Caption ="勘定科目別明細"
                     GroupTable =1
                     LayoutCachedLeft =1044
                     LayoutCachedTop =60
-                    LayoutCachedWidth =12432
+                    LayoutCachedWidth =18672
                     LayoutCachedHeight =520
                     ColumnStart =1
                     ColumnEnd =1
@@ -163,7 +163,7 @@ Begin Form
         End
         Begin Section
             CanGrow = NotDefault
-            Height =12068
+            Height =8503
             Name ="詳細"
             AlternateBackThemeColorIndex =1
             AlternateBackShade =95.0
@@ -198,6 +198,36 @@ Begin Form
                     LayoutCachedWidth =5050
                     LayoutCachedHeight =840
                 End
+                Begin Label
+                    OverlapFlags =85
+                    TextFontFamily =50
+                    Left =574
+                    Top =967
+                    Width =1320
+                    Height =270
+                    Name ="lblDkomoku"
+                    Caption ="勘定科目："
+                    LayoutCachedLeft =574
+                    LayoutCachedTop =967
+                    LayoutCachedWidth =1894
+                    LayoutCachedHeight =1237
+                End
+                Begin TextBox
+                    OldBorderStyle =0
+                    OverlapFlags =85
+                    TextFontFamily =50
+                    IMEMode =2
+                    Left =2219
+                    Top =967
+                    Width =2835
+                    TabIndex =1
+                    Name ="txtDkomoku"
+
+                    LayoutCachedLeft =2219
+                    LayoutCachedTop =967
+                    LayoutCachedWidth =5054
+                    LayoutCachedHeight =1237
+                End
                 Begin TextBox
                     OldBorderStyle =0
                     OverlapFlags =85
@@ -207,7 +237,7 @@ Begin Form
                     Left =2782
                     Top =2214
                     Width =1418
-                    TabIndex =1
+                    TabIndex =2
                     Name ="txtCkomoku1"
                     Format ="¥#,##0;-¥#,##0"
 
@@ -226,7 +256,7 @@ Begin Form
                     Left =2782
                     Top =2604
                     Width =1418
-                    TabIndex =2
+                    TabIndex =3
                     Name ="txtCkomoku2"
                     Format ="¥#,##0;-¥#,##0"
 
@@ -245,7 +275,7 @@ Begin Form
                     Left =2782
                     Top =2994
                     Width =1418
-                    TabIndex =3
+                    TabIndex =4
                     Name ="txtCkomoku3"
                     Format ="¥#,##0;-¥#,##0"
 
@@ -264,7 +294,7 @@ Begin Form
                     Left =2782
                     Top =3384
                     Width =1418
-                    TabIndex =4
+                    TabIndex =5
                     Name ="txtCkomoku4"
                     Format ="¥#,##0;-¥#,##0"
 
@@ -283,7 +313,7 @@ Begin Form
                     Left =2782
                     Top =3774
                     Width =1418
-                    TabIndex =5
+                    TabIndex =6
                     Name ="txtCkomoku5"
                     Format ="¥#,##0;-¥#,##0"
 
@@ -302,7 +332,7 @@ Begin Form
                     Left =2782
                     Top =4164
                     Width =1418
-                    TabIndex =6
+                    TabIndex =7
                     Name ="txtCkomoku6"
                     Format ="¥#,##0;-¥#,##0"
 
@@ -321,7 +351,7 @@ Begin Form
                     Left =2782
                     Top =4554
                     Width =1418
-                    TabIndex =7
+                    TabIndex =8
                     Name ="txtCkomoku7"
                     Format ="¥#,##0;-¥#,##0"
 
@@ -340,7 +370,7 @@ Begin Form
                     Left =2782
                     Top =4944
                     Width =1418
-                    TabIndex =8
+                    TabIndex =9
                     Name ="txtCkomoku8"
                     Format ="¥#,##0;-¥#,##0"
 
@@ -359,7 +389,7 @@ Begin Form
                     Left =2782
                     Top =5334
                     Width =1418
-                    TabIndex =9
+                    TabIndex =10
                     Name ="txtCkomoku9"
                     Format ="¥#,##0;-¥#,##0"
 
@@ -378,7 +408,7 @@ Begin Form
                     Left =2782
                     Top =5724
                     Width =1418
-                    TabIndex =10
+                    TabIndex =11
                     Name ="txtCkomoku10"
                     Format ="¥#,##0;-¥#,##0"
 
@@ -397,7 +427,7 @@ Begin Form
                     Left =2782
                     Top =6114
                     Width =1418
-                    TabIndex =11
+                    TabIndex =12
                     Name ="txtCkomoku11"
                     Format ="¥#,##0;-¥#,##0"
 
@@ -416,7 +446,7 @@ Begin Form
                     Left =2782
                     Top =6504
                     Width =1418
-                    TabIndex =12
+                    TabIndex =13
                     Name ="txtCkomoku12"
                     Format ="¥#,##0;-¥#,##0"
 
@@ -435,7 +465,7 @@ Begin Form
                     Left =2782
                     Top =6894
                     Width =1418
-                    TabIndex =13
+                    TabIndex =14
                     Name ="txtCkomoku13"
                     Format ="¥#,##0;-¥#,##0"
 
@@ -454,7 +484,7 @@ Begin Form
                     Left =2782
                     Top =7284
                     Width =1418
-                    TabIndex =14
+                    TabIndex =15
                     Name ="txtCkomoku14"
                     Format ="¥#,##0;-¥#,##0"
 
@@ -473,7 +503,7 @@ Begin Form
                     Left =2782
                     Top =7674
                     Width =1418
-                    TabIndex =15
+                    TabIndex =16
                     Name ="txtCkomoku15"
                     Format ="¥#,##0;-¥#,##0"
 
@@ -491,7 +521,7 @@ Begin Form
                     Left =574
                     Top =2214
                     Width =2041
-                    TabIndex =16
+                    TabIndex =17
                     ForeColor =6710886
                     Name ="lblCkomoku1"
 
@@ -512,7 +542,7 @@ Begin Form
                     Left =574
                     Top =2604
                     Width =2041
-                    TabIndex =17
+                    TabIndex =18
                     ForeColor =6710886
                     Name ="lblCkomoku2"
 
@@ -533,7 +563,7 @@ Begin Form
                     Left =574
                     Top =2994
                     Width =2041
-                    TabIndex =18
+                    TabIndex =19
                     ForeColor =6710886
                     Name ="lblCkomoku3"
 
@@ -554,7 +584,7 @@ Begin Form
                     Left =574
                     Top =3384
                     Width =2041
-                    TabIndex =19
+                    TabIndex =20
                     ForeColor =6710886
                     Name ="lblCkomoku4"
 
@@ -575,7 +605,7 @@ Begin Form
                     Left =574
                     Top =3774
                     Width =2041
-                    TabIndex =20
+                    TabIndex =21
                     ForeColor =6710886
                     Name ="lblCkomoku5"
 
@@ -596,7 +626,7 @@ Begin Form
                     Left =574
                     Top =4164
                     Width =2041
-                    TabIndex =21
+                    TabIndex =22
                     ForeColor =6710886
                     Name ="lblCkomoku6"
 
@@ -617,7 +647,7 @@ Begin Form
                     Left =574
                     Top =4554
                     Width =2041
-                    TabIndex =22
+                    TabIndex =23
                     ForeColor =6710886
                     Name ="lblCkomoku7"
 
@@ -638,7 +668,7 @@ Begin Form
                     Left =574
                     Top =4944
                     Width =2041
-                    TabIndex =23
+                    TabIndex =24
                     ForeColor =6710886
                     Name ="lblCkomoku8"
 
@@ -659,7 +689,7 @@ Begin Form
                     Left =574
                     Top =5334
                     Width =2041
-                    TabIndex =24
+                    TabIndex =25
                     ForeColor =6710886
                     Name ="lblCkomoku9"
 
@@ -680,7 +710,7 @@ Begin Form
                     Left =574
                     Top =5724
                     Width =2041
-                    TabIndex =25
+                    TabIndex =26
                     ForeColor =6710886
                     Name ="lblCkomoku10"
 
@@ -701,7 +731,7 @@ Begin Form
                     Left =574
                     Top =6114
                     Width =2041
-                    TabIndex =26
+                    TabIndex =27
                     ForeColor =6710886
                     Name ="lblCkomoku11"
 
@@ -722,7 +752,7 @@ Begin Form
                     Left =574
                     Top =6504
                     Width =2041
-                    TabIndex =27
+                    TabIndex =28
                     ForeColor =6710886
                     Name ="lblCkomoku12"
 
@@ -743,7 +773,7 @@ Begin Form
                     Left =574
                     Top =6894
                     Width =2041
-                    TabIndex =28
+                    TabIndex =29
                     ForeColor =6710886
                     Name ="lblCkomoku13"
 
@@ -764,7 +794,7 @@ Begin Form
                     Left =574
                     Top =7284
                     Width =2041
-                    TabIndex =29
+                    TabIndex =30
                     ForeColor =6710886
                     Name ="lblCkomoku14"
 
@@ -785,7 +815,7 @@ Begin Form
                     Left =574
                     Top =7674
                     Width =2041
-                    TabIndex =30
+                    TabIndex =31
                     ForeColor =6710886
                     Name ="lblCkomoku15"
 
@@ -805,7 +835,7 @@ Begin Form
                     Top =2213
                     Width =851
                     Height =271
-                    TabIndex =31
+                    TabIndex =32
                     Name ="cmdMeisai1"
                     Caption ="明細"
 
@@ -822,7 +852,7 @@ Begin Form
                     Top =2604
                     Width =851
                     Height =271
-                    TabIndex =32
+                    TabIndex =33
                     Name ="cmdMeisai2"
                     Caption ="明細"
 
@@ -839,7 +869,7 @@ Begin Form
                     Top =2995
                     Width =851
                     Height =271
-                    TabIndex =33
+                    TabIndex =34
                     Name ="cmdMeisai3"
                     Caption ="明細"
 
@@ -856,7 +886,7 @@ Begin Form
                     Top =3386
                     Width =851
                     Height =271
-                    TabIndex =34
+                    TabIndex =35
                     Name ="cmdMeisai4"
                     Caption ="明細"
 
@@ -873,7 +903,7 @@ Begin Form
                     Top =3777
                     Width =851
                     Height =271
-                    TabIndex =35
+                    TabIndex =36
                     Name ="cmdMeisai5"
                     Caption ="明細"
 
@@ -890,7 +920,7 @@ Begin Form
                     Top =4168
                     Width =851
                     Height =271
-                    TabIndex =36
+                    TabIndex =37
                     Name ="cmdMeisai6"
                     Caption ="明細"
 
@@ -907,7 +937,7 @@ Begin Form
                     Top =4559
                     Width =851
                     Height =271
-                    TabIndex =37
+                    TabIndex =38
                     Name ="cmdMeisai7"
                     Caption ="明細"
 
@@ -924,7 +954,7 @@ Begin Form
                     Top =4950
                     Width =851
                     Height =271
-                    TabIndex =38
+                    TabIndex =39
                     Name ="cmdMeisai8"
                     Caption ="明細"
 
@@ -941,7 +971,7 @@ Begin Form
                     Top =5341
                     Width =851
                     Height =271
-                    TabIndex =39
+                    TabIndex =40
                     Name ="cmdMeisai9"
                     Caption ="明細"
 
@@ -958,7 +988,7 @@ Begin Form
                     Top =5732
                     Width =851
                     Height =271
-                    TabIndex =40
+                    TabIndex =41
                     Name ="cmdMeisai10"
                     Caption ="明細"
 
@@ -975,7 +1005,7 @@ Begin Form
                     Top =6123
                     Width =851
                     Height =271
-                    TabIndex =41
+                    TabIndex =42
                     Name ="cmdMeisai11"
                     Caption ="明細"
 
@@ -992,7 +1022,7 @@ Begin Form
                     Top =6514
                     Width =851
                     Height =271
-                    TabIndex =42
+                    TabIndex =43
                     Name ="cmdMeisai12"
                     Caption ="明細"
 
@@ -1009,7 +1039,7 @@ Begin Form
                     Top =6905
                     Width =851
                     Height =271
-                    TabIndex =43
+                    TabIndex =44
                     Name ="cmdMeisai13"
                     Caption ="明細"
 
@@ -1026,7 +1056,7 @@ Begin Form
                     Top =7296
                     Width =851
                     Height =271
-                    TabIndex =44
+                    TabIndex =45
                     Name ="cmdMeisai14"
                     Caption ="明細"
 
@@ -1043,7 +1073,7 @@ Begin Form
                     Top =7687
                     Width =851
                     Height =271
-                    TabIndex =45
+                    TabIndex =46
                     Name ="cmdMeisai15"
                     Caption ="明細"
 
@@ -1055,18 +1085,18 @@ Begin Form
                 Begin Subform
                     Visible = NotDefault
                     OverlapFlags =85
-                    Left =6525
+                    Left =6465
                     Top =2205
-                    Width =6636
-                    Height =7431
-                    TabIndex =46
+                    Width =13206
+                    Height =5736
+                    TabIndex =47
                     Name ="subMeisai"
-                    SourceObject ="Form.frmMeisaiD"
+                    SourceObject ="Form.frmMeisai"
 
-                    LayoutCachedLeft =6525
+                    LayoutCachedLeft =6465
                     LayoutCachedTop =2205
-                    LayoutCachedWidth =13161
-                    LayoutCachedHeight =9636
+                    LayoutCachedWidth =19671
+                    LayoutCachedHeight =7941
                 End
                 Begin TextBox
                     Visible = NotDefault
@@ -1079,7 +1109,7 @@ Begin Form
                     Top =2212
                     Width =368
                     Height =272
-                    TabIndex =47
+                    TabIndex =48
                     Name ="txtCD1"
 
                     LayoutCachedLeft =5502
@@ -1098,7 +1128,7 @@ Begin Form
                     Top =2604
                     Width =368
                     Height =272
-                    TabIndex =48
+                    TabIndex =49
                     Name ="txtCD2"
 
                     LayoutCachedLeft =5502
@@ -1117,7 +1147,7 @@ Begin Form
                     Top =2996
                     Width =368
                     Height =272
-                    TabIndex =49
+                    TabIndex =50
                     Name ="txtCD3"
 
                     LayoutCachedLeft =5502
@@ -1136,7 +1166,7 @@ Begin Form
                     Top =3388
                     Width =368
                     Height =272
-                    TabIndex =50
+                    TabIndex =51
                     Name ="txtCD4"
 
                     LayoutCachedLeft =5502
@@ -1155,7 +1185,7 @@ Begin Form
                     Top =3780
                     Width =368
                     Height =272
-                    TabIndex =51
+                    TabIndex =52
                     Name ="txtCD5"
 
                     LayoutCachedLeft =5502
@@ -1174,7 +1204,7 @@ Begin Form
                     Top =4172
                     Width =368
                     Height =272
-                    TabIndex =52
+                    TabIndex =53
                     Name ="txtCD6"
 
                     LayoutCachedLeft =5502
@@ -1193,7 +1223,7 @@ Begin Form
                     Top =4564
                     Width =368
                     Height =272
-                    TabIndex =53
+                    TabIndex =54
                     Name ="txtCD7"
 
                     LayoutCachedLeft =5502
@@ -1212,7 +1242,7 @@ Begin Form
                     Top =4956
                     Width =368
                     Height =272
-                    TabIndex =54
+                    TabIndex =55
                     Name ="txtCD8"
 
                     LayoutCachedLeft =5502
@@ -1231,7 +1261,7 @@ Begin Form
                     Top =5348
                     Width =368
                     Height =272
-                    TabIndex =55
+                    TabIndex =56
                     Name ="txtCD9"
 
                     LayoutCachedLeft =5502
@@ -1250,7 +1280,7 @@ Begin Form
                     Top =5740
                     Width =368
                     Height =272
-                    TabIndex =56
+                    TabIndex =57
                     Name ="txtCD10"
 
                     LayoutCachedLeft =5502
@@ -1269,7 +1299,7 @@ Begin Form
                     Top =6132
                     Width =368
                     Height =272
-                    TabIndex =57
+                    TabIndex =58
                     Name ="txtCD11"
 
                     LayoutCachedLeft =5502
@@ -1288,7 +1318,7 @@ Begin Form
                     Top =6524
                     Width =368
                     Height =272
-                    TabIndex =58
+                    TabIndex =59
                     Name ="txtCD12"
 
                     LayoutCachedLeft =5502
@@ -1307,7 +1337,7 @@ Begin Form
                     Top =6916
                     Width =368
                     Height =272
-                    TabIndex =59
+                    TabIndex =60
                     Name ="txtCD13"
 
                     LayoutCachedLeft =5502
@@ -1326,7 +1356,7 @@ Begin Form
                     Top =7308
                     Width =368
                     Height =272
-                    TabIndex =60
+                    TabIndex =61
                     Name ="txtCD14"
 
                     LayoutCachedLeft =5502
@@ -1345,7 +1375,7 @@ Begin Form
                     Top =7700
                     Width =368
                     Height =272
-                    TabIndex =61
+                    TabIndex =62
                     Name ="txtCD15"
 
                     LayoutCachedLeft =5502
@@ -1361,7 +1391,7 @@ Begin Form
                     Width =1320
                     Height =270
                     Name ="lblGokei"
-                    Caption ="差引金額："
+                    Caption ="合計金額："
                     LayoutCachedLeft =574
                     LayoutCachedTop =1372
                     LayoutCachedWidth =1894
@@ -1376,7 +1406,7 @@ Begin Form
                     Left =2219
                     Top =1372
                     Width =2835
-                    TabIndex =62
+                    TabIndex =63
                     Name ="txtGokei"
                     Format ="¥#,##0;-¥#,##0"
 
@@ -1386,770 +1416,10 @@ Begin Form
                     LayoutCachedHeight =1642
                     CurrencySymbol ="¥"
                 End
-                Begin TextBox
-                    OldBorderStyle =0
-                    OverlapFlags =85
-                    TextAlign =3
-                    TextFontFamily =50
-                    IMEMode =2
-                    Left =2782
-                    Top =8092
-                    Width =1418
-                    TabIndex =63
-                    Name ="txtCkomoku16"
-                    Format ="¥#,##0;-¥#,##0"
-
-                    LayoutCachedLeft =2782
-                    LayoutCachedTop =8092
-                    LayoutCachedWidth =4200
-                    LayoutCachedHeight =8362
-                    CurrencySymbol ="¥"
-                End
-                Begin TextBox
-                    OldBorderStyle =0
-                    OverlapFlags =85
-                    TextAlign =3
-                    TextFontFamily =50
-                    IMEMode =2
-                    Left =2782
-                    Top =8482
-                    Width =1418
-                    TabIndex =64
-                    Name ="txtCkomoku17"
-                    Format ="¥#,##0;-¥#,##0"
-
-                    LayoutCachedLeft =2782
-                    LayoutCachedTop =8482
-                    LayoutCachedWidth =4200
-                    LayoutCachedHeight =8752
-                    CurrencySymbol ="¥"
-                End
-                Begin TextBox
-                    OldBorderStyle =0
-                    OverlapFlags =85
-                    TextAlign =3
-                    TextFontFamily =50
-                    IMEMode =2
-                    Left =2782
-                    Top =8872
-                    Width =1418
-                    TabIndex =65
-                    Name ="txtCkomoku18"
-                    Format ="¥#,##0;-¥#,##0"
-
-                    LayoutCachedLeft =2782
-                    LayoutCachedTop =8872
-                    LayoutCachedWidth =4200
-                    LayoutCachedHeight =9142
-                    CurrencySymbol ="¥"
-                End
-                Begin TextBox
-                    OldBorderStyle =0
-                    OverlapFlags =85
-                    TextAlign =3
-                    TextFontFamily =50
-                    IMEMode =2
-                    Left =2782
-                    Top =9262
-                    Width =1418
-                    TabIndex =66
-                    Name ="txtCkomoku19"
-                    Format ="¥#,##0;-¥#,##0"
-
-                    LayoutCachedLeft =2782
-                    LayoutCachedTop =9262
-                    LayoutCachedWidth =4200
-                    LayoutCachedHeight =9532
-                    CurrencySymbol ="¥"
-                End
-                Begin TextBox
-                    OldBorderStyle =0
-                    OverlapFlags =85
-                    TextFontFamily =50
-                    BackStyle =0
-                    Left =574
-                    Top =8092
-                    Width =2041
-                    TabIndex =67
-                    ForeColor =6710886
-                    Name ="lblCkomoku16"
-
-                    LayoutCachedLeft =574
-                    LayoutCachedTop =8092
-                    LayoutCachedWidth =2615
-                    LayoutCachedHeight =8362
-                    BorderThemeColorIndex =0
-                    BorderTint =50.0
-                    BorderShade =100.0
-                    ForeTint =60.0
-                End
-                Begin TextBox
-                    OldBorderStyle =0
-                    OverlapFlags =85
-                    TextFontFamily =50
-                    BackStyle =0
-                    Left =574
-                    Top =8482
-                    Width =2041
-                    TabIndex =68
-                    ForeColor =6710886
-                    Name ="lblCkomoku17"
-
-                    LayoutCachedLeft =574
-                    LayoutCachedTop =8482
-                    LayoutCachedWidth =2615
-                    LayoutCachedHeight =8752
-                    BorderThemeColorIndex =0
-                    BorderTint =50.0
-                    BorderShade =100.0
-                    ForeTint =60.0
-                End
-                Begin TextBox
-                    OldBorderStyle =0
-                    OverlapFlags =85
-                    TextFontFamily =50
-                    BackStyle =0
-                    Left =574
-                    Top =8872
-                    Width =2041
-                    TabIndex =69
-                    ForeColor =6710886
-                    Name ="lblCkomoku18"
-
-                    LayoutCachedLeft =574
-                    LayoutCachedTop =8872
-                    LayoutCachedWidth =2615
-                    LayoutCachedHeight =9142
-                    BorderThemeColorIndex =0
-                    BorderTint =50.0
-                    BorderShade =100.0
-                    ForeTint =60.0
-                End
-                Begin TextBox
-                    OldBorderStyle =0
-                    OverlapFlags =85
-                    TextFontFamily =50
-                    BackStyle =0
-                    Left =574
-                    Top =9262
-                    Width =2041
-                    TabIndex =70
-                    ForeColor =6710886
-                    Name ="lblCkomoku19"
-
-                    LayoutCachedLeft =574
-                    LayoutCachedTop =9262
-                    LayoutCachedWidth =2615
-                    LayoutCachedHeight =9532
-                    BorderThemeColorIndex =0
-                    BorderTint =50.0
-                    BorderShade =100.0
-                    ForeTint =60.0
-                End
-                Begin CommandButton
-                    Visible = NotDefault
-                    OverlapFlags =85
-                    TextFontFamily =50
-                    Left =4482
-                    Top =8102
-                    Width =851
-                    Height =271
-                    TabIndex =71
-                    Name ="cmdMeisai16"
-                    Caption ="明細"
-
-                    LayoutCachedLeft =4482
-                    LayoutCachedTop =8102
-                    LayoutCachedWidth =5333
-                    LayoutCachedHeight =8373
-                End
-                Begin CommandButton
-                    Visible = NotDefault
-                    OverlapFlags =85
-                    TextFontFamily =50
-                    Left =4482
-                    Top =8493
-                    Width =851
-                    Height =271
-                    TabIndex =72
-                    Name ="cmdMeisai17"
-                    Caption ="明細"
-
-                    LayoutCachedLeft =4482
-                    LayoutCachedTop =8493
-                    LayoutCachedWidth =5333
-                    LayoutCachedHeight =8764
-                End
-                Begin CommandButton
-                    Visible = NotDefault
-                    OverlapFlags =85
-                    TextFontFamily =50
-                    Left =4482
-                    Top =8884
-                    Width =851
-                    Height =271
-                    TabIndex =73
-                    Name ="cmdMeisai18"
-                    Caption ="明細"
-
-                    LayoutCachedLeft =4482
-                    LayoutCachedTop =8884
-                    LayoutCachedWidth =5333
-                    LayoutCachedHeight =9155
-                End
-                Begin CommandButton
-                    Visible = NotDefault
-                    OverlapFlags =85
-                    TextFontFamily =50
-                    Left =4482
-                    Top =9275
-                    Width =851
-                    Height =271
-                    TabIndex =74
-                    Name ="cmdMeisai19"
-                    Caption ="明細"
-
-                    LayoutCachedLeft =4482
-                    LayoutCachedTop =9275
-                    LayoutCachedWidth =5333
-                    LayoutCachedHeight =9546
-                End
-                Begin TextBox
-                    Visible = NotDefault
-                    OldBorderStyle =0
-                    OverlapFlags =85
-                    TextAlign =3
-                    TextFontFamily =50
-                    IMEMode =2
-                    Left =5502
-                    Top =8112
-                    Width =368
-                    Height =272
-                    TabIndex =75
-                    Name ="txtCD16"
-
-                    LayoutCachedLeft =5502
-                    LayoutCachedTop =8112
-                    LayoutCachedWidth =5870
-                    LayoutCachedHeight =8384
-                End
-                Begin TextBox
-                    Visible = NotDefault
-                    OldBorderStyle =0
-                    OverlapFlags =85
-                    TextAlign =3
-                    TextFontFamily =50
-                    IMEMode =2
-                    Left =5502
-                    Top =8504
-                    Width =368
-                    Height =272
-                    TabIndex =76
-                    Name ="txtCD17"
-
-                    LayoutCachedLeft =5502
-                    LayoutCachedTop =8504
-                    LayoutCachedWidth =5870
-                    LayoutCachedHeight =8776
-                End
-                Begin TextBox
-                    Visible = NotDefault
-                    OldBorderStyle =0
-                    OverlapFlags =85
-                    TextAlign =3
-                    TextFontFamily =50
-                    IMEMode =2
-                    Left =5502
-                    Top =8896
-                    Width =368
-                    Height =272
-                    TabIndex =77
-                    Name ="txtCD18"
-
-                    LayoutCachedLeft =5502
-                    LayoutCachedTop =8896
-                    LayoutCachedWidth =5870
-                    LayoutCachedHeight =9168
-                End
-                Begin TextBox
-                    Visible = NotDefault
-                    OldBorderStyle =0
-                    OverlapFlags =85
-                    TextAlign =3
-                    TextFontFamily =50
-                    IMEMode =2
-                    Left =5502
-                    Top =9288
-                    Width =368
-                    Height =272
-                    TabIndex =78
-                    Name ="txtCD19"
-
-                    LayoutCachedLeft =5502
-                    LayoutCachedTop =9288
-                    LayoutCachedWidth =5870
-                    LayoutCachedHeight =9560
-                End
-                Begin TextBox
-                    OldBorderStyle =0
-                    OverlapFlags =85
-                    TextAlign =3
-                    TextFontFamily =50
-                    IMEMode =2
-                    Left =2782
-                    Top =9680
-                    Width =1418
-                    TabIndex =79
-                    Name ="txtCkomoku20"
-                    Format ="¥#,##0;-¥#,##0"
-
-                    LayoutCachedLeft =2782
-                    LayoutCachedTop =9680
-                    LayoutCachedWidth =4200
-                    LayoutCachedHeight =9950
-                    CurrencySymbol ="¥"
-                End
-                Begin TextBox
-                    OldBorderStyle =0
-                    OverlapFlags =85
-                    TextFontFamily =50
-                    BackStyle =0
-                    Left =574
-                    Top =9680
-                    Width =2041
-                    TabIndex =80
-                    ForeColor =6710886
-                    Name ="lblCkomoku20"
-
-                    LayoutCachedLeft =574
-                    LayoutCachedTop =9680
-                    LayoutCachedWidth =2615
-                    LayoutCachedHeight =9950
-                    BorderThemeColorIndex =0
-                    BorderTint =50.0
-                    BorderShade =100.0
-                    ForeTint =60.0
-                End
-                Begin CommandButton
-                    Visible = NotDefault
-                    OverlapFlags =85
-                    TextFontFamily =50
-                    Left =4482
-                    Top =9693
-                    Width =851
-                    Height =271
-                    TabIndex =81
-                    Name ="cmdMeisai20"
-                    Caption ="明細"
-
-                    LayoutCachedLeft =4482
-                    LayoutCachedTop =9693
-                    LayoutCachedWidth =5333
-                    LayoutCachedHeight =9964
-                End
-                Begin TextBox
-                    Visible = NotDefault
-                    OldBorderStyle =0
-                    OverlapFlags =85
-                    TextAlign =3
-                    TextFontFamily =50
-                    IMEMode =2
-                    Left =5502
-                    Top =9706
-                    Width =368
-                    Height =272
-                    TabIndex =82
-                    Name ="txtCD20"
-
-                    LayoutCachedLeft =5502
-                    LayoutCachedTop =9706
-                    LayoutCachedWidth =5870
-                    LayoutCachedHeight =9978
-                End
-                Begin TextBox
-                    OldBorderStyle =0
-                    OverlapFlags =85
-                    TextAlign =3
-                    TextFontFamily =50
-                    IMEMode =2
-                    Left =2782
-                    Top =10098
-                    Width =1418
-                    TabIndex =83
-                    Name ="txtCkomoku21"
-                    Format ="¥#,##0;-¥#,##0"
-
-                    LayoutCachedLeft =2782
-                    LayoutCachedTop =10098
-                    LayoutCachedWidth =4200
-                    LayoutCachedHeight =10368
-                    CurrencySymbol ="¥"
-                End
-                Begin TextBox
-                    OldBorderStyle =0
-                    OverlapFlags =85
-                    TextFontFamily =50
-                    BackStyle =0
-                    Left =574
-                    Top =10098
-                    Width =2041
-                    TabIndex =84
-                    ForeColor =6710886
-                    Name ="lblCkomoku21"
-
-                    LayoutCachedLeft =574
-                    LayoutCachedTop =10098
-                    LayoutCachedWidth =2615
-                    LayoutCachedHeight =10368
-                    BorderThemeColorIndex =0
-                    BorderTint =50.0
-                    BorderShade =100.0
-                    ForeTint =60.0
-                End
-                Begin CommandButton
-                    Visible = NotDefault
-                    OverlapFlags =85
-                    TextFontFamily =50
-                    Left =4482
-                    Top =10111
-                    Width =851
-                    Height =271
-                    TabIndex =85
-                    Name ="cmdMeisai21"
-                    Caption ="明細"
-
-                    LayoutCachedLeft =4482
-                    LayoutCachedTop =10111
-                    LayoutCachedWidth =5333
-                    LayoutCachedHeight =10382
-                End
-                Begin TextBox
-                    Visible = NotDefault
-                    OldBorderStyle =0
-                    OverlapFlags =85
-                    TextAlign =3
-                    TextFontFamily =50
-                    IMEMode =2
-                    Left =5502
-                    Top =10124
-                    Width =368
-                    Height =272
-                    TabIndex =86
-                    Name ="txtCD21"
-
-                    LayoutCachedLeft =5502
-                    LayoutCachedTop =10124
-                    LayoutCachedWidth =5870
-                    LayoutCachedHeight =10396
-                End
-                Begin TextBox
-                    OldBorderStyle =0
-                    OverlapFlags =85
-                    TextAlign =3
-                    TextFontFamily =50
-                    IMEMode =2
-                    Left =2782
-                    Top =10516
-                    Width =1418
-                    TabIndex =87
-                    Name ="txtCkomoku22"
-                    Format ="¥#,##0;-¥#,##0"
-
-                    LayoutCachedLeft =2782
-                    LayoutCachedTop =10516
-                    LayoutCachedWidth =4200
-                    LayoutCachedHeight =10786
-                    CurrencySymbol ="¥"
-                End
-                Begin TextBox
-                    OldBorderStyle =0
-                    OverlapFlags =85
-                    TextFontFamily =50
-                    BackStyle =0
-                    Left =574
-                    Top =10516
-                    Width =2041
-                    TabIndex =88
-                    ForeColor =6710886
-                    Name ="lblCkomoku22"
-
-                    LayoutCachedLeft =574
-                    LayoutCachedTop =10516
-                    LayoutCachedWidth =2615
-                    LayoutCachedHeight =10786
-                    BorderThemeColorIndex =0
-                    BorderTint =50.0
-                    BorderShade =100.0
-                    ForeTint =60.0
-                End
-                Begin CommandButton
-                    Visible = NotDefault
-                    OverlapFlags =85
-                    TextFontFamily =50
-                    Left =4482
-                    Top =10529
-                    Width =851
-                    Height =271
-                    TabIndex =89
-                    Name ="cmdMeisai22"
-                    Caption ="明細"
-
-                    LayoutCachedLeft =4482
-                    LayoutCachedTop =10529
-                    LayoutCachedWidth =5333
-                    LayoutCachedHeight =10800
-                End
-                Begin TextBox
-                    Visible = NotDefault
-                    OldBorderStyle =0
-                    OverlapFlags =85
-                    TextAlign =3
-                    TextFontFamily =50
-                    IMEMode =2
-                    Left =5502
-                    Top =10542
-                    Width =368
-                    Height =272
-                    TabIndex =90
-                    Name ="txtCD22"
-
-                    LayoutCachedLeft =5502
-                    LayoutCachedTop =10542
-                    LayoutCachedWidth =5870
-                    LayoutCachedHeight =10814
-                End
-                Begin TextBox
-                    OldBorderStyle =0
-                    OverlapFlags =85
-                    TextAlign =3
-                    TextFontFamily =50
-                    IMEMode =2
-                    Left =2782
-                    Top =10934
-                    Width =1418
-                    TabIndex =91
-                    Name ="txtCkomoku23"
-                    Format ="¥#,##0;-¥#,##0"
-
-                    LayoutCachedLeft =2782
-                    LayoutCachedTop =10934
-                    LayoutCachedWidth =4200
-                    LayoutCachedHeight =11204
-                    CurrencySymbol ="¥"
-                End
-                Begin TextBox
-                    OldBorderStyle =0
-                    OverlapFlags =85
-                    TextFontFamily =50
-                    BackStyle =0
-                    Left =574
-                    Top =10934
-                    Width =2041
-                    TabIndex =92
-                    ForeColor =6710886
-                    Name ="lblCkomoku23"
-
-                    LayoutCachedLeft =574
-                    LayoutCachedTop =10934
-                    LayoutCachedWidth =2615
-                    LayoutCachedHeight =11204
-                    BorderThemeColorIndex =0
-                    BorderTint =50.0
-                    BorderShade =100.0
-                    ForeTint =60.0
-                End
-                Begin CommandButton
-                    Visible = NotDefault
-                    OverlapFlags =85
-                    TextFontFamily =50
-                    Left =4482
-                    Top =10947
-                    Width =851
-                    Height =271
-                    TabIndex =93
-                    Name ="cmdMeisai23"
-                    Caption ="明細"
-
-                    LayoutCachedLeft =4482
-                    LayoutCachedTop =10947
-                    LayoutCachedWidth =5333
-                    LayoutCachedHeight =11218
-                End
-                Begin TextBox
-                    Visible = NotDefault
-                    OldBorderStyle =0
-                    OverlapFlags =85
-                    TextAlign =3
-                    TextFontFamily =50
-                    IMEMode =2
-                    Left =5502
-                    Top =10960
-                    Width =368
-                    Height =272
-                    TabIndex =94
-                    Name ="txtCD23"
-
-                    LayoutCachedLeft =5502
-                    LayoutCachedTop =10960
-                    LayoutCachedWidth =5870
-                    LayoutCachedHeight =11232
-                End
-                Begin TextBox
-                    OldBorderStyle =0
-                    OverlapFlags =85
-                    TextAlign =3
-                    TextFontFamily =50
-                    IMEMode =2
-                    Left =2782
-                    Top =11352
-                    Width =1418
-                    TabIndex =95
-                    Name ="txtCkomoku24"
-                    Format ="¥#,##0;-¥#,##0"
-
-                    LayoutCachedLeft =2782
-                    LayoutCachedTop =11352
-                    LayoutCachedWidth =4200
-                    LayoutCachedHeight =11622
-                    CurrencySymbol ="¥"
-                End
-                Begin TextBox
-                    OldBorderStyle =0
-                    OverlapFlags =85
-                    TextFontFamily =50
-                    BackStyle =0
-                    Left =574
-                    Top =11352
-                    Width =2041
-                    TabIndex =96
-                    ForeColor =6710886
-                    Name ="lblCkomoku24"
-
-                    LayoutCachedLeft =574
-                    LayoutCachedTop =11352
-                    LayoutCachedWidth =2615
-                    LayoutCachedHeight =11622
-                    BorderThemeColorIndex =0
-                    BorderTint =50.0
-                    BorderShade =100.0
-                    ForeTint =60.0
-                End
-                Begin CommandButton
-                    Visible = NotDefault
-                    OverlapFlags =85
-                    TextFontFamily =50
-                    Left =4482
-                    Top =11365
-                    Width =851
-                    Height =271
-                    TabIndex =97
-                    Name ="cmdMeisai24"
-                    Caption ="明細"
-
-                    LayoutCachedLeft =4482
-                    LayoutCachedTop =11365
-                    LayoutCachedWidth =5333
-                    LayoutCachedHeight =11636
-                End
-                Begin TextBox
-                    Visible = NotDefault
-                    OldBorderStyle =0
-                    OverlapFlags =85
-                    TextAlign =3
-                    TextFontFamily =50
-                    IMEMode =2
-                    Left =5502
-                    Top =11378
-                    Width =368
-                    Height =272
-                    TabIndex =98
-                    Name ="txtCD24"
-
-                    LayoutCachedLeft =5502
-                    LayoutCachedTop =11378
-                    LayoutCachedWidth =5870
-                    LayoutCachedHeight =11650
-                End
-                Begin TextBox
-                    OldBorderStyle =0
-                    OverlapFlags =85
-                    TextAlign =3
-                    TextFontFamily =50
-                    IMEMode =2
-                    Left =2782
-                    Top =11770
-                    Width =1418
-                    TabIndex =99
-                    Name ="txtCkomoku25"
-                    Format ="¥#,##0;-¥#,##0"
-
-                    LayoutCachedLeft =2782
-                    LayoutCachedTop =11770
-                    LayoutCachedWidth =4200
-                    LayoutCachedHeight =12040
-                    CurrencySymbol ="¥"
-                End
-                Begin TextBox
-                    OldBorderStyle =0
-                    OverlapFlags =85
-                    TextFontFamily =50
-                    BackStyle =0
-                    Left =574
-                    Top =11770
-                    Width =2041
-                    TabIndex =100
-                    ForeColor =6710886
-                    Name ="lblCkomoku25"
-
-                    LayoutCachedLeft =574
-                    LayoutCachedTop =11770
-                    LayoutCachedWidth =2615
-                    LayoutCachedHeight =12040
-                    BorderThemeColorIndex =0
-                    BorderTint =50.0
-                    BorderShade =100.0
-                    ForeTint =60.0
-                End
-                Begin CommandButton
-                    Visible = NotDefault
-                    OverlapFlags =85
-                    TextFontFamily =50
-                    Left =4482
-                    Top =11783
-                    Width =851
-                    Height =271
-                    TabIndex =101
-                    Name ="cmdMeisai25"
-                    Caption ="明細"
-
-                    LayoutCachedLeft =4482
-                    LayoutCachedTop =11783
-                    LayoutCachedWidth =5333
-                    LayoutCachedHeight =12054
-                End
-                Begin TextBox
-                    Visible = NotDefault
-                    OldBorderStyle =0
-                    OverlapFlags =85
-                    TextAlign =3
-                    TextFontFamily =50
-                    IMEMode =2
-                    Left =5502
-                    Top =11796
-                    Width =368
-                    Height =272
-                    TabIndex =102
-                    Name ="txtCD25"
-
-                    LayoutCachedLeft =5502
-                    LayoutCachedTop =11796
-                    LayoutCachedWidth =5870
-                    LayoutCachedHeight =12068
-                End
             End
         End
         Begin FormFooter
-            Height =793
+            Height =850
             Name ="フォームフッター"
             AlternateBackThemeColorIndex =1
             AlternateBackShade =95.0
@@ -2211,4 +1481,4 @@ Begin Form
     End
 End
 CodeBehindForm
-' See "frmZenkomoku.cls"
+' See "frmKamokubetu.cls"

@@ -18,16 +18,16 @@ Private Sub Form_Open(Cancel As Integer)
     Dim btnHandler As clsMyButton
 
     Me!txtRange = pubFromTo
-    Me!txtDkomoku = DLookup("大項目", "大項目", "大項目CD=" & pubDkomoku)
-    Me!txtGokei = DSum("金額（円）", "抽出テーブル", "大項目CD=" & pubDkomoku)
+    Me!txtDkomoku = DLookup("勘定科目", "勘定科目", "勘定科目CD=" & pubDkomoku)
+    Me!txtGokei = DSum("金額（円）", "抽出テーブル", "勘定科目CD=" & pubDkomoku)
 
     ' 中項目リストを取得
-    subCDs = App.Selector.GetCategoryList("Komokubetu", pubDkomoku)
+    subCDs = App.Selector.GetCategoryList("Kamokubetu", pubDkomoku)
 
     If IsEmpty(subCDs) Then Exit Sub
 
     For i = 1 To UBound(subCDs)
-        If i > 15 Then Exit For ' フォームのボタン数に合わせて制限
+        If i > 37 Then Exit For ' フォームのボタン数に合わせて制限
 
         sCD = subCDs(i)
         ' ラベルと金額のセット

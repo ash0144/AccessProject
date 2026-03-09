@@ -20,7 +20,7 @@ Private Sub Form_Open(Cancel As Integer)
     Me!txtRange = pubFromTo
     Me!txtGokei = DSum("金額（円）", "抽出テーブル")
 
-    mainCDs = App.Selector.GetMainCategoryList("Zenkomoku")
+    mainCDs = App.Selector.GetCategoryList("Zenkomoku")
 
     If IsEmpty(mainCDs) Then Exit Sub
 
@@ -44,9 +44,7 @@ End Sub
 ' クラスから呼び出される共通メソッド
 ' ※ Publicにする必要があります
 Public Sub ShowMeisaiFromClass(targetCD As Long)
-    App.Selector.CreateMainMeisai targetCD
+    App.Selector.CreateMeisai targetCD, "大項目CD"
     Me!subMeisai.Visible = True
     Me!subMeisai.Requery
 End Sub
-
-' ★ cmdMeisai1_Click() ～ cmdMeisai19_Click() はすべて削除してOK！
