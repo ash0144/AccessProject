@@ -21,14 +21,14 @@ Public Sub ExtractToWorkTable(dFrom As Date, dTo As Date, optB As Integer, Optio
 
     If optB = 1 Then
         strSQL = "INSERT INTO 抽出テーブル ( 日付, 内容, [金額（円）], 保有金融機関, 大項目, 中項目, 大項目CD, 中項目CD, ID ) " & _
-                 "SELECT 日付, 内容, [金額（円）], 保有金融機関, M.大項目, M.中項目, C.大項目CD, C.中項目CD, ID " & _
+                 "SELECT 日付, 内容, [金額（円）], 保有金融機関, M.大項目, M.中項目, C.大項目CD, M.中項目CD, ID " & _
                  "FROM MoneyForward AS M " & _
                  "INNER JOIN (大項目 AS D INNER JOIN 中項目 AS C ON D.大項目CD = C.大項目CD) ON M.中項目 = C.中項目 " & _
                  "WHERE (日付 Between [pFrom] And [pTo]) AND (計算対象=1) AND (C.家計簿=True) "
         If Not IsNull(dKomokuCD) Then strSQL = strSQL & "AND (C.大項目CD = [pCD]) "
     Else
-        strSQL = "INSERT INTO 抽出テーブル ( 日付, 内容, 金額（円）, 保有金融機関, 中項目CD, 中項目, 勘定科目CD, 勘定科目, 勘定分類CD, ID ) " & _
-                 "SELECT 日付, 内容, [金額（円）], 保有金融機関, M.中項目CD, M.中項目, C.勘定科目CD, K.勘定科目, K.勘定分類CD, ID " & _
+        strSQL = "INSERT INTO 抽出テーブル ( 日付, 内容, [金額（円）], 保有金融機関, 中項目CD, 中項目, 勘定科目CD, 勘定科目, 勘定分類CD, ID ) " & _
+                 "SELECT 日付, 内容, [金額（円）], 保有金融機関, M.中項目CD, M.中項目, K.勘定科目CD, K.勘定科目, K.勘定分類CD, ID " & _
                  "FROM MoneyForward AS M " & _
                  "INNER JOIN (勘定科目 AS K INNER JOIN 中項目 AS C ON K.中項目CD = C.中項目CD) ON M.中項目CD = K.中項目CD " & _
                  "WHERE (日付 Between [pFrom] And [pTo]) AND (計算対象=1) AND (C.確定申告=True) "
