@@ -20,8 +20,7 @@ Private Sub Form_Open(Cancel As Integer)
     Me!txtRange = pubFromTo
     Me!txtGokei = DSum("金額（円）", "抽出テーブル")
 
-
-    mainCDs = App.Selector.GetMainCategoryList()
+    mainCDs = App.Selector.GetMainCategoryList("Zenkomoku")
 
     If IsEmpty(mainCDs) Then Exit Sub
 

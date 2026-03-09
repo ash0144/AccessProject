@@ -43,65 +43,104 @@ Public Sub ExtractToWorkTable(dFrom As Date, dTo As Date, optB As Integer, Optio
 
 End Sub
 
-' 1. 抽出テーブルに含まれる大項目CDのリストを取得
-Public Function GetMainCategoryList() As Variant
+'抽出テーブルに含まれる大項目CD/中項目CD/勘定科目CDのリストを取得
+Public Function GetCategoryList(strB As String, Optional dKomokuCD As Variant) As Variant
+
     Dim rs As DAO.Recordset
     Dim strSQL As String
+    Dim strCD As String
     Dim result() As Long
     Dim i As Integer
 
-    strSQL = "SELECT DISTINCT 大項目CD FROM 抽出テーブル ORDER BY 大項目CD;"
+    Select Case strB
+        Case "Zenkomoku"
+            strSQL = "SELECT DISTINCT 大項目CD FROM 抽出テーブル ORDER BY 大項目CD;"
+            strCD = "大項目CD"
+        Case "Komokubetu"
+            strSQL = "SELECT DISTINCT 中項目CD FROM 抽出テーブル WHERE 大項目CD=" & dKomokuCD & " ORDER BY 中項目CD;"
+            strCD = "中項目CD"
+        Case "Sinkoku"
+            strSQL = "SELECT DISTINCT 勘定科目CD FROM 抽出テーブル ORDER BY 勘定科目CD;"
+            strCD = "勘定科目CD"
+    End Select
+
     Set rs = CurrentDb.OpenRecordset(strSQL)
 
     If rs.EOF Then
-        GetMainCategoryList = Empty
+        GetCategoryList = Empty
     Else
         rs.MoveLast
         ReDim result(1 To rs.RecordCount)
         rs.MoveFirst
         For i = 1 To UBound(result)
-            result(i) = rs!大項目CD
+            result(i) = rs(strCD)
             rs.MoveNext
         Next i
-        GetMainCategoryList = result
+        GetCategoryList = result
     End If
     rs.Close: Set rs = Nothing
 
 End Function
 
-'中項目CDのリストを配列で取得する
-Public Function GetSubCategoryList(dKomokuCD As Variant) As Variant
-    Dim rs As DAO.Recordset
-    Dim strSQL As String
-    Dim result() As Long
-    Dim i As Integer
+'' 1. 抽出テーブルに含まれる大項目CD/中項目CD/勘定科目CDのリストを取得
+'Public Function GetMainCategoryList() As Variant
+'    Dim rs As DAO.Recordset
+'    Dim strSQL As String
+'    Dim result() As Long
+'    Dim i As Integer
+'
+'    strSQL = "SELECT DISTINCT 大項目CD FROM 抽出テーブル ORDER BY 大項目CD;"
+'    Set rs = CurrentDb.OpenRecordset(strSQL)
+'
+'    If rs.EOF Then
+'        GetMainCategoryList = Empty
+'    Else
+'        rs.MoveLast
+'        ReDim result(1 To rs.RecordCount)
+'        rs.MoveFirst
+'        For i = 1 To UBound(result)
+'            result(i) = rs!大項目CD
+'            rs.MoveNext
+'        Next i
+'        GetMainCategoryList = result
+'    End If
+'    rs.Close: Set rs = Nothing
+'
+'End Function
+'
+''中項目CDのリストを配列で取得する
+'Public Function GetSubCategoryList(dKomokuCD As Variant) As Variant
+'    Dim rs As DAO.Recordset
+'    Dim strSQL As String
+'    Dim result() As Long
+'    Dim i As Integer
+'
+'    strSQL = "SELECT DISTINCT 中項目CD FROM 抽出テーブル WHERE 大項目CD=" & dKomokuCD & " ORDER BY 中項目CD;"
+'    Set rs = CurrentDb.OpenRecordset(strSQL)
+'
+'    If rs.EOF Then
+'        GetSubCategoryList = Empty
+'    Else
+'        rs.MoveLast
+'        ReDim result(1 To rs.RecordCount)
+'        rs.MoveFirst
+'        For i = 1 To UBound(result)
+'            result(i) = rs!中項目CD
+'            rs.MoveNext
+'        Next i
+'        GetSubCategoryList = result
+'    End If
+'    rs.Close: Set rs = Nothing
+'
+'End Function
 
-    strSQL = "SELECT DISTINCT 中項目CD FROM 抽出テーブル WHERE 大項目CD=" & dKomokuCD & " ORDER BY 中項目CD;"
-    Set rs = CurrentDb.OpenRecordset(strSQL)
-
-    If rs.EOF Then
-        GetSubCategoryList = Empty
-    Else
-        rs.MoveLast
-        ReDim result(1 To rs.RecordCount)
-        rs.MoveFirst
-        For i = 1 To UBound(result)
-            result(i) = rs!中項目CD
-            rs.MoveNext
-        Next i
-        GetSubCategoryList = result
-    End If
-    rs.Close: Set rs = Nothing
-
-End Function
-
-' 中項目用の明細作成 (frmKomokubetu用)
-Public Sub CreateMeisai(subCategoryCD As Long)
+' 明細作成
+Public Sub CreateMeisai(CategoryCD As Long, strCD As String)
 
     Call tblClr("明細")
     Dim strSQL As String
 
-    strSQL = "INSERT INTO 明細 SELECT * FROM 抽出テーブル WHERE 中項目CD=" & subCategoryCD & ";"
+    strSQL = "INSERT INTO 明細 SELECT * FROM 抽出テーブル WHERE [" & strCD & "]=" & CategoryCD & ";"
     CurrentDb.Execute strSQL, dbFailOnError
 
 End Sub

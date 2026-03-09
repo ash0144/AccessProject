@@ -20,7 +20,7 @@ Private Sub Form_Open(Cancel As Integer)
     Me!txtRange = pubFromTo
     Me!txtGokei = DSum("金額（円）", "抽出テーブル")
 
-    mainCDs = App.Selector.GetMainCategoryList()
+    mainCDs = App.Selector.GetCategoryList("Sinkoku")
 
     If IsEmpty(mainCDs) Then Exit Sub
 
@@ -29,8 +29,8 @@ Private Sub Form_Open(Cancel As Integer)
 
         mCD = mainCDs(i)
         ' コントロールの初期設定
-        Me("lblCkomoku" & i) = Nz(DLookup("大項目", "大項目", "大項目CD=" & mCD), "")
-        Me("txtCkomoku" & i) = Nz(DLookup("金額（円）", "抽出テーブル", "大項目CD=" & mCD), "")
+        Me("lblCkomoku" & i) = Nz(DLookup("勘定科目", "勘定科目", "勘定科目CD=" & mCD), "")
+        Me("txtCkomoku" & i) = Nz(DLookup("金額（円）", "抽出テーブル", "勘定科目CD=" & mCD), "")
         Me("cmdMeisai" & i).Visible = True
 
         ' --- ここでイベントを共通化 ---
@@ -48,5 +48,3 @@ Public Sub ShowMeisaiFromClass(targetCD As Long)
     Me!subMeisai.Visible = True
     Me!subMeisai.Requery
 End Sub
-
-' ★ cmdMeisai1_Click() ～ cmdMeisai19_Click() はすべて削除してOK！

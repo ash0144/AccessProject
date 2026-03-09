@@ -6,7 +6,7 @@
   "Items": {
     "MergeBuildDate": null,
     "FullBuildDate": "2026-03-07T06:45:55.000Z",
-    "ExportDate": "2026-03-08T17:04:44.000Z",
+    "ExportDate": "2026-03-09T02:58:37.000Z",
     "FullExportDate": "2026-03-07T02:45:49.000Z",
     "OptionsHash": "1e652c7",
     "LastMergedCommit": "",
@@ -17,10 +17,10 @@
       },
       "DB Properties": {
         "dbs-properties.json": {
-          "FileHash": "6339712",
-          "ExportDate": "2026-03-07T08:16:06.000Z",
+          "FileHash": "03bc5ff",
+          "ExportDate": "2026-03-09T02:58:36.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "0997fc7",
+          "FilePropertiesHash": "0e4f095",
           "ImportDate": "2026-03-07T06:45:51.000Z"
         }
       },
@@ -78,6 +78,12 @@
           "FilePropertiesHash": "e1e6a3c",
           "ImportDate": "2026-03-07T06:45:52.000Z"
         },
+        "frmMeisaiS.bas": {
+          "FileHash": "bed2df7",
+          "ExportDate": "2026-03-09T02:58:37.000Z",
+          "SourceModified": null,
+          "FilePropertiesHash": "f9f563e"
+        },
         "frmMenu.bas": {
           "FileHash": "701e24b",
           "ExportDate": "2026-03-07T08:16:07.000Z",
@@ -87,11 +93,11 @@
           "OtherHash": "a94df22"
         },
         "frmSinkoku.bas": {
-          "FileHash": "600eb4f",
-          "OtherHash": "d95f14c",
-          "ExportDate": "2026-03-08T17:04:44.000Z",
+          "FileHash": "8c1195f",
+          "OtherHash": "ce06218",
+          "ExportDate": "2026-03-09T02:58:37.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "1f423e2"
+          "FilePropertiesHash": "86aa9bc"
         },
         "frmSinput.bas": {
           "FileHash": "c5f084a",
@@ -110,12 +116,12 @@
           "OtherHash": "482229d"
         },
         "frmZenkomoku.bas": {
-          "FileHash": "dc3f04a",
-          "ExportDate": "2026-03-07T14:23:06.000Z",
+          "FileHash": "51b1f87",
+          "ExportDate": "2026-03-09T02:58:37.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "1f68660",
+          "FilePropertiesHash": "96c81a9",
           "ImportDate": "2026-03-07T06:45:53.000Z",
-          "OtherHash": "81b43b3"
+          "OtherHash": "cf3c0ad"
         }
       },
       "Hidden Attributes": {
@@ -163,12 +169,12 @@
           "OtherHash": "a735ff3"
         },
         "clsDataSelector.cls": {
-          "FileHash": "8d09a01",
-          "ExportDate": "2026-03-08T17:04:44.000Z",
+          "FileHash": "c3cd321",
+          "ExportDate": "2026-03-09T02:58:36.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "e5a409a",
+          "FilePropertiesHash": "fd69e78",
           "ImportDate": "2026-03-07T06:45:51.000Z",
-          "OtherHash": "395d496"
+          "OtherHash": "a4a574f"
         },
         "clsMyButton.cls": {
           "FileHash": "f2999c6",
