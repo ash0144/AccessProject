@@ -10,7 +10,9 @@ Attribute VB_Exposed = False
 ' --- clsDataRegistry ---
 Option Explicit
 
-' 手動登録
+'テーブルにデータを登録する処理
+
+'手動登録
 Public Function RegisterManualEntry( _
     hizuke As Variant, _
     naiyo As Variant, _
@@ -63,7 +65,7 @@ Err_Handler:
     RegisterManualEntry = False
 End Function
 
-' インポート
+'インポート
 Public Function ImportMFData() As Boolean
     On Error GoTo Err_Handler
     Dim strFilename As String, strFn As String, arr() As String, i As Integer
@@ -72,7 +74,7 @@ Public Function ImportMFData() As Boolean
     strFilename = GetFileName(Nz(DLookup("MoneyForwardフォルダ", "履歴"), ""), "", ".xls", True)
     If strFilename = "" Then Exit Function
 
-    ' 警告を一時的にONにして詳細を見る（テスト用）
+    '警告を一時的にONにして詳細を見る（テスト用）
 '    DoCmd.SetWarnings True
 
     arr = Split(strFilename, ",")

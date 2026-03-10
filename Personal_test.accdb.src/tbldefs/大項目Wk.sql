@@ -1,0 +1,4 @@
+﻿CREATE TABLE [大項目Wk] (
+  [大項目CD] LONG CONSTRAINT [PrimaryKey] PRIMARY KEY UNIQUE NOT NULL,
+  [大項目] VARCHAR (255)
+)

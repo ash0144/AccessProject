@@ -10,7 +10,9 @@ Attribute VB_Exposed = False
 ' --- clsDataSelector ---
 Option Explicit
 
-' 抽出テーブルへのインサート
+'検索結果の抽出などを行うクラス
+
+'抽出テーブルへのインサート
 Public Sub ExtractToWorkTable(dFrom As Date, dTo As Date, optB As Integer, Optional dKomokuCD As Variant = Null)
 
     Dim db As DAO.Database: Set db = CurrentDb
@@ -86,59 +88,7 @@ Public Function GetCategoryList(strB As String, Optional dKomokuCD As Variant = 
 
 End Function
 
-'' 1. 抽出テーブルに含まれる大項目CD/中項目CD/勘定科目CDのリストを取得
-'Public Function GetMainCategoryList() As Variant
-'    Dim rs As DAO.Recordset
-'    Dim strSQL As String
-'    Dim result() As Long
-'    Dim i As Integer
-'
-'    strSQL = "SELECT DISTINCT 大項目CD FROM 抽出テーブル ORDER BY 大項目CD;"
-'    Set rs = CurrentDb.OpenRecordset(strSQL)
-'
-'    If rs.EOF Then
-'        GetMainCategoryList = Empty
-'    Else
-'        rs.MoveLast
-'        ReDim result(1 To rs.RecordCount)
-'        rs.MoveFirst
-'        For i = 1 To UBound(result)
-'            result(i) = rs!大項目CD
-'            rs.MoveNext
-'        Next i
-'        GetMainCategoryList = result
-'    End If
-'    rs.Close: Set rs = Nothing
-'
-'End Function
-'
-''中項目CDのリストを配列で取得する
-'Public Function GetSubCategoryList(dKomokuCD As Variant) As Variant
-'    Dim rs As DAO.Recordset
-'    Dim strSQL As String
-'    Dim result() As Long
-'    Dim i As Integer
-'
-'    strSQL = "SELECT DISTINCT 中項目CD FROM 抽出テーブル WHERE 大項目CD=" & dKomokuCD & " ORDER BY 中項目CD;"
-'    Set rs = CurrentDb.OpenRecordset(strSQL)
-'
-'    If rs.EOF Then
-'        GetSubCategoryList = Empty
-'    Else
-'        rs.MoveLast
-'        ReDim result(1 To rs.RecordCount)
-'        rs.MoveFirst
-'        For i = 1 To UBound(result)
-'            result(i) = rs!中項目CD
-'            rs.MoveNext
-'        Next i
-'        GetSubCategoryList = result
-'    End If
-'    rs.Close: Set rs = Nothing
-'
-'End Function
-
-' 明細用列名検証
+'明細用列名検証
 Private Function NormalizeColumnName(strCD As String) As String
 
     Select Case strCD
@@ -150,7 +100,7 @@ Private Function NormalizeColumnName(strCD As String) As String
 
 End Function
 
-' 明細作成
+'明細作成
 Public Sub CreateMeisai(CategoryCD As Long, strCD As String)
 
     Call tblClr("明細")
@@ -167,13 +117,168 @@ Public Sub CreateMeisai(CategoryCD As Long, strCD As String)
 
 End Sub
 
-' ' 大項目用の明細作成 (frmZenkomoku用)
-' Public Sub CreateMainMeisai(mainCategoryCD As Long)
+Public Sub LoadWorkTable(fromTable As String, toTable As String)
+'ワークテーブルにすべてのフィールドをコピー
 
-'     Call tblClr("明細")
-'     Dim strSQL As String
+    Dim db As DAO.Database: Set db = CurrentDb
+    Dim strSQL As String
 
-'     strSQL = "INSERT INTO 明細 SELECT * FROM 抽出テーブル WHERE 大項目CD=" & mainCategoryCD & ";"
-'     CurrentDb.Execute strSQL, dbFailOnError
+    Call tblClr(toTable)
 
-' End Sub
+    strSQL = "INSERT INTO [" & toTable & "] SELECT * FROM [" & fromTable & "];"
+    db.Execute strSQL, dbFailOnError
+
+    Set db = Nothing
+
+End Sub
+
+Public Sub ShowDiffCount(mstTbl As String, wkTbl As String, keyCD As String)
+'元テーブルとワークテーブルの差分件数を表示
+
+    Dim addCnt As Long
+    Dim updCnt As Long
+    Dim delCnt As Long
+    Dim db As DAO.Database: Set db = CurrentDb
+    Dim qdf As DAO.QueryDef
+    Dim strSQL As String
+
+    '追加件数
+    strSQL = "SELECT [" & wkTbl & "].* FROM [" & mstTbl & "] " & _
+        "RIGHT JOIN [" & wkTbl & "] ON [" & mstTbl & "].[" & keyCD & "] = [" & wkTbl & "].[" & keyCD & "] " & _
+        "WHERE [" & mstTbl & "].[" & keyCD & "] IS NULL;"
+    Set qdf = db.CreateQueryDef("qryTmp", strSQL)
+    addCnt = DCount("*", "qryTmp")
+    db.QueryDefs.Delete "qryTmp"
+
+    '削除件数
+    strSQL = "SELECT [" & mstTbl & "].* FROM [" & wkTbl & "] " & _
+        "RIGHT JOIN [" & mstTbl & "] ON [" & wkTbl & "].[" & keyCD & "] = [" & mstTbl & "].[" & keyCD & "] " & _
+        "WHERE [" & wkTbl & "].[" & keyCD & "] IS NULL;"
+    Set qdf = db.CreateQueryDef("qryTmp", strSQL)
+    delCnt = DCount("*", "qryTmp")
+    db.QueryDefs.Delete "qryTmp"
+
+    '更新件数
+'    updCnt = GetUpdateCount(mstTbl)
+
+    MsgBox _
+        "差分件数" & vbCrLf & vbCrLf & _
+        "追加: " & addCnt & "件" & vbCrLf & _
+        "更新: " & updCnt & "件" & vbCrLf & _
+        "削除: " & delCnt & "件", _
+        vbInformation
+
+End Sub
+
+Public Sub ApplyDiff(mstTbl As String, wkTbl As String, keyCD As String)
+
+    Dim ws As DAO.Workspace
+    Dim db As DAO.Database
+    Dim tdf As DAO.TableDef
+    Dim fld As Field
+
+    Dim sqlUpd As String, sqlUpd1 As String, sqlUpd2 As String, sqlUpd3 As String
+    Dim sqlIns As String
+    Dim sqlDel As String
+
+    Dim cntUpd As Long
+    Dim cntIns As Long
+    Dim cntDel As Long
+
+    If MsgBox("マスタテーブルを更新します" & vbCrLf & "よろしいですか？", _
+              vbQuestion + vbYesNo + vbDefaultButton2) = vbNo Then
+        Exit Sub
+    End If
+
+    Set ws = DBEngine.Workspaces(0)
+    Set db = CurrentDb
+
+    sqlIns = _
+    "INSERT INTO [" & mstTbl & "] SELECT * FROM[" & wkTbl & "] " & _
+    "LEFT JOIN [" & mstTbl & "] ON [" & wkTbl & "].[" & keyCD & "] = [" & mstTbl & "].[" & keyCD & "] " & _
+    "WHERE [" & mstTbl & "].[" & keyCD & "] IS NULL;"
+
+    sqlDel = _
+    "DELETE FROM [" & mstTbl & "] " & _
+    "WHERE [" & keyCD & "] IN (" & _
+    "SELECT [" & mstTbl & "].[" & keyCD & "] " & _
+    "FROM [" & mstTbl & "] " & _
+    "LEFT JOIN [" & wkTbl & "] ON [" & mstTbl & "].[" & keyCD & "] = [" & wkTbl & "].[" & keyCD & "] " & _
+    "WHERE [" & wkTbl & "].[" & keyCD & "] IS NULL);"
+
+    sqlUpd = _
+    "UPDATE [" & mstTbl & "] " & _
+    "INNER JOIN [" & wkTbl & "] ON [" & mstTbl & "].[" & keyCD & "] = [" & wkTbl & "].[" & keyCD & "] " & _
+    "SET "
+
+    Set tdf = db.TableDefs(mstTbl)
+    For Each fld In tdf.Fields
+        sqlUpd1 = sqlUpd1 & _
+            "[" & mstTbl & "].[" & fld.name & "]=[" & wkTbl & "].[" & fld.name & "], "
+        sqlUpd2 = sqlUpd2 & _
+            "Nz([" & mstTbl & "].[" & fld.name & "],'') <> Nz([" & wkTbl & "].[" & fld.name & "],'') OR "
+    Next
+
+    sqlUpd1 = Left(sqlUpd1, Len(sqlUpd1) - 2) & " "
+    sqlUpd2 = Left(sqlUpd2, Len(sqlUpd2) - 4) & ";"
+    sqlUpd = sqlUpd & sqlUpd1 & "WHERE " & sqlUpd2
+
+On Error GoTo ErrHandler
+
+    ws.BeginTrans
+
+    db.Execute sqlUpd, dbFailOnError
+    cntUpd = db.RecordsAffected
+
+    db.Execute sqlIns, dbFailOnError
+    cntIns = db.RecordsAffected
+
+    db.Execute sqlDel, dbFailOnError
+    cntDel = db.RecordsAffected
+
+    ws.CommitTrans
+
+    MsgBox _
+        "反映完了" & vbCrLf & vbCrLf & _
+        "更新: " & cntUpd & "件" & vbCrLf & _
+        "追加: " & cntIns & "件" & vbCrLf & _
+        "削除: " & cntDel & "件", _
+        vbInformation
+
+    Set db = Nothing
+    Set ws = Nothing
+    Exit Sub
+
+ErrHandler:
+    ws.Rollback
+    MsgBox "エラーのためロールバックしました: " & Err.Description, vbExclamation
+
+    Set db = Nothing
+    Set ws = Nothing
+
+End Sub
+
+
+Private Function GetUpdateCount() As Long
+
+    Dim rs As DAO.Recordset
+    Dim sqlText As String
+
+    sqlText = _
+        "SELECT Count(*) AS Cnt " & _
+        "FROM M_商品 AS M " & _
+        "INNER JOIN WK_商品 AS W ON M.商品CD = W.商品CD " & _
+        "WHERE " & _
+        "Nz(M.商品名,'') <> Nz(W.商品名,'') " & _
+        "OR Nz(M.単価,0) <> Nz(W.単価,0) " & _
+        "OR Nz(M.分類CD,'') <> Nz(W.分類CD,'') " & _
+        "OR Nz(M.仕入先CD,'') <> Nz(W.仕入先CD,'');"
+
+    Set rs = CurrentDb.OpenRecordset(sqlText)
+
+    GetUpdateCount = rs!Cnt
+
+    rs.Close
+    Set rs = Nothing
+
+End Function

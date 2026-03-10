@@ -5,7 +5,7 @@ VCS Version 4.1.2
 Full Path: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb
 Export Folder: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\
 Using Fast Save
-2026/03/09 22:40:37
+2026/03/11 0:03:29
 -------------------------------------
 Scanning for changes...
 No modified db connections found in this database.
@@ -20,6 +20,8 @@ No modified shared images found in this database.
 No modified themes found in this database.
 No modified imex specs found in this database.
 No modified queries found in this database.
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\queries\クエリ1.bas
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\queries\クエリ1.sql
 No modified macros found in this database.
 No modified reports found in this database.
 No modified table data found in this database.
@@ -31,45 +33,83 @@ No modified hidden attributes found in this database.
 -------------------------------------
 Exporting modules...          
   clsDataSelector
-[1]
+  clsPeriodManager
+  clsDataRegistry
+  clsAppStore
+  clsMyButton
+[5]
 -------------------------------------
 Exporting db properties...    
   Database Properties (DAO)
 [52]
 -------------------------------------
 Exporting tables...           
-  TmpMF
-    Sanitized in 0.004 seconds.
-  TmpMF (SQL)
-[1]
+  勘定科目
+    Sanitized in 0.003 seconds.
+  勘定科目 (SQL)
+  勘定分類
+    Sanitized in 0.001 seconds.
+  勘定分類 (SQL)
+  使用場所
+    Sanitized in 0.001 seconds.
+  使用場所 (SQL)
+  収納場所_小分類
+    Sanitized in 0.001 seconds.
+  収納場所_小分類 (SQL)
+  収納場所_大分類
+    Sanitized in 0.001 seconds.
+  収納場所_大分類 (SQL)
+  収納場所_中分類
+    Sanitized in 0.001 seconds.
+  収納場所_中分類 (SQL)
+  大項目
+    Sanitized in 0.001 seconds.
+  大項目 (SQL)
+  大項目Wk
+    Sanitized in 0.001 seconds.
+  大項目Wk (SQL)
+  中項目
+    Sanitized in 0.002 seconds.
+  中項目 (SQL)
+  品名
+    Sanitized in 0.002 seconds.
+  品名 (SQL)
+  用途
+    Sanitized in 0.001 seconds.
+  用途 (SQL)
+[11]
 -------------------------------------
 Exporting forms...            
-  frmZenkomoku
-    Sanitized in 0.025 seconds.
+  frmKamokubetu
+    Sanitized in 0.018 seconds.
+  frmKomokubetu
+    Sanitized in 0.016 seconds.
   frmKSmenu
-    Sanitized in 0.010 seconds.
-[2]
+    Sanitized in 0.011 seconds.
+  frmMstDk
+    Sanitized in 0.005 seconds.
+[4]
 -------------------------------------
-Done. (1.95 seconds)
+Done. (1.99 seconds)
 
 --------------------------------------------------
                 PERFORMANCE REPORTS
 --------------------------------------------------
 Category                      Count     Seconds
 --------------------------------------------------
-Forms                         2         1.07
+Forms                         4         0.94
+Tables                        11        0.33
+Modules                       5         0.21
 DB Properties                 52        0.17
-Tables                        1         0.12
-Modules                       1         0.09
-Relations                     0         0.05
-Doc Properties                0         0.04
+Relations                     0         0.04
+Doc Properties                0         0.03
 IMEX Specs                    0         0.02
 Nav Pane Groups               0         0.02
 DB Connections                0         0.02
 VBE References                0         0.01
-Queries                       0         0.01
 Hidden Attributes             0         0.01
 Table Data Macros             0         0.01
+Queries                       0         0.01
 Themes                        0         0.01
 Proj Properties               0         0.01
 CommandBars                   0         0.01
@@ -82,44 +122,44 @@ VBE Forms                     0         0.00
 Saved Specs                   0         0.00
 Reports                       0         0.00
 --------------------------------------------------
-TOTALS:                       56        1.68
+TOTALS:                       72        1.87
 --------------------------------------------------
 
 --------------------------------------------------
 Operations                    Count     Seconds
 --------------------------------------------------
-Convert to JSON               901       0.24
-Parse JSON ISO Date           134       0.16
+Convert to JSON               935       0.24
+Read File Bytes               20        0.22
+Increment Progress            143       0.13
 Scan DB Objects               1         0.13
-Increment Progress            111       0.10
 Clear Orphaned Files          17        0.08
-App.SaveAsText()              2         0.07
-Read File Bytes               4         0.05
-Console Updates               3         0.05
-Sanitize File                 2         0.04
-Check for linked table        50        0.03
-Read File                     5         0.02
+App.SaveAsText()              4         0.07
+Sanitize File                 4         0.06
+Console Updates               3         0.06
+Read File                     21        0.06
+App.ExportXML()               11        0.03
+Read File DevMode             4         0.03
+Check for linked table        52        0.03
+Get File Property Hash        40        0.02
+Export VBE Module             5         0.02
+Save Table SQL                11        0.02
+Write File                    36        0.02
 Parse JSON                    1         0.01
-Read File DevMode             2         0.01
-App.ExportXML()               1         0.01
-Export VBE Module             1         0.01
-Get File Property Hash        10        0.01
-Quick Count Files             1         0.00
-Get VBA Hash                  21        0.00
-Write File                    8         0.00
-Compute SHA256                63        0.00
-Delete File                   7         0.00
-modFileAccess.VerifyPath      11        0.00
+Delete File                   26        0.01
+Format XML                    11        0.01
+Sanitize XML                  11        0.01
+modFileAccess.VerifyPath      51        0.01
+Get VBA Hash                  26        0.01
+Quick Count Files             1         0.01
+Compute SHA256                116       0.00
+Get Modified Date             52        0.00
 Quick Count Objects           1         0.00
-Save Table SQL                1         0.00
-Sanitize XML                  1         0.00
-Format XML                    1         0.00
+Parse JSON ISO Date           134       0.00
+Sanitize VBA Code             9         0.00
 Close Open Objects            1         0.00
-Get Modified Date             10        0.00
-Sanitize VBA Code             3         0.00
 modFileAccess.GetUncPath      3         0.00
 --------------------------------------------------
-Other Operations                        0.90
+Other Operations                        0.72
 --------------------------------------------------
 
 

@@ -12,8 +12,8 @@ Begin Form
     Width =20409
     DatasheetFontHeight =11
     ItemSuffix =73
-    Right =20400
-    Bottom =13368
+    Right =14640
+    Bottom =11568
     RecSrcDt = Begin
         0x86cd6396dc3be640
     End
@@ -112,32 +112,18 @@ Begin Form
             GridlineShade =65.0
         End
         Begin FormHeader
-            Height =550
+            Height =567
             Name ="フォームヘッダー"
             AlternateBackThemeColorIndex =1
             AlternateBackShade =95.0
             BackThemeColorIndex =2
             BackTint =20.0
             Begin
-                Begin EmptyCell
-                    Left =300
-                    Top =60
-                    Width =684
-                    Height =460
-                    Name ="Auto_LogoEmptyCell"
-                    GroupTable =1
-                    LayoutCachedLeft =300
-                    LayoutCachedTop =60
-                    LayoutCachedWidth =984
-                    LayoutCachedHeight =520
-                    LayoutGroup =1
-                    GroupTable =1
-                End
                 Begin Label
                     OverlapFlags =85
                     TextAlign =1
                     TextFontFamily =50
-                    Left =1044
+                    Left =564
                     Top =60
                     Width =17628
                     Height =460
@@ -145,12 +131,10 @@ Begin Form
                     Name ="Auto_Header0"
                     Caption ="項目別明細"
                     GroupTable =1
-                    LayoutCachedLeft =1044
+                    LayoutCachedLeft =564
                     LayoutCachedTop =60
-                    LayoutCachedWidth =18672
+                    LayoutCachedWidth =18192
                     LayoutCachedHeight =520
-                    ColumnStart =1
-                    ColumnEnd =1
                     LayoutGroup =1
                     ThemeFontIndex =0
                     BorderThemeColorIndex =2

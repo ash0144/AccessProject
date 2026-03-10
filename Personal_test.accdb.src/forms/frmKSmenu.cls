@@ -8,6 +8,7 @@ Option Explicit
 Private App As New clsAppStore
 
 Private Sub cmdAll_Click()
+'"項目別一覧"/"勘定科目別一覧"の出力
 
     Dim dF As Date: dF = App.Period.GetMinDate(Me!txtFrom)
     Dim dT As Date: dT = App.Period.GetMaxDate(Me!txtTo)
@@ -26,6 +27,7 @@ Private Sub cmdAll_Click()
 
 End Sub
 Private Sub cmdKomoku_Click()
+'"項目明細"/"勘定科目明細"の出力
 
     Dim dF As Date: dF = App.Period.GetMinDate(Me!txtFrom)
     Dim dT As Date: dT = App.Period.GetMaxDate(Me!txtTo)
@@ -56,7 +58,9 @@ Private Sub cmdKomoku_Click()
 End Sub
 
 Private Sub cmdImpMF_Click()
-    ' クラス側でエラーメッセージが出るので、ここでは成功時のみメッセージを出す
+'Excelファイル(MoneyForward出力）の取込
+'クラス側でエラーメッセージが出るので、ここでは成功時のみメッセージ
+
     If App.Registry.ImportMFData() Then
         Me.Requery
         MsgBox "完了しました"
@@ -65,6 +69,7 @@ Private Sub cmdImpMF_Click()
 End Sub
 
 Private Sub cmdClr_Click()
+'MoneyForwardデータのクリア
 
     Call tblClr("MoneyForward")
     MsgBox "MoneyForwardデータをクリアしました"
@@ -72,6 +77,7 @@ Private Sub cmdClr_Click()
 End Sub
 
 Private Sub cmdInput_Click()
+'手動入力フォームの表示
 
     DoCmd.OpenForm IIf(optBunrui = 1, "frmKinput", "frmSinput")
 
@@ -83,14 +89,21 @@ Private Sub cmdClose_Click()
 
 End Sub
 
+Private Sub cmdMstDk_Click()
+
+    Call App.Selector.LoadWorkTable("大項目", "大項目Wk")
+
+    DoCmd.OpenForm "frmMstDk"
+
+End Sub
+
 Private Sub optBunrui_AfterUpdate()
+'家計簿分類/確定申告分類の切り替え
 
-    Dim isType1 As Boolean: isType1 = (optBunrui = 1)
-
-    cmdAll.Caption = IIf(isType1, "項目別一覧", "勘定科目別一覧")
-    cmdKomoku.Caption = IIf(isType1, "項目明細", "勘定科目明細")
-    lblDkomoku.Caption = IIf(isType1, "項目：", "勘定科目：")
-    cmbDkomoku.RowSource = IIf(isType1, "大項目", "勘定科目")
+    cmdAll.Caption = IIf(optBunrui = 1, "項目別一覧", "勘定科目別一覧")
+    cmdKomoku.Caption = IIf(optBunrui = 1, "項目明細", "勘定科目明細")
+    lblDkomoku.Caption = IIf(optBunrui = 1, "項目：", "勘定科目：")
+    cmbDkomoku.RowSource = IIf(optBunrui = 1, "大項目", "勘定科目")
     cmbDkomoku.Value = ""
 
 End Sub

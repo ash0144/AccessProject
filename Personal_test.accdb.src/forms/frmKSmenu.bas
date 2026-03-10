@@ -12,9 +12,9 @@ Begin Form
     GridY =10
     Width =8333
     DatasheetFontHeight =11
-    ItemSuffix =28
-    Right =20460
-    Bottom =11820
+    ItemSuffix =36
+    Right =14172
+    Bottom =11568
     RecSrcDt = Begin
         0x2d1d1047d67fe640
     End
@@ -164,7 +164,7 @@ Begin Form
             GridlineShade =65.0
         End
         Begin Section
-            Height =8390
+            Height =10767
             Name ="詳細"
             AlternateBackThemeColorIndex =1
             AlternateBackShade =95.0
@@ -308,7 +308,7 @@ Begin Form
                     OverlapFlags =85
                     TextFontFamily =50
                     Left =6804
-                    Top =7368
+                    Top =10200
                     Width =567
                     Height =567
                     TabIndex =5
@@ -352,9 +352,9 @@ Begin Form
                     End
 
                     LayoutCachedLeft =6804
-                    LayoutCachedTop =7368
+                    LayoutCachedTop =10200
                     LayoutCachedWidth =7371
-                    LayoutCachedHeight =7935
+                    LayoutCachedHeight =10767
                 End
                 Begin OptionGroup
                     OverlapFlags =85
@@ -538,9 +538,9 @@ Begin Form
                 End
                 Begin Label
                     OverlapFlags =85
-                    TextAlign =2
+                    TextAlign =1
                     TextFontFamily =50
-                    Left =744
+                    Left =737
                     Top =672
                     Width =492
                     Height =240
@@ -548,16 +548,16 @@ Begin Form
                     FontWeight =700
                     Name ="ラベル19"
                     Caption ="読込"
-                    LayoutCachedLeft =744
+                    LayoutCachedLeft =737
                     LayoutCachedTop =672
-                    LayoutCachedWidth =1236
+                    LayoutCachedWidth =1229
                     LayoutCachedHeight =912
                 End
                 Begin Label
                     OverlapFlags =85
-                    TextAlign =2
+                    TextAlign =1
                     TextFontFamily =50
-                    Left =732
+                    Left =737
                     Top =3348
                     Width =492
                     Height =240
@@ -565,16 +565,16 @@ Begin Form
                     FontWeight =700
                     Name ="ラベル20"
                     Caption ="出力"
-                    LayoutCachedLeft =732
+                    LayoutCachedLeft =737
                     LayoutCachedTop =3348
-                    LayoutCachedWidth =1224
+                    LayoutCachedWidth =1229
                     LayoutCachedHeight =3588
                 End
                 Begin Label
                     OverlapFlags =85
                     TextAlign =2
                     TextFontFamily =50
-                    Left =744
+                    Left =737
                     Top =5772
                     Width =492
                     Height =240
@@ -582,9 +582,9 @@ Begin Form
                     FontWeight =700
                     Name ="ラベル22"
                     Caption ="入力"
-                    LayoutCachedLeft =744
+                    LayoutCachedLeft =737
                     LayoutCachedTop =5772
-                    LayoutCachedWidth =1236
+                    LayoutCachedWidth =1229
                     LayoutCachedHeight =6012
                 End
                 Begin Line
@@ -606,12 +606,12 @@ Begin Form
                     Left =7367
                     Top =564
                     Width =0
-                    Height =6576
+                    Height =9072
                     Name ="直線24"
                     LayoutCachedLeft =7367
                     LayoutCachedTop =564
                     LayoutCachedWidth =7367
-                    LayoutCachedHeight =7140
+                    LayoutCachedHeight =9636
                     BorderThemeColorIndex =2
                 End
                 Begin Line
@@ -642,17 +642,146 @@ Begin Form
                 End
                 Begin Line
                     BorderWidth =1
-                    OverlapFlags =87
+                    OverlapFlags =95
                     Left =564
                     Top =564
                     Width =0
-                    Height =6576
+                    Height =9072
                     Name ="直線27"
                     LayoutCachedLeft =564
                     LayoutCachedTop =564
                     LayoutCachedWidth =564
-                    LayoutCachedHeight =7140
+                    LayoutCachedHeight =9636
                     BorderThemeColorIndex =2
+                End
+                Begin Line
+                    BorderWidth =1
+                    OverlapFlags =87
+                    Left =564
+                    Top =9639
+                    Width =6804
+                    Name ="直線28"
+                    LayoutCachedLeft =564
+                    LayoutCachedTop =9639
+                    LayoutCachedWidth =7368
+                    LayoutCachedHeight =9639
+                    BorderThemeColorIndex =2
+                End
+                Begin Label
+                    OverlapFlags =85
+                    TextAlign =1
+                    TextFontFamily =50
+                    Left =737
+                    Top =7260
+                    Width =1985
+                    Height =240
+                    FontSize =10
+                    FontWeight =700
+                    Name ="ラベル29"
+                    Caption ="マスタメンテナンス"
+                    LayoutCachedLeft =737
+                    LayoutCachedTop =7260
+                    LayoutCachedWidth =2722
+                    LayoutCachedHeight =7500
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    TextFontFamily =50
+                    Left =1128
+                    Top =8100
+                    Width =2268
+                    Height =567
+                    TabIndex =11
+                    Name ="cmdMstDk"
+                    Caption ="大項目"
+                    OnClick ="[Event Procedure]"
+
+                    LayoutCachedLeft =1128
+                    LayoutCachedTop =8100
+                    LayoutCachedWidth =3396
+                    LayoutCachedHeight =8667
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    TextFontFamily =50
+                    Left =1128
+                    Top =8787
+                    Width =2268
+                    Height =567
+                    TabIndex =12
+                    Name ="cmdMstCk"
+                    Caption ="中項目"
+
+                    LayoutCachedLeft =1128
+                    LayoutCachedTop =8787
+                    LayoutCachedWidth =3396
+                    LayoutCachedHeight =9354
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    TextFontFamily =50
+                    Left =3968
+                    Top =8050
+                    Width =2268
+                    Height =567
+                    TabIndex =13
+                    Name ="cmdMstKb"
+                    Caption ="勘定分類"
+
+                    LayoutCachedLeft =3968
+                    LayoutCachedTop =8050
+                    LayoutCachedWidth =6236
+                    LayoutCachedHeight =8617
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    TextFontFamily =50
+                    Left =3968
+                    Top =8737
+                    Width =2268
+                    Height =567
+                    TabIndex =14
+                    Name ="cmdMstKk"
+                    Caption ="勘定科目"
+
+                    LayoutCachedLeft =3968
+                    LayoutCachedTop =8737
+                    LayoutCachedWidth =6236
+                    LayoutCachedHeight =9304
+                End
+                Begin Label
+                    OverlapFlags =85
+                    TextAlign =1
+                    TextFontFamily =50
+                    Left =1133
+                    Top =7655
+                    Width =1985
+                    Height =240
+                    FontSize =10
+                    FontWeight =700
+                    Name ="ラベル34"
+                    Caption ="家計簿"
+                    LayoutCachedLeft =1133
+                    LayoutCachedTop =7655
+                    LayoutCachedWidth =3118
+                    LayoutCachedHeight =7895
+                End
+                Begin Label
+                    OverlapFlags =85
+                    TextAlign =1
+                    TextFontFamily =50
+                    Left =3968
+                    Top =7655
+                    Width =1985
+                    Height =240
+                    FontSize =10
+                    FontWeight =700
+                    Name ="ラベル35"
+                    Caption ="確定申告"
+                    LayoutCachedLeft =3968
+                    LayoutCachedTop =7655
+                    LayoutCachedWidth =5953
+                    LayoutCachedHeight =7895
                 End
             End
         End
