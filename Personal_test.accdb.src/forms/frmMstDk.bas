@@ -10,7 +10,7 @@ Begin Form
     Width =18225
     DatasheetFontHeight =11
     ItemSuffix =6
-    Right =14172
+    Right =19740
     Bottom =11568
     RecSrcDt = Begin
         0x5791470c8081e640
@@ -200,7 +200,7 @@ Begin Form
                     Top =283
                     Height =567
                     Name ="cmdCancel"
-                    Caption ="キャンセル"
+                    Caption ="閉じる"
                     OnClick ="[Event Procedure]"
 
                     LayoutCachedLeft =566
@@ -217,6 +217,7 @@ Begin Form
                     TabIndex =1
                     Name ="cmdEnter"
                     Caption ="確定"
+                    OnClick ="[Event Procedure]"
 
                     LayoutCachedLeft =2436
                     LayoutCachedTop =288

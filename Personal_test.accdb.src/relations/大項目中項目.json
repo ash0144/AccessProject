@@ -5,7 +5,7 @@
   },
   "Items": {
     "Name": "大項目中項目",
-    "Attributes": 0,
+    "Attributes": 256,
     "Table": "大項目",
     "ForeignTable": "中項目",
     "Fields": [

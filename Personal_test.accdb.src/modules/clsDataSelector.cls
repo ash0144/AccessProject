@@ -132,60 +132,26 @@ Public Sub LoadWorkTable(fromTable As String, toTable As String)
 
 End Sub
 
-Public Sub ShowDiffCount(mstTbl As String, wkTbl As String, keyCD As String)
-'元テーブルとワークテーブルの差分件数を表示
-
-    Dim addCnt As Long
-    Dim updCnt As Long
-    Dim delCnt As Long
-    Dim db As DAO.Database: Set db = CurrentDb
-    Dim qdf As DAO.QueryDef
-    Dim strSQL As String
-
-    '追加件数
-    strSQL = "SELECT [" & wkTbl & "].* FROM [" & mstTbl & "] " & _
-        "RIGHT JOIN [" & wkTbl & "] ON [" & mstTbl & "].[" & keyCD & "] = [" & wkTbl & "].[" & keyCD & "] " & _
-        "WHERE [" & mstTbl & "].[" & keyCD & "] IS NULL;"
-    Set qdf = db.CreateQueryDef("qryTmp", strSQL)
-    addCnt = DCount("*", "qryTmp")
-    db.QueryDefs.Delete "qryTmp"
-
-    '削除件数
-    strSQL = "SELECT [" & mstTbl & "].* FROM [" & wkTbl & "] " & _
-        "RIGHT JOIN [" & mstTbl & "] ON [" & wkTbl & "].[" & keyCD & "] = [" & mstTbl & "].[" & keyCD & "] " & _
-        "WHERE [" & wkTbl & "].[" & keyCD & "] IS NULL;"
-    Set qdf = db.CreateQueryDef("qryTmp", strSQL)
-    delCnt = DCount("*", "qryTmp")
-    db.QueryDefs.Delete "qryTmp"
-
-    '更新件数
-'    updCnt = GetUpdateCount(mstTbl)
-
-    MsgBox _
-        "差分件数" & vbCrLf & vbCrLf & _
-        "追加: " & addCnt & "件" & vbCrLf & _
-        "更新: " & updCnt & "件" & vbCrLf & _
-        "削除: " & delCnt & "件", _
-        vbInformation
-
-End Sub
-
 Public Sub ApplyDiff(mstTbl As String, wkTbl As String, keyCD As String)
 
     Dim ws As DAO.Workspace
     Dim db As DAO.Database
     Dim tdf As DAO.TableDef
     Dim fld As Field
+    Dim rs As DAO.Recordset
 
-    Dim sqlUpd As String, sqlUpd1 As String, sqlUpd2 As String, sqlUpd3 As String
+    Dim sqlUpd As String, sqlUpd1 As String, sqlUpd2 As String
     Dim sqlIns As String
     Dim sqlDel As String
+
+    Dim fieldList As String
+    Dim fieldSelect As String
 
     Dim cntUpd As Long
     Dim cntIns As Long
     Dim cntDel As Long
 
-    If MsgBox("マスタテーブルを更新します" & vbCrLf & "よろしいですか？", _
+    If MsgBox("表示内容で更新してフォームを閉じます" & vbCrLf & "よろしいですか？", _
               vbQuestion + vbYesNo + vbDefaultButton2) = vbNo Then
         Exit Sub
     End If
@@ -193,10 +159,21 @@ Public Sub ApplyDiff(mstTbl As String, wkTbl As String, keyCD As String)
     Set ws = DBEngine.Workspaces(0)
     Set db = CurrentDb
 
+    '挿入時にカラム順のズレによる誤挿入を防ぐため、明示的にフィールド一覧を指定する
+    fieldList = ""
+    fieldSelect = ""
+    Set tdf = db.TableDefs(mstTbl)
+    For Each fld In tdf.Fields
+        fieldList = fieldList & "[" & fld.name & "], "
+        fieldSelect = fieldSelect & "[" & wkTbl & "].[" & fld.name & "], "
+    Next
+    fieldList = Left(fieldList, Len(fieldList) - 2)
+    fieldSelect = Left(fieldSelect, Len(fieldSelect) - 2)
+
     sqlIns = _
-    "INSERT INTO [" & mstTbl & "] SELECT * FROM[" & wkTbl & "] " & _
-    "LEFT JOIN [" & mstTbl & "] ON [" & wkTbl & "].[" & keyCD & "] = [" & mstTbl & "].[" & keyCD & "] " & _
-    "WHERE [" & mstTbl & "].[" & keyCD & "] IS NULL;"
+    "INSERT INTO [" & mstTbl & "] (" & fieldList & ") " & _
+    "SELECT " & fieldSelect & " FROM [" & wkTbl & "] " & _
+    "WHERE [" & wkTbl & "].[" & keyCD & "] NOT IN (SELECT [" & keyCD & "] FROM [" & mstTbl & "]);"
 
     sqlDel = _
     "DELETE FROM [" & mstTbl & "] " & _
@@ -212,11 +189,30 @@ Public Sub ApplyDiff(mstTbl As String, wkTbl As String, keyCD As String)
     "SET "
 
     Set tdf = db.TableDefs(mstTbl)
+
     For Each fld In tdf.Fields
-        sqlUpd1 = sqlUpd1 & _
+        If fld.name <> keyCD Then
+            sqlUpd1 = sqlUpd1 & _
             "[" & mstTbl & "].[" & fld.name & "]=[" & wkTbl & "].[" & fld.name & "], "
-        sqlUpd2 = sqlUpd2 & _
-            "Nz([" & mstTbl & "].[" & fld.name & "],'') <> Nz([" & wkTbl & "].[" & fld.name & "],'') OR "
+
+            Select Case fld.Type
+                Case dbText, dbMemo, dbChar, dbGUID
+                    sqlUpd2 = sqlUpd2 & _
+                    "Nz([" & mstTbl & "].[" & fld.name & "],'') <> Nz([" & wkTbl & "].[" & fld.name & "],'') OR "
+                Case dbByte, dbInteger, dbLong, dbSingle, dbDouble, dbCurrency, dbDecimal
+                    sqlUpd2 = sqlUpd2 & _
+                    "Nz([" & mstTbl & "].[" & fld.name & "],0) <> Nz([" & wkTbl & "].[" & fld.name & "],0) OR "
+                Case dbDate
+                    sqlUpd2 = sqlUpd2 & _
+                    "Nz([" & mstTbl & "].[" & fld.name & "],#1900/01/01#) <> Nz([" & wkTbl & "].[" & fld.name & "],#1900/01/01#) OR "
+                Case dbBoolean
+                    sqlUpd2 = sqlUpd2 & _
+                    "Nz([" & mstTbl & "].[" & fld.name & "],False) <> Nz([" & wkTbl & "].[" & fld.name & "],False) OR "
+                Case Else
+                    sqlUpd2 = sqlUpd2 & _
+                    "Nz([" & mstTbl & "].[" & fld.name & "],'') <> Nz([" & wkTbl & "].[" & fld.name & "],'') OR "
+            End Select
+        End If
     Next
 
     sqlUpd1 = Left(sqlUpd1, Len(sqlUpd1) - 2) & " "
@@ -251,34 +247,9 @@ On Error GoTo ErrHandler
 
 ErrHandler:
     ws.Rollback
-    MsgBox "エラーのためロールバックしました: " & Err.Description, vbExclamation
+    MsgBox "エラーのため更新を取り消しました: " & Err.Description, vbExclamation
 
     Set db = Nothing
     Set ws = Nothing
 
 End Sub
-
-
-Private Function GetUpdateCount() As Long
-
-    Dim rs As DAO.Recordset
-    Dim sqlText As String
-
-    sqlText = _
-        "SELECT Count(*) AS Cnt " & _
-        "FROM M_商品 AS M " & _
-        "INNER JOIN WK_商品 AS W ON M.商品CD = W.商品CD " & _
-        "WHERE " & _
-        "Nz(M.商品名,'') <> Nz(W.商品名,'') " & _
-        "OR Nz(M.単価,0) <> Nz(W.単価,0) " & _
-        "OR Nz(M.分類CD,'') <> Nz(W.分類CD,'') " & _
-        "OR Nz(M.仕入先CD,'') <> Nz(W.仕入先CD,'');"
-
-    Set rs = CurrentDb.OpenRecordset(sqlText)
-
-    GetUpdateCount = rs!Cnt
-
-    rs.Close
-    Set rs = Nothing
-
-End Function

@@ -13,7 +13,7 @@ Begin Form
     Width =8333
     DatasheetFontHeight =11
     ItemSuffix =36
-    Right =14172
+    Right =19740
     Bottom =11568
     RecSrcDt = Begin
         0x2d1d1047d67fe640
@@ -711,6 +711,7 @@ Begin Form
                     TabIndex =12
                     Name ="cmdMstCk"
                     Caption ="中項目"
+                    OnClick ="[Event Procedure]"
 
                     LayoutCachedLeft =1128
                     LayoutCachedTop =8787
@@ -727,6 +728,7 @@ Begin Form
                     TabIndex =13
                     Name ="cmdMstKb"
                     Caption ="勘定分類"
+                    OnClick ="[Event Procedure]"
 
                     LayoutCachedLeft =3968
                     LayoutCachedTop =8050
@@ -743,6 +745,7 @@ Begin Form
                     TabIndex =14
                     Name ="cmdMstKk"
                     Caption ="勘定科目"
+                    OnClick ="[Event Procedure]"
 
                     LayoutCachedLeft =3968
                     LayoutCachedTop =8737

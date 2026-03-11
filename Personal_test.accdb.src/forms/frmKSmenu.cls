@@ -85,7 +85,15 @@ End Sub
 
 Private Sub cmdClose_Click()
 
-    DoCmd.Close acForm, Me.name
+    DoCmd.Quit
+
+End Sub
+
+Private Sub cmdMstCk_Click()
+
+    Call App.Selector.LoadWorkTable("中項目", "中項目Wk")
+
+    DoCmd.OpenForm "frmMstCk"
 
 End Sub
 
@@ -94,6 +102,22 @@ Private Sub cmdMstDk_Click()
     Call App.Selector.LoadWorkTable("大項目", "大項目Wk")
 
     DoCmd.OpenForm "frmMstDk"
+
+End Sub
+
+Private Sub cmdMstKb_Click()
+
+    Call App.Selector.LoadWorkTable("勘定分類", "勘定分類Wk")
+
+    DoCmd.OpenForm "frmMstKb"
+
+End Sub
+
+Private Sub cmdMstKk_Click()
+
+    Call App.Selector.LoadWorkTable("勘定科目", "勘定科目Wk")
+
+    DoCmd.OpenForm "frmMstKb"
 
 End Sub
 
