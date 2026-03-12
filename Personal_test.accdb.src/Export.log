@@ -5,7 +5,7 @@ VCS Version 4.1.2
 Full Path: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb
 Export Folder: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\
 Using Fast Save
-2026/03/12 1:49:57
+2026/03/13 0:53:29
 -------------------------------------
 Scanning for changes...
 No modified db connections found in this database.
@@ -18,12 +18,15 @@ No modified saved specs found in this database.
 No modified commandbars found in this database.
 No modified shared images found in this database.
 No modified themes found in this database.
+No modified db properties found in this database.
 No modified imex specs found in this database.
+No modified tables found in this database.
 No modified queries found in this database.
 No modified macros found in this database.
 No modified reports found in this database.
 No modified table data found in this database.
 No modified table data macros found in this database.
+No modified relations found in this database.
 No modified doc properties found in this database.
 No modified nav pane groups found in this database.
 No modified hidden attributes found in this database.
@@ -32,68 +35,38 @@ Exporting modules...
   clsDataSelector
 [1]
 -------------------------------------
-Exporting db properties...    
-  Database Properties (DAO)
-[52]
--------------------------------------
-Exporting tables...           
-  勘定科目Wk
-    Sanitized in 0.002 seconds.
-  勘定科目Wk (SQL)
-  勘定分類Wk
-    Sanitized in 0.001 seconds.
-  勘定分類Wk (SQL)
-  大項目
-    Sanitized in 0.001 seconds.
-  大項目 (SQL)
-  中項目
-    Sanitized in 0.001 seconds.
-  中項目 (SQL)
-  中項目Wk
-    Sanitized in 0.001 seconds.
-  中項目Wk (SQL)
-[5]
--------------------------------------
 Exporting forms...            
-  frmMstKb
-    Sanitized in 0.006 seconds.
   frmKSmenu
-    Sanitized in 0.011 seconds.
-  frmMstDk
-    Sanitized in 0.005 seconds.
-  frmMstKk
-    Sanitized in 0.007 seconds.
+    Sanitized in 0.012 seconds.
   frmMstCk
     Sanitized in 0.007 seconds.
-[5]
+  frmMstKk
+    Sanitized in 0.007 seconds.
+[3]
 -------------------------------------
-Exporting relations...        
-  大項目中項目
-[1]
--------------------------------------
-Done. (2 seconds)
+Done. (1.62 seconds)
 
 --------------------------------------------------
                 PERFORMANCE REPORTS
 --------------------------------------------------
 Category                      Count     Seconds
 --------------------------------------------------
-Forms                         5         1.09
-Tables                        5         0.27
-DB Properties                 52        0.17
-Modules                       1         0.09
-Relations                     1         0.07
+Forms                         3         0.99
+DB Properties                 0         0.10
+Modules                       1         0.10
+Tables                        0         0.08
+Relations                     0         0.04
 Doc Properties                0         0.04
+CommandBars                   0         0.03
 Nav Pane Groups               0         0.02
 IMEX Specs                    0         0.02
 DB Connections                0         0.02
-CommandBars                   0         0.02
 VBE References                0         0.01
 Table Data Macros             0         0.01
 Hidden Attributes             0         0.01
 Queries                       0         0.01
-Proj Properties               0         0.01
 Themes                        0         0.01
+Proj Properties               0         0.01
 VB Project                    0         0.01
 Project                       0         0.01
 Shared Images                 0         0.00
@@ -103,44 +76,40 @@ VBE Forms                     0         0.00
 Saved Specs                   0         0.00
 Reports                       0         0.00
 --------------------------------------------------
-TOTALS:                       64        1.89
+TOTALS:                       4         1.51
 --------------------------------------------------
 
 --------------------------------------------------
 Operations                    Count     Seconds
 --------------------------------------------------
-Convert to JSON               965       0.25
-Scan DB Objects               1         0.14
-Increment Progress            129       0.13
-Read File Bytes               11        0.13
-Clear Orphaned Files          17        0.08
-App.SaveAsText()              5         0.08
-App.ExportXML()               5         0.06
+Convert to JSON               760       0.19
+Scan DB Objects               1         0.15
+Clear Orphaned Files          17        0.09
+Increment Progress            123       0.08
+Read File Bytes               4         0.06
 Console Updates               3         0.05
-Sanitize File                 5         0.04
-Write File                    23        0.03
-Read File DevMode             5         0.03
+App.SaveAsText()              3         0.05
+Sanitize File                 3         0.03
 Check for linked table        58        0.03
-Read File                     12        0.02
+Read File DevMode             3         0.02
+Read File                     5         0.02
 Parse JSON                    1         0.01
-Get File Property Hash        20        0.01
-Quick Count Files             1         0.01
-Save Table SQL                5         0.01
-Get VBA Hash                  25        0.00
-modFileAccess.VerifyPath      33        0.00
-Delete File                   14        0.00
+Get VBA Hash                  25        0.01
+Quick Count Files             1         0.00
 Export VBE Module             1         0.00
-Format XML                    5         0.00
-Compute SHA256                88        0.00
-Sanitize XML                  5         0.00
-Parse JSON ISO Date           136       0.00
+Get File Property Hash        8         0.00
+Write File                    7         0.00
+Parse JSON ISO Date           142       0.00
+Delete File                   8         0.00
 Quick Count Objects           1         0.00
-Get Modified Date             31        0.00
+Compute SHA256                65        0.00
+modFileAccess.VerifyPath      10        0.00
 Close Open Objects            1         0.00
-Sanitize VBA Code             6         0.00
-modFileAccess.GetUncPath      3         0.00
+Sanitize VBA Code             4         0.00
+Get Modified Date             10        0.00
+modFileAccess.GetUncPath      2         0.00
 --------------------------------------------------
-Other Operations                        0.84
+Other Operations                        0.79
 --------------------------------------------------
 
 

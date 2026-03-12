@@ -12,8 +12,9 @@ Option Explicit
 
 '検索結果の抽出などを行うクラス
 
-'抽出テーブルへのインサート
 Public Sub ExtractToWorkTable(dFrom As Date, dTo As Date, optB As Integer, Optional dKomokuCD As Variant = Null)
+'抽出テーブルへのインサート
+'optBは家計簿/確定申告の分類、dKomokuCDは抽出に用いる大項目CD/勘定科目CD
 
     Dim db As DAO.Database: Set db = CurrentDb
     Dim qdf As DAO.QueryDef
@@ -44,33 +45,47 @@ Public Sub ExtractToWorkTable(dFrom As Date, dTo As Date, optB As Integer, Optio
 
     qdf.Execute dbFailOnError
 
+    Set qdf = Nothing
+    Set db = Nothing
+
 End Sub
 
-'抽出テーブルに含まれる大項目CD/中項目CD/勘定科目CDのリストを取得
 Public Function GetCategoryList(strB As String, Optional dKomokuCD As Variant = Null) As Variant
+'抽出テーブルに含まれる大項目CD/中項目CD/勘定科目CDのリストを取得
+'strBはフォームの一覧に表示する項目名、dKomokuCDはメニューで指定した抽出に用いる項目
 
     Dim rs As DAO.Recordset
+    Dim qdf As DAO.QueryDef
     Dim strSQL As String
     Dim strCD As String
     Dim result() As Long
     Dim i As Integer
+    Dim needParam As Boolean
 
     Select Case strB
         Case "Zenkomoku"
             strSQL = "SELECT DISTINCT 大項目CD FROM 抽出テーブル ORDER BY 大項目CD;"
             strCD = "大項目CD"
         Case "Komokubetu"
-            strSQL = "SELECT DISTINCT 中項目CD FROM 抽出テーブル WHERE 大項目CD=" & dKomokuCD & " ORDER BY 中項目CD;"
+            If IsNull(dKomokuCD) Then Err.Raise vbObjectError + 2, "clsDataSelector", "大項目CDが指定されていません。"
+            strSQL = "SELECT DISTINCT 中項目CD FROM 抽出テーブル WHERE 大項目CD=[pCD] ORDER BY 中項目CD;"
             strCD = "中項目CD"
+            needParam = True
         Case "Sinkoku"
             strSQL = "SELECT DISTINCT 勘定科目CD FROM 抽出テーブル ORDER BY 勘定科目CD;"
             strCD = "勘定科目CD"
         Case "Kamokubetu"
-            strSQL = "SELECT DISTINCT 中項目CD FROM 抽出テーブル WHERE 勘定科目CD=" & dKomokuCD & " ORDER BY 中項目CD;"
+            If IsNull(dKomokuCD) Then Err.Raise vbObjectError + 2, "clsDataSelector", "勘定科目CDが指定されていません。"
+            strSQL = "SELECT DISTINCT 中項目CD FROM 抽出テーブル WHERE 勘定科目CD=[pCD] ORDER BY 中項目CD;"
             strCD = "中項目CD"
+            needParam = True
+        Case Else
+            Err.Raise vbObjectError + 1, "clsDataSelector", "許可されていない区分です。"
     End Select
 
-    Set rs = CurrentDb.OpenRecordset(strSQL)
+    Set qdf = CurrentDb.CreateQueryDef("", strSQL)
+    If needParam Then qdf.Parameters("pCD").Value = dKomokuCD
+    Set rs = qdf.OpenRecordset()
 
     If rs.EOF Then
         GetCategoryList = Empty
@@ -88,8 +103,8 @@ Public Function GetCategoryList(strB As String, Optional dKomokuCD As Variant = 
 
 End Function
 
-'明細用列名検証
 Private Function NormalizeColumnName(strCD As String) As String
+'明細用列名検証
 
     Select Case strCD
         Case "大項目CD", "中項目CD", "勘定科目CD"
@@ -100,8 +115,8 @@ Private Function NormalizeColumnName(strCD As String) As String
 
 End Function
 
-'明細作成
 Public Sub CreateMeisai(CategoryCD As Long, strCD As String)
+'明細作成
 
     Call tblClr("明細")
     Dim strSQL As String
@@ -114,6 +129,8 @@ Public Sub CreateMeisai(CategoryCD As Long, strCD As String)
     Set qdf = CurrentDb.CreateQueryDef("", strSQL)
     qdf.Parameters("pValue").Value = CategoryCD
     qdf.Execute dbFailOnError
+
+    Set qdf = Nothing
 
 End Sub
 
@@ -133,6 +150,7 @@ Public Sub LoadWorkTable(fromTable As String, toTable As String)
 End Sub
 
 Public Sub ApplyDiff(mstTbl As String, wkTbl As String, keyCD As String)
+'マスタテーブルメンテナンス画面による更新のテーブルへの反映
 
     Dim ws As DAO.Workspace
     Dim db As DAO.Database
@@ -150,6 +168,7 @@ Public Sub ApplyDiff(mstTbl As String, wkTbl As String, keyCD As String)
     Dim cntUpd As Long
     Dim cntIns As Long
     Dim cntDel As Long
+    Dim keyFound As Boolean
 
     If MsgBox("表示内容で更新してフォームを閉じます" & vbCrLf & "よろしいですか？", _
               vbQuestion + vbYesNo + vbDefaultButton2) = vbNo Then
@@ -166,7 +185,9 @@ Public Sub ApplyDiff(mstTbl As String, wkTbl As String, keyCD As String)
     For Each fld In tdf.Fields
         fieldList = fieldList & "[" & fld.name & "], "
         fieldSelect = fieldSelect & "[" & wkTbl & "].[" & fld.name & "], "
+        If fld.name = keyCD Then keyFound = True
     Next
+    If Not keyFound Then Err.Raise vbObjectError + 3, "clsDataSelector", "キー列が見つかりません: " & keyCD
     fieldList = Left(fieldList, Len(fieldList) - 2)
     fieldSelect = Left(fieldSelect, Len(fieldSelect) - 2)
 
@@ -215,16 +236,22 @@ Public Sub ApplyDiff(mstTbl As String, wkTbl As String, keyCD As String)
         End If
     Next
 
-    sqlUpd1 = Left(sqlUpd1, Len(sqlUpd1) - 2) & " "
-    sqlUpd2 = Left(sqlUpd2, Len(sqlUpd2) - 4) & ";"
-    sqlUpd = sqlUpd & sqlUpd1 & "WHERE " & sqlUpd2
+    If Len(sqlUpd1) > 0 Then
+        sqlUpd1 = Left(sqlUpd1, Len(sqlUpd1) - 2) & " "
+        sqlUpd2 = Left(sqlUpd2, Len(sqlUpd2) - 4) & ";"
+        sqlUpd = sqlUpd & sqlUpd1 & "WHERE " & sqlUpd2
+    Else
+        sqlUpd = ""
+    End If
 
 On Error GoTo ErrHandler
 
     ws.BeginTrans
 
-    db.Execute sqlUpd, dbFailOnError
-    cntUpd = db.RecordsAffected
+    If Len(sqlUpd) > 0 Then
+        db.Execute sqlUpd, dbFailOnError
+        cntUpd = db.RecordsAffected
+    End If
 
     db.Execute sqlIns, dbFailOnError
     cntIns = db.RecordsAffected

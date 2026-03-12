@@ -9,8 +9,8 @@ Begin Form
     GridY =10
     Width =18225
     DatasheetFontHeight =11
-    ItemSuffix =16
-    Right =14172
+    ItemSuffix =24
+    Right =19740
     Bottom =11568
     RecSrcDt = Begin
         0x688082f49f81e640
@@ -134,8 +134,13 @@ Begin Form
             GridlineThemeColorIndex =1
             GridlineShade =65.0
         End
+        Begin EmptyCell
+            Height =240
+            GridlineThemeColorIndex =1
+            GridlineShade =65.0
+        End
         Begin FormHeader
-            Height =819
+            Height =1190
             Name ="フォームヘッダー"
             AlternateBackThemeColorIndex =1
             AlternateBackShade =95.0
@@ -210,29 +215,43 @@ Begin Form
                 Begin Label
                     OverlapFlags =85
                     TextFontFamily =50
-                    Left =7200
+                    Left =9469
                     Top =564
                     Width =1134
                     Height =252
                     Name ="ラベル12"
                     Caption ="家計簿"
-                    LayoutCachedLeft =7200
+                    LayoutCachedLeft =9469
                     LayoutCachedTop =564
-                    LayoutCachedWidth =8334
+                    LayoutCachedWidth =10603
                     LayoutCachedHeight =816
                 End
                 Begin Label
                     OverlapFlags =85
                     TextFontFamily =50
-                    Left =8451
+                    Left =10720
                     Top =566
                     Width =1134
                     Height =252
                     Name ="ラベル13"
                     Caption ="確定申告"
-                    LayoutCachedLeft =8451
+                    LayoutCachedLeft =10720
                     LayoutCachedTop =566
-                    LayoutCachedWidth =9585
+                    LayoutCachedWidth =11854
+                    LayoutCachedHeight =818
+                End
+                Begin Label
+                    OverlapFlags =85
+                    TextFontFamily =50
+                    Left =6803
+                    Top =566
+                    Width =1134
+                    Height =252
+                    Name ="ラベル21"
+                    Caption ="勘定科目"
+                    LayoutCachedLeft =6803
+                    LayoutCachedTop =566
+                    LayoutCachedWidth =7937
                     LayoutCachedHeight =818
                 End
             End
@@ -272,28 +291,28 @@ Begin Form
                 End
                 Begin CheckBox
                     OverlapFlags =93
-                    Left =7431
+                    Left =9700
                     Top =30
                     TabIndex =3
                     Name ="家計簿"
                     ControlSource ="家計簿"
 
-                    LayoutCachedLeft =7431
+                    LayoutCachedLeft =9700
                     LayoutCachedTop =30
-                    LayoutCachedWidth =7691
+                    LayoutCachedWidth =9960
                     LayoutCachedHeight =270
                 End
                 Begin CheckBox
                     OverlapFlags =93
-                    Left =8732
+                    Left =11001
                     Top =31
                     TabIndex =4
                     Name ="確定申告"
                     ControlSource ="確定申告"
 
-                    LayoutCachedLeft =8732
+                    LayoutCachedLeft =11001
                     LayoutCachedTop =31
-                    LayoutCachedWidth =8992
+                    LayoutCachedWidth =11261
                     LayoutCachedHeight =271
                 End
                 Begin ComboBox
@@ -320,6 +339,7 @@ Begin Form
                     ForeShade =100.0
                 End
                 Begin TextBox
+                    Locked = NotDefault
                     OverlapFlags =95
                     TextFontFamily =50
                     IMEMode =1
@@ -335,22 +355,60 @@ Begin Form
                 End
                 Begin Rectangle
                     OverlapFlags =255
-                    Left =6803
+                    Left =9072
                     Width =1418
                     Height =284
                     Name ="ボックス14"
-                    LayoutCachedLeft =6803
-                    LayoutCachedWidth =8221
+                    LayoutCachedLeft =9072
+                    LayoutCachedWidth =10490
                     LayoutCachedHeight =284
                 End
                 Begin Rectangle
                     OverlapFlags =247
-                    Left =8220
+                    Left =10489
                     Width =1418
                     Height =284
                     Name ="ボックス15"
-                    LayoutCachedLeft =8220
-                    LayoutCachedWidth =9638
+                    LayoutCachedLeft =10489
+                    LayoutCachedWidth =11907
+                    LayoutCachedHeight =284
+                End
+                Begin ComboBox
+                    OverlapFlags =95
+                    TextFontFamily =50
+                    IMEMode =1
+                    ColumnCount =2
+                    ListWidth =2268
+                    Left =6803
+                    Width =567
+                    Height =284
+                    TabIndex =6
+                    Name ="cmbKcd"
+                    ControlSource ="勘定科目CD"
+                    RowSourceType ="Table/Query"
+                    RowSource ="勘定科目"
+                    ColumnWidths ="567;1701"
+
+                    LayoutCachedLeft =6803
+                    LayoutCachedWidth =7370
+                    LayoutCachedHeight =284
+                    ForeThemeColorIndex =0
+                    ForeTint =75.0
+                    ForeShade =100.0
+                End
+                Begin TextBox
+                    Locked = NotDefault
+                    OverlapFlags =247
+                    TextFontFamily =50
+                    IMEMode =1
+                    Left =7370
+                    Height =284
+                    TabIndex =7
+                    Name ="txtK"
+                    ControlSource ="=[cmbKcd].[column](1)"
+
+                    LayoutCachedLeft =7370
+                    LayoutCachedWidth =9071
                     LayoutCachedHeight =284
                 End
             End

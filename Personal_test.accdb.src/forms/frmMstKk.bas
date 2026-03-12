@@ -10,7 +10,7 @@ Begin Form
     Width =18225
     DatasheetFontHeight =11
     ItemSuffix =24
-    Right =14172
+    Right =19740
     Bottom =11568
     RecSrcDt = Begin
         0x757d9670a281e640
@@ -285,6 +285,7 @@ Begin Form
                     ForeShade =100.0
                 End
                 Begin TextBox
+                    Locked = NotDefault
                     OverlapFlags =95
                     TextFontFamily =50
                     IMEMode =1
@@ -322,6 +323,7 @@ Begin Form
                     ForeShade =100.0
                 End
                 Begin TextBox
+                    Locked = NotDefault
                     OverlapFlags =87
                     TextFontFamily =50
                     IMEMode =1

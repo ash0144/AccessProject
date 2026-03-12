@@ -117,7 +117,7 @@ Private Sub cmdMstKk_Click()
 
     Call App.Selector.LoadWorkTable("勘定科目", "勘定科目Wk")
 
-    DoCmd.OpenForm "frmMstKb"
+    DoCmd.OpenForm "frmMstKk"
 
 End Sub
 
