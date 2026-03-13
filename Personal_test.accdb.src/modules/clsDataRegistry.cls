@@ -50,7 +50,7 @@ Public Function RegisterManualEntry( _
         For i = 1 To 100
             strID = CStr(Int((999999999 * Rnd) + 1))
             If DCount("*", "MoneyForward", "ID='" & strID & "'") = 0 Then
-                rs!Id = strID: Exit For
+                rs!ID = strID: Exit For
             End If
         Next i
     rs.Update

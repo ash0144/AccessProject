@@ -26,6 +26,15 @@ Private Sub cmdAll_Click()
     End If
 
 End Sub
+
+Private Sub cmdEdit_Click()
+'編集画面の表示
+
+Call App.Selector.LoadWorkTable("MoneyForward", "MoneyForwardWk")
+DoCmd.OpenForm "frmEditMF"
+
+End Sub
+
 Private Sub cmdKomoku_Click()
 '"項目明細"/"勘定科目明細"の出力
 
@@ -124,10 +133,11 @@ End Sub
 Private Sub optBunrui_AfterUpdate()
 '家計簿分類/確定申告分類の切り替え
 
+    cmdEdit.Visible = IIf(optBunrui = 1, True, False)
     cmdAll.Caption = IIf(optBunrui = 1, "項目別一覧", "勘定科目別一覧")
     cmdKomoku.Caption = IIf(optBunrui = 1, "項目明細", "勘定科目明細")
     lblDkomoku.Caption = IIf(optBunrui = 1, "項目：", "勘定科目：")
     cmbDkomoku.RowSource = IIf(optBunrui = 1, "大項目", "勘定科目")
-    cmbDkomoku.Value = ""
+    cmbDkomoku.Value = Null
 
 End Sub

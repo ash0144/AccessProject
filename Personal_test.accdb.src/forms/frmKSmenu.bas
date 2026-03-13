@@ -12,7 +12,7 @@ Begin Form
     GridY =10
     Width =8333
     DatasheetFontHeight =11
-    ItemSuffix =36
+    ItemSuffix =37
     Right =14172
     Bottom =11568
     RecSrcDt = Begin
@@ -174,67 +174,67 @@ Begin Form
                     OverlapFlags =85
                     TextAlign =3
                     TextFontFamily =50
-                    Left =1134
-                    Top =3804
+                    Left =1129
+                    Top =5328
                     Width =1134
                     Height =270
                     Name ="lblRange"
                     Caption ="出力期間："
-                    LayoutCachedLeft =1134
-                    LayoutCachedTop =3804
-                    LayoutCachedWidth =2268
-                    LayoutCachedHeight =4074
+                    LayoutCachedLeft =1129
+                    LayoutCachedTop =5328
+                    LayoutCachedWidth =2263
+                    LayoutCachedHeight =5598
                 End
                 Begin TextBox
                     OverlapFlags =85
                     TextFontFamily =50
                     IMEMode =2
-                    Left =2493
-                    Top =3807
+                    Left =2488
+                    Top =5331
                     Width =1418
                     Name ="txtFrom"
                     Format ="Short Date"
 
-                    LayoutCachedLeft =2493
-                    LayoutCachedTop =3807
-                    LayoutCachedWidth =3911
-                    LayoutCachedHeight =4077
+                    LayoutCachedLeft =2488
+                    LayoutCachedTop =5331
+                    LayoutCachedWidth =3906
+                    LayoutCachedHeight =5601
                 End
                 Begin TextBox
                     OverlapFlags =85
                     TextFontFamily =50
                     IMEMode =2
-                    Left =4478
-                    Top =3807
+                    Left =4473
+                    Top =5331
                     Width =1418
                     TabIndex =1
                     Name ="txtTo"
                     Format ="Short Date"
 
-                    LayoutCachedLeft =4478
-                    LayoutCachedTop =3807
-                    LayoutCachedWidth =5896
-                    LayoutCachedHeight =4077
+                    LayoutCachedLeft =4473
+                    LayoutCachedTop =5331
+                    LayoutCachedWidth =5891
+                    LayoutCachedHeight =5601
                 End
                 Begin Label
                     OverlapFlags =85
                     TextFontFamily =50
-                    Left =4077
-                    Top =3810
+                    Left =4072
+                    Top =5334
                     Width =285
                     Height =270
                     Name ="lblNyoro"
                     Caption ="～"
-                    LayoutCachedLeft =4077
-                    LayoutCachedTop =3810
-                    LayoutCachedWidth =4362
-                    LayoutCachedHeight =4080
+                    LayoutCachedLeft =4072
+                    LayoutCachedTop =5334
+                    LayoutCachedWidth =4357
+                    LayoutCachedHeight =5604
                 End
                 Begin CommandButton
                     OverlapFlags =85
                     TextFontFamily =50
-                    Left =1134
-                    Top =4656
+                    Left =1129
+                    Top =6180
                     Width =2268
                     Height =567
                     TabIndex =2
@@ -242,10 +242,10 @@ Begin Form
                     Caption ="項目別一覧"
                     OnClick ="[Event Procedure]"
 
-                    LayoutCachedLeft =1134
-                    LayoutCachedTop =4656
-                    LayoutCachedWidth =3402
-                    LayoutCachedHeight =5223
+                    LayoutCachedLeft =1129
+                    LayoutCachedTop =6180
+                    LayoutCachedWidth =3397
+                    LayoutCachedHeight =6747
                 End
                 Begin ComboBox
                     LimitToList = NotDefault
@@ -254,8 +254,8 @@ Begin Form
                     IMEMode =2
                     ColumnCount =2
                     ListRows =20
-                    Left =2493
-                    Top =4201
+                    Left =2488
+                    Top =5725
                     Width =3402
                     TabIndex =3
                     Name ="cmbDkomoku"
@@ -264,10 +264,10 @@ Begin Form
                     ColumnWidths ="0;1701"
                     Format ="@"
 
-                    LayoutCachedLeft =2493
-                    LayoutCachedTop =4201
-                    LayoutCachedWidth =5895
-                    LayoutCachedHeight =4471
+                    LayoutCachedLeft =2488
+                    LayoutCachedTop =5725
+                    LayoutCachedWidth =5890
+                    LayoutCachedHeight =5995
                     ForeThemeColorIndex =0
                     ForeTint =75.0
                     ForeShade =100.0
@@ -275,8 +275,8 @@ Begin Form
                 Begin CommandButton
                     OverlapFlags =85
                     TextFontFamily =50
-                    Left =3663
-                    Top =4656
+                    Left =3686
+                    Top =6180
                     Width =2268
                     Height =567
                     TabIndex =4
@@ -284,25 +284,25 @@ Begin Form
                     Caption ="項目明細"
                     OnClick ="[Event Procedure]"
 
-                    LayoutCachedLeft =3663
-                    LayoutCachedTop =4656
-                    LayoutCachedWidth =5931
-                    LayoutCachedHeight =5223
+                    LayoutCachedLeft =3686
+                    LayoutCachedTop =6180
+                    LayoutCachedWidth =5954
+                    LayoutCachedHeight =6747
                 End
                 Begin Label
                     OverlapFlags =85
                     TextAlign =3
                     TextFontFamily =50
-                    Left =1134
-                    Top =4201
+                    Left =1129
+                    Top =5725
                     Width =1125
                     Height =270
                     Name ="lblDkomoku"
                     Caption ="項目："
-                    LayoutCachedLeft =1134
-                    LayoutCachedTop =4201
-                    LayoutCachedWidth =2259
-                    LayoutCachedHeight =4471
+                    LayoutCachedLeft =1129
+                    LayoutCachedTop =5725
+                    LayoutCachedWidth =2254
+                    LayoutCachedHeight =5995
                 End
                 Begin CommandButton
                     OverlapFlags =85
@@ -504,19 +504,19 @@ Begin Form
                 Begin CommandButton
                     OverlapFlags =85
                     TextFontFamily =50
-                    Left =1134
-                    Top =6228
+                    Left =1129
+                    Top =3960
                     Width =2268
                     Height =567
                     TabIndex =9
                     Name ="cmdInput"
-                    Caption ="手動入力"
+                    Caption ="手入力"
                     OnClick ="[Event Procedure]"
 
-                    LayoutCachedLeft =1134
-                    LayoutCachedTop =6228
-                    LayoutCachedWidth =3402
-                    LayoutCachedHeight =6795
+                    LayoutCachedLeft =1129
+                    LayoutCachedTop =3960
+                    LayoutCachedWidth =3397
+                    LayoutCachedHeight =4527
                 End
                 Begin CommandButton
                     OverlapFlags =85
@@ -557,35 +557,35 @@ Begin Form
                     OverlapFlags =85
                     TextAlign =1
                     TextFontFamily =50
-                    Left =737
-                    Top =3348
-                    Width =492
+                    Left =732
+                    Top =4872
+                    Width =1134
                     Height =240
                     FontSize =10
                     FontWeight =700
                     Name ="ラベル20"
-                    Caption ="出力"
-                    LayoutCachedLeft =737
-                    LayoutCachedTop =3348
-                    LayoutCachedWidth =1229
-                    LayoutCachedHeight =3588
+                    Caption ="一覧出力"
+                    LayoutCachedLeft =732
+                    LayoutCachedTop =4872
+                    LayoutCachedWidth =1866
+                    LayoutCachedHeight =5112
                 End
                 Begin Label
                     OverlapFlags =85
-                    TextAlign =2
+                    TextAlign =1
                     TextFontFamily =50
-                    Left =737
-                    Top =5772
-                    Width =492
+                    Left =732
+                    Top =3504
+                    Width =2835
                     Height =240
                     FontSize =10
                     FontWeight =700
                     Name ="ラベル22"
-                    Caption ="入力"
-                    LayoutCachedLeft =737
-                    LayoutCachedTop =5772
-                    LayoutCachedWidth =1229
-                    LayoutCachedHeight =6012
+                    Caption ="入力/編集/削除"
+                    LayoutCachedLeft =732
+                    LayoutCachedTop =3504
+                    LayoutCachedWidth =3567
+                    LayoutCachedHeight =3744
                 End
                 Begin Line
                     BorderWidth =1
@@ -721,8 +721,8 @@ Begin Form
                 Begin CommandButton
                     OverlapFlags =85
                     TextFontFamily =50
-                    Left =3968
-                    Top =8050
+                    Left =3686
+                    Top =8051
                     Width =2268
                     Height =567
                     TabIndex =13
@@ -730,16 +730,16 @@ Begin Form
                     Caption ="勘定分類"
                     OnClick ="[Event Procedure]"
 
-                    LayoutCachedLeft =3968
-                    LayoutCachedTop =8050
-                    LayoutCachedWidth =6236
-                    LayoutCachedHeight =8617
+                    LayoutCachedLeft =3686
+                    LayoutCachedTop =8051
+                    LayoutCachedWidth =5954
+                    LayoutCachedHeight =8618
                 End
                 Begin CommandButton
                     OverlapFlags =85
                     TextFontFamily =50
-                    Left =3968
-                    Top =8737
+                    Left =3686
+                    Top =8738
                     Width =2268
                     Height =567
                     TabIndex =14
@@ -747,10 +747,10 @@ Begin Form
                     Caption ="勘定科目"
                     OnClick ="[Event Procedure]"
 
-                    LayoutCachedLeft =3968
-                    LayoutCachedTop =8737
-                    LayoutCachedWidth =6236
-                    LayoutCachedHeight =9304
+                    LayoutCachedLeft =3686
+                    LayoutCachedTop =8738
+                    LayoutCachedWidth =5954
+                    LayoutCachedHeight =9305
                 End
                 Begin Label
                     OverlapFlags =85
@@ -773,18 +773,35 @@ Begin Form
                     OverlapFlags =85
                     TextAlign =1
                     TextFontFamily =50
-                    Left =3968
-                    Top =7655
+                    Left =3686
+                    Top =7656
                     Width =1985
                     Height =240
                     FontSize =10
                     FontWeight =700
                     Name ="ラベル35"
                     Caption ="確定申告"
-                    LayoutCachedLeft =3968
-                    LayoutCachedTop =7655
-                    LayoutCachedWidth =5953
-                    LayoutCachedHeight =7895
+                    LayoutCachedLeft =3686
+                    LayoutCachedTop =7656
+                    LayoutCachedWidth =5671
+                    LayoutCachedHeight =7896
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    TextFontFamily =50
+                    Left =3686
+                    Top =3968
+                    Width =2268
+                    Height =567
+                    TabIndex =15
+                    Name ="cmdEdit"
+                    Caption ="編集/削除"
+                    OnClick ="[Event Procedure]"
+
+                    LayoutCachedLeft =3686
+                    LayoutCachedTop =3968
+                    LayoutCachedWidth =5954
+                    LayoutCachedHeight =4535
                 End
             End
         End

@@ -15,7 +15,7 @@ End Sub
 
 ' 登録ボタン
 Private Sub cmdEnter_Click()
-    If MsgBox("上記を手動登録します。よろしいですか？", vbYesNo + vbQuestion, "確認") = vbNo Then Exit Sub
+    If MsgBox("表示内容を手動登録します" & vbCrLf & "よろしいですか？", vbYesNo + vbQuestion, "確認") = vbNo Then Exit Sub
 
     ' クラスに処理を委譲
     If App.Registry.RegisterManualEntry(Me!txtHizuke, Me!txtNaiyo, Me!txtKingaku, _
