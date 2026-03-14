@@ -51,7 +51,7 @@ Public Sub ExtractToWorkTable(dFrom As Date, dTo As Date, optB As Integer, Optio
 End Sub
 
 Public Function GetCategoryList(strB As String, Optional dKomokuCD As Variant = Null) As Variant
-'抽出テーブルに含まれる大項目CD/中項目CD/勘定科目CDのリストを取得
+'抽出テーブルに含まれる各項目CDのリストを取得
 'strBはフォームの一覧に表示する項目名、dKomokuCDはメニューで指定した抽出に用いる項目
 
     Dim rs As DAO.Recordset
@@ -110,7 +110,7 @@ Private Function NormalizeColumnName(strCD As String) As String
         Case "大項目CD", "中項目CD", "勘定科目CD"
             NormalizeColumnName = strCD
         Case Else
-            Err.Raise vbObjectError + 1, "clsDataSelector", "許可されていない列名です。"
+            Err.Raise vbObjectError + 1, "clsDataSelector", "許可されていないフィールド名です。"
     End Select
 
 End Function
@@ -136,6 +136,7 @@ End Sub
 
 Public Sub LoadWorkTable(fromTable As String, toTable As String)
 'ワークテーブルにすべてのフィールドをコピー
+'同じ構成であることが要件
 
     Dim db As DAO.Database: Set db = CurrentDb
     Dim strSQL As String
@@ -150,7 +151,7 @@ Public Sub LoadWorkTable(fromTable As String, toTable As String)
 End Sub
 
 Public Sub ApplyDiff(mstTbl As String, wkTbl As String, keyCD As String)
-'マスタテーブルメンテナンス画面による更新のテーブルへの反映
+'ワークテーブルから本テーブルへの更新
 
     Dim ws As DAO.Workspace
     Dim db As DAO.Database

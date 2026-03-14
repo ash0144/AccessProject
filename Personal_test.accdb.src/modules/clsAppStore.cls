@@ -15,6 +15,7 @@ Option Explicit
 Private pPeriod  As New clsPeriodManager
 Private pSelector As New clsDataSelector
 Private pRegistry As New clsDataRegistry
+Private pForm As New clsFormFormat
 
 ' フォームからは、ここの窓口を通して各機能を呼び出す
 
@@ -28,6 +29,10 @@ End Property
 
 Public Property Get Registry() As clsDataRegistry
     Set Registry = pRegistry
+End Property
+
+Public Property Get FormF() As clsFormFormat
+    Set FormF = pForm
 End Property
 
 'よく使う一連の流れを「セットメニュー」として提供することも可能

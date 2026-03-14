@@ -6,7 +6,7 @@
   "Items": {
     "MergeBuildDate": null,
     "FullBuildDate": "2026-03-07T06:45:55.000Z",
-    "ExportDate": "2026-03-13T16:20:16.000Z",
+    "ExportDate": "2026-03-14T16:33:13.000Z",
     "FullExportDate": "2026-03-07T02:45:49.000Z",
     "OptionsHash": "1e652c7",
     "LastMergedCommit": "",
@@ -35,11 +35,18 @@
       },
       "Forms": {
         "frmEditMF.bas": {
-          "FileHash": "3053634",
+          "FileHash": "08accec",
           "OtherHash": "3d5c577",
-          "ExportDate": "2026-03-13T16:20:16.000Z",
+          "ExportDate": "2026-03-14T16:32:23.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "f97f269"
+          "FilePropertiesHash": "21b0551"
+        },
+        "frmEditMFsub.bas": {
+          "FileHash": "4b3c0c0",
+          "OtherHash": "3d5c577",
+          "ExportDate": "2026-03-14T16:32:24.000Z",
+          "SourceModified": null,
+          "FilePropertiesHash": "6aec7dc"
         },
         "frmKamokubetu.bas": {
           "FileHash": "aa00459",
@@ -195,12 +202,12 @@
       },
       "Modules": {
         "clsAppStore.cls": {
-          "FileHash": "4ad60c9",
-          "ExportDate": "2026-03-10T15:03:30.000Z",
+          "FileHash": "40f953d",
+          "ExportDate": "2026-03-14T16:32:22.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "5d010cb",
+          "FilePropertiesHash": "56186ed",
           "ImportDate": "2026-03-07T06:45:51.000Z",
-          "OtherHash": "4a18c70"
+          "OtherHash": "75bb4b0"
         },
         "clsDataRegistry.cls": {
           "FileHash": "e451748",
@@ -211,12 +218,19 @@
           "OtherHash": "7552c2f"
         },
         "clsDataSelector.cls": {
-          "FileHash": "ea0cd24",
-          "ExportDate": "2026-03-12T15:53:30.000Z",
+          "FileHash": "60f5600",
+          "ExportDate": "2026-03-14T16:32:22.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "594fecb",
+          "FilePropertiesHash": "d48223d",
           "ImportDate": "2026-03-07T06:45:51.000Z",
-          "OtherHash": "8c5f306"
+          "OtherHash": "687e1d2"
+        },
+        "clsFormFormat.cls": {
+          "FileHash": "de23b40",
+          "OtherHash": "69f1804",
+          "ExportDate": "2026-03-14T16:33:13.000Z",
+          "SourceModified": null,
+          "FilePropertiesHash": "f37a689"
         },
         "clsMyButton.cls": {
           "FileHash": "d28f84b",
