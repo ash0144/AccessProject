@@ -14,11 +14,13 @@ Begin Form
     ItemSuffix =86
     Right =14172
     Bottom =11568
+    OnUnload ="[Event Procedure]"
     RecSrcDt = Begin
         0x1db95bc7e181e640
     End
     RecordSource ="MoneyForwardWk"
     DatasheetFontName ="ＭＳ Ｐゴシック"
+    OnLoad ="[Event Procedure]"
     FilterOnLoad =0
     ShowPageMargins =0
     DisplayOnSharePointSite =1
@@ -261,7 +263,6 @@ Begin Form
                     RowSourceType ="Table/Query"
                     RowSource ="大項目"
                     ColumnWidths ="0;1701"
-                    OnClick ="[Event Procedure]"
                     Format ="@"
 
                     LayoutCachedLeft =6630
@@ -576,7 +577,6 @@ Begin Form
                     Height =567
                     Name ="cmdCancel"
                     Caption ="閉じる"
-                    OnClick ="[Event Procedure]"
 
                     LayoutCachedLeft =566
                     LayoutCachedTop =283

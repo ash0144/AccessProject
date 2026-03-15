@@ -5,21 +5,51 @@ Attribute VB_Exposed = False
 Option Compare Database
 Option Explicit
 
-Private App As New clsAppStore
+Private mFormatter As clsFormFormat
 
-Private Sub cmbDkomoku_Click()
-    Me!cmbCkomoku.RowSource = "SELECT 中項目 FROM 中項目 WHERE 大項目CD=" & Nz(Me!cmbDkomoku, 0) & ";"
+Private Sub Form_Load()
+    Set mFormatter = New clsFormFormat
+    mFormatter.SetupItemForm Me
+    mFormatter.OnLoad
 End Sub
 
-Private Sub cmdCancel_Click()
-
-    DoCmd.Close acForm, Me.name
-
+Private Sub Form_Unload(Cancel As Integer)
+    If Not mFormatter Is Nothing Then
+        mFormatter.OnUnload
+        Set mFormatter = Nothing
+    End If
 End Sub
 
-Private Sub cmdEnter_Click()
+Private Sub btnSearch_Click()
+    mFormatter.Search
+End Sub
 
-    Me.Requery
-    Call App.Selector.ApplyDiff("中項目", "中項目Wk", "中項目CD")
+Private Sub btnClear_Click()
+    mFormatter.ClearSearch
+End Sub
 
+Private Sub cboLargeCategory_AfterUpdate()
+    mFormatter.LargeCategoryAfterUpdate
+End Sub
+
+Private Sub btnAdd_Click()
+    mFormatter.AddNew
+End Sub
+
+Private Sub btnEdit_Click()
+    mFormatter.EditCurrent
+End Sub
+
+Private Sub btnDelete_Click()
+    mFormatter.DeleteCurrent
+End Sub
+
+Private Sub btnConfirm_Click()
+    mFormatter.ConfirmEdit
+End Sub
+
+Public Sub RefreshSelectedInfo()
+    If Not mFormatter Is Nothing Then
+        mFormatter.ShowCurrentRecord
+    End If
 End Sub

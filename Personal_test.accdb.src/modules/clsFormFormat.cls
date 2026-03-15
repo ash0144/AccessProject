@@ -10,598 +10,359 @@ Attribute VB_Exposed = False
 Option Compare Database
 Option Explicit
 
-'========================================================
-' フォーム標準フレームワーク
-'========================================================
+Private mFrmMain As Form
+
+Private mSubFormControlName As String
+
+Private mDateFieldName As String
+Private mLargeCategoryFieldName As String
+Private mMiddleCategoryFieldName As String
+Private mTextSearchFields As Variant
+
+Private mKeyFieldName As String
+Private mDisplayFieldName As String
+Private mFirstFocusControlName As String
+
+Private mDefaultOrderBy As String
+
+Private mRelatedTableName As String
+Private mRelatedFieldName As String
+
+Private mLargeCategoryComboName As String
+Private mMiddleCategoryComboName As String
 
 '----------------------------------------
-' 初期表示モード
+' この画面専用セットアップ
 '----------------------------------------
-Public Sub InitFormMode(frm As Form)
-    On Error GoTo EH
+Public Sub SetupItemForm(ByVal frmMain As Form)
 
-    frm.AllowAdditions = True
-    frm.AllowEdits = False
-    frm.AllowDeletions = False
+    Set mFrmMain = frmMain
 
-    SetEditButtons frm, False
+    mSubFormControlName = "subList"
 
-    Exit Sub
+    mDateFieldName = "対象日"
+    mLargeCategoryFieldName = "大分類ID"
+    mMiddleCategoryFieldName = "中分類ID"
+    mTextSearchFields = Array("項目名", "項目コード", "備考")
 
-EH:
-    MsgBox "フォーム初期化中にエラーが発生しました。" & vbCrLf & _
-           Err.Number & " : " & Err.Description, vbExclamation
+    mKeyFieldName = "項目ID"
+    mDisplayFieldName = "項目名"
+    mFirstFocusControlName = "項目名"
+
+    mDefaultOrderBy = "[対象日] DESC, [項目ID] ASC"
+
+    mRelatedTableName = "T_明細"
+    mRelatedFieldName = "項目ID"
+
+    mLargeCategoryComboName = "cboLargeCategory"
+    mMiddleCategoryComboName = "cboMiddleCategory"
+
 End Sub
 
 '----------------------------------------
-' 編集モードへ
+' サブフォーム取得
 '----------------------------------------
-Public Sub BeginEditMode(frm As Form)
-    On Error GoTo EH
+Private Property Get SubFrm() As Form
+    Set SubFrm = mFrmMain.Controls(mSubFormControlName).Form
+End Property
 
-    frm.AllowEdits = True
-    frm.AllowAdditions = True
-    frm.AllowDeletions = False
+'----------------------------------------
+' 起動時
+'----------------------------------------
+Public Sub OnLoad()
 
-    SetEditButtons frm, True
+    SetButtonMode False
 
-    Exit Sub
+    With SubFrm
+        .AllowEdits = False
+        .AllowAdditions = True
+        .AllowDeletions = False
 
-EH:
-    MsgBox "編集モード移行中にエラーが発生しました。" & vbCrLf & _
-           Err.Number & " : " & Err.Description, vbExclamation
+        If mDefaultOrderBy <> "" Then
+            .OrderBy = mDefaultOrderBy
+            .OrderByOn = True
+        End If
+    End With
+
+    ShowCurrentRecord
+
 End Sub
 
 '----------------------------------------
-' ボタン状態切替
+' 閉じるとき
 '----------------------------------------
-Public Sub SetEditButtons(frm As Form, ByVal isEditing As Boolean)
+Public Sub OnUnload()
     On Error Resume Next
 
-    frm.Controls("cmdAdd").Enabled = Not isEditing
-    frm.Controls("cmdEdit").Enabled = Not isEditing
-    frm.Controls("cmdDelete").Enabled = Not isEditing
-'    frm.Controls("btnRefresh").Enabled = Not isEditing
-    frm.Controls("cmdPickup").Enabled = Not isEditing
-    frm.Controls("cmdClear").Enabled = Not isEditing
+    With SubFrm
+        If .Dirty Then .Undo
+        .AllowEdits = False
+    End With
+End Sub
 
-    frm.Controls("cmdEnter").Enabled = isEditing
-'    frm.Controls("btnCancel").Enabled = isEditing
+'----------------------------------------
+' ボタン状態
+'----------------------------------------
+Private Sub SetButtonMode(ByVal isEditing As Boolean)
+    On Error Resume Next
+
+    mFrmMain!btnAdd.Enabled = Not isEditing
+    mFrmMain!btnEdit.Enabled = Not isEditing
+    mFrmMain!btnDelete.Enabled = Not isEditing
+    mFrmMain!btnSearch.Enabled = Not isEditing
+    mFrmMain!btnClear.Enabled = Not isEditing
+
+    mFrmMain!btnConfirm.Enabled = isEditing
+End Sub
+
+'----------------------------------------
+' 検索
+'----------------------------------------
+Public Sub Search()
+    Dim sWhere As String
+
+    sWhere = BuildSearchWhere()
+
+    With SubFrm
+        If sWhere <> "" Then
+            .Filter = sWhere
+            .FilterOn = True
+        Else
+            .FilterOn = False
+            .Filter = ""
+        End If
+
+        .Requery
+    End With
+
+    ShowCurrentRecord
+End Sub
+
+'----------------------------------------
+' 検索クリア
+'----------------------------------------
+Public Sub ClearSearch()
+    On Error Resume Next
+
+    mFrmMain!txtDateFrom = Null
+    mFrmMain!txtDateTo = Null
+    mFrmMain.Controls(mLargeCategoryComboName) = Null
+    mFrmMain.Controls(mMiddleCategoryComboName) = Null
+    mFrmMain!txtItemName = Null
+
+    mFrmMain.Controls(mMiddleCategoryComboName).Requery
+
+    With SubFrm
+        .FilterOn = False
+        .Filter = ""
+        .Requery
+
+        If mDefaultOrderBy <> "" Then
+            .OrderBy = mDefaultOrderBy
+            .OrderByOn = True
+        End If
+    End With
+
+    ShowCurrentRecord
+End Sub
+
+'----------------------------------------
+' 大分類変更時
+'----------------------------------------
+Public Sub LargeCategoryAfterUpdate()
+    On Error Resume Next
+
+    mFrmMain.Controls(mMiddleCategoryComboName) = Null
+    mFrmMain.Controls(mMiddleCategoryComboName).Requery
 End Sub
 
 '----------------------------------------
 ' 新規
 '----------------------------------------
-Public Sub AddNewRecord(frm As Form, Optional ByVal FirstControlName As String = "")
-    On Error GoTo EH
+Public Sub AddNew()
 
-    BeginEditMode frm
-    DoCmd.GoToRecord , , acNewRec
+    SetButtonMode True
 
-    If Len(FirstControlName) > 0 Then
-        frm.Controls(FirstControlName).SetFocus
-    End If
+    With SubFrm
+        .AllowEdits = True
+        .AllowAdditions = True
+        .SetFocus
+        DoCmd.GoToRecord , , acNewRec
+        .Controls(mFirstFocusControlName).SetFocus
+    End With
 
-    Exit Sub
-
-EH:
-    MsgBox "新規レコード作成でエラーが発生しました。" & vbCrLf & _
-           Err.Number & " : " & Err.Description, vbExclamation
+    ShowCurrentRecord
 End Sub
 
 '----------------------------------------
 ' 編集
 '----------------------------------------
-Public Sub EditCurrentRecord(frm As Form, Optional ByVal FirstControlName As String = "")
-    On Error GoTo EH
+Public Sub EditCurrent()
 
-    If frm.NewRecord Then
-        MsgBox "編集するレコードを選択してください。", vbInformation
-        Exit Sub
-    End If
+    If SubFrm.NewRecord Then Exit Sub
 
-    BeginEditMode frm
+    SetButtonMode True
 
-    If Len(FirstControlName) > 0 Then
-        frm.Controls(FirstControlName).SetFocus
-    End If
+    With SubFrm
+        .AllowEdits = True
+        .SetFocus
+        .Controls(mFirstFocusControlName).SetFocus
+    End With
 
-    Exit Sub
-
-EH:
-    MsgBox "編集処理でエラーが発生しました。" & vbCrLf & _
-           Err.Number & " : " & Err.Description, vbExclamation
+    ShowCurrentRecord
 End Sub
 
 '----------------------------------------
-' 保存
+' 確定
 '----------------------------------------
-Public Function SaveCurrentRecord(frm As Form) As Boolean
-    On Error GoTo EH
+Public Sub ConfirmEdit()
 
-    If frm.Dirty Then
-        frm.Dirty = False
-    End If
+    With SubFrm
+        If .Dirty Then .Dirty = False
+        .Requery
+        .AllowEdits = False
+    End With
 
-    InitFormMode frm
-    SaveCurrentRecord = True
-    Exit Function
-
-EH:
-    MsgBox "保存処理でエラーが発生しました。" & vbCrLf & _
-           Err.Number & " : " & Err.Description, vbExclamation
-    SaveCurrentRecord = False
-End Function
-
-'----------------------------------------
-' 取消
-'----------------------------------------
-Public Function CancelEdit(frm As Form) As Boolean
-    On Error GoTo EH
-
-    If frm.Dirty Then
-        frm.Undo
-    End If
-
-    InitFormMode frm
-    CancelEdit = True
-    Exit Function
-
-EH:
-    MsgBox "取消処理でエラーが発生しました。" & vbCrLf & _
-           Err.Number & " : " & Err.Description, vbExclamation
-    CancelEdit = False
-End Function
-
-'----------------------------------------
-' 再表示
-'----------------------------------------
-Public Sub RefreshRecordList(frm As Form)
-    On Error GoTo EH
-
-    frm.Requery
-    InitFormMode frm
-
-    Exit Sub
-
-EH:
-    MsgBox "再表示中にエラーが発生しました。" & vbCrLf & _
-           Err.Number & " : " & Err.Description, vbExclamation
+    SetButtonMode False
+    ShowCurrentRecord
 End Sub
-
-'----------------------------------------
-' 保存確認
-'----------------------------------------
-Public Function ConfirmSaveIfDirty(frm As Form) As Boolean
-    On Error GoTo EH
-
-    Dim ret As VbMsgBoxResult
-
-    If Not frm.Dirty Then
-        ConfirmSaveIfDirty = True
-        Exit Function
-    End If
-
-    ret = MsgBox( _
-        "変更内容が保存されていません。" & vbCrLf & _
-        "保存しますか？", _
-        vbYesNoCancel + vbQuestion, _
-        "保存確認")
-
-    Select Case ret
-        Case vbYes
-            frm.Dirty = False
-            InitFormMode frm
-            ConfirmSaveIfDirty = True
-
-        Case vbNo
-            frm.Undo
-            InitFormMode frm
-            ConfirmSaveIfDirty = True
-
-        Case vbCancel
-            ConfirmSaveIfDirty = False
-    End Select
-
-    Exit Function
-
-EH:
-    MsgBox "保存確認中にエラーが発生しました。" & vbCrLf & _
-           Err.Number & " : " & Err.Description, vbExclamation
-    ConfirmSaveIfDirty = False
-End Function
 
 '----------------------------------------
 ' 削除
 '----------------------------------------
-Public Sub DeleteCurrentRecord( _
-    ByVal frm As Form, _
-    ByVal KeyFieldName As String, _
-    ByVal NameFieldName As String, _
-    Optional ByVal RelatedTableName As String = "", _
-    Optional ByVal RelatedFieldName As String = "")
+Public Sub DeleteCurrent()
+    Dim msg As String
+    Dim frmSub As Form
 
-    On Error GoTo EH
+    Set frmSub = SubFrm
 
-    Dim vKey As Variant
-    Dim vName As Variant
-    Dim sMsg As String
+    If frmSub.NewRecord Then Exit Sub
 
-    If frm.NewRecord Then Exit Sub
-
-    vKey = frm.Controls(KeyFieldName).Value
-    vName = frm.Controls(NameFieldName).Value
-
-    If Len(RelatedTableName) > 0 And Len(RelatedFieldName) > 0 Then
-        If HasRelatedRecord(RelatedTableName, RelatedFieldName, vKey) Then
-            MsgBox "関連データが存在するため削除できません。", vbExclamation, "削除不可"
+    If mRelatedTableName <> "" And mRelatedFieldName <> "" Then
+        If HasRelatedRecord(mRelatedTableName, mRelatedFieldName, frmSub.Controls(mKeyFieldName)) Then
+            MsgBox "関連データで使用中のため削除できません。", vbExclamation
             Exit Sub
         End If
     End If
 
-    sMsg = "以下のレコードを削除します。" & vbCrLf & vbCrLf & _
-           KeyFieldName & " : " & Nz(vKey, "") & vbCrLf & _
-           NameFieldName & " : " & Nz(vName, "") & vbCrLf & vbCrLf & _
-           "よろしいですか？"
+    msg = "以下のレコードを削除します。" & vbCrLf & vbCrLf & _
+          mKeyFieldName & " : " & Nz(frmSub.Controls(mKeyFieldName), "") & vbCrLf & _
+          mDisplayFieldName & " : " & Nz(frmSub.Controls(mDisplayFieldName), "") & vbCrLf & vbCrLf & _
+          "よろしいですか？"
 
-    If MsgBox(sMsg, vbYesNo + vbQuestion + vbDefaultButton2, "削除確認") = vbNo Then
+    If MsgBox(msg, vbYesNo + vbQuestion + vbDefaultButton2, "削除確認") = vbNo Then
         Exit Sub
     End If
 
-    frm.SetFocus
+    frmSub.SetFocus
     DoCmd.RunCommand acCmdDeleteRecord
+    frmSub.Requery
 
-    InitFormMode frm
-    Exit Sub
-
-EH:
-    MsgBox "削除処理中にエラーが発生しました。" & vbCrLf & _
-           Err.Number & " : " & Err.Description, vbExclamation
+    SetButtonMode False
+    ShowCurrentRecord
 End Sub
 
 '----------------------------------------
-' 関連データ存在チェック
+' 選択中表示
 '----------------------------------------
-Public Function HasRelatedRecord( _
-    ByVal TableName As String, _
-    ByVal FieldName As String, _
-    ByVal KeyValue As Variant) As Boolean
-
+Public Sub ShowCurrentRecord()
     On Error GoTo EH
 
-    Dim sWhere As String
-
-    If IsNull(KeyValue) Then
-        HasRelatedRecord = False
-        Exit Function
-    End If
-
-    If IsNumeric(KeyValue) Then
-        sWhere = "[" & FieldName & "] = " & KeyValue
-    Else
-        sWhere = "[" & FieldName & "] = '" & Replace(KeyValue, "'", "''") & "'"
-    End If
-
-    HasRelatedRecord = (DCount("*", TableName, sWhere) > 0)
-    Exit Function
-
-EH:
-    MsgBox "関連データ確認中にエラーが発生しました。" & vbCrLf & _
-           Err.Number & " : " & Err.Description, vbExclamation
-    HasRelatedRecord = True
-End Function
-
-'========================================================
-' 検索・抽出系
-'========================================================
-
-'----------------------------------------
-' 文字列をSQL安全用に整形
-'----------------------------------------
-Public Function EscapeLikeValue(ByVal s As String) As String
-    Dim tmp As String
-
-    tmp = s
-    tmp = Replace(tmp, "'", "''")
-    tmp = Replace(tmp, "[", "[[]")
-    tmp = Replace(tmp, "*", "[*]")
-    tmp = Replace(tmp, "?", "[?]")
-    tmp = Replace(tmp, "#", "[#]")
-
-    EscapeLikeValue = tmp
-End Function
-
-'----------------------------------------
-' WHERE条件を組み立ててFilter適用
-' SearchFieldNames : Array("商品名", "商品コード")
-'----------------------------------------
-Public Sub ApplySearchFilter( _
-    ByVal frm As Form, _
-    ByVal SearchText As String, _
-    ByVal SearchFieldNames As Variant, _
-    Optional ByVal ComboFieldName As String = "", _
-    Optional ByVal ComboValue As Variant = Null)
-
-    On Error GoTo EH
-
-    Dim sFilter As String
-    Dim sOr As String
-    Dim i As Long
-    Dim sText As String
-
-    sFilter = ""
-
-    sText = Trim$(Nz(SearchText, ""))
-
-    If sText <> "" Then
-        sText = EscapeLikeValue(sText)
-
-        For i = LBound(SearchFieldNames) To UBound(SearchFieldNames)
-            If sOr <> "" Then sOr = sOr & " OR "
-            sOr = sOr & "[" & CStr(SearchFieldNames(i)) & "] Like '*" & sText & "*'"
-        Next i
-
-        sFilter = "(" & sOr & ")"
-    End If
-
-    If Len(ComboFieldName) > 0 Then
-        If Not IsNull(ComboValue) And Nz(ComboValue, "") <> "" Then
-            If sFilter <> "" Then sFilter = sFilter & " AND "
-
-            If IsNumeric(ComboValue) Then
-                sFilter = sFilter & "[" & ComboFieldName & "] = " & ComboValue
-            Else
-                sFilter = sFilter & "[" & ComboFieldName & "] = '" & Replace(CStr(ComboValue), "'", "''") & "'"
-            End If
+    With SubFrm
+        If .RecordsetClone.RecordCount = 0 Then
+            mFrmMain!txtSelInfo = ""
+        ElseIf .NewRecord Then
+            mFrmMain!txtSelInfo = "新規レコード入力中"
+        Else
+            mFrmMain!txtSelInfo = _
+                Nz(.Controls(mKeyFieldName), "") & " / " & _
+                Nz(.Controls(mDisplayFieldName), "")
         End If
+    End With
+
+    Exit Sub
+
+EH:
+    mFrmMain!txtSelInfo = ""
+End Sub
+
+'----------------------------------------
+' WHERE句作成
+'----------------------------------------
+Private Function BuildSearchWhere() As String
+    Dim sWhere As String
+    Dim sTextCondition As String
+
+    sWhere = ""
+
+    If Not IsNull(mFrmMain!txtDateFrom) And mFrmMain!txtDateFrom <> "" Then
+        AddWhere sWhere, "[" & mDateFieldName & "] >= #" & _
+                         Format(mFrmMain!txtDateFrom, "yyyy/mm/dd") & "#"
     End If
 
-    If sFilter <> "" Then
-        frm.Filter = sFilter
-        frm.FilterOn = True
+    If Not IsNull(mFrmMain!txtDateTo) And mFrmMain!txtDateTo <> "" Then
+        AddWhere sWhere, "[" & mDateFieldName & "] < #" & _
+                         Format(DateAdd("d", 1, mFrmMain!txtDateTo), "yyyy/mm/dd") & "#"
+    End If
+
+    If Nz(mFrmMain.Controls(mLargeCategoryComboName), "") <> "" Then
+        AddWhere sWhere, "[" & mLargeCategoryFieldName & "] = " & _
+                         mFrmMain.Controls(mLargeCategoryComboName)
+    End If
+
+    If Nz(mFrmMain.Controls(mMiddleCategoryComboName), "") <> "" Then
+        AddWhere sWhere, "[" & mMiddleCategoryFieldName & "] = " & _
+                         mFrmMain.Controls(mMiddleCategoryComboName)
+    End If
+
+    sTextCondition = BuildTextSearchCondition(Nz(mFrmMain!txtItemName, ""))
+    If sTextCondition <> "" Then
+        AddWhere sWhere, sTextCondition
+    End If
+
+    BuildSearchWhere = sWhere
+End Function
+
+'----------------------------------------
+' 文字検索条件
+'----------------------------------------
+Private Function BuildTextSearchCondition(ByVal SearchText As String) As String
+    Dim i As Long
+    Dim s As String
+    Dim sOr As String
+
+    s = Trim$(Nz(SearchText, ""))
+    If s = "" Then Exit Function
+
+    s = EscapeText(s)
+
+    If IsArray(mTextSearchFields) Then
+        For i = LBound(mTextSearchFields) To UBound(mTextSearchFields)
+            If sOr <> "" Then sOr = sOr & " OR "
+            sOr = sOr & "[" & CStr(mTextSearchFields(i)) & "] Like '*" & s & "*'"
+        Next i
     Else
-        frm.FilterOn = False
-        frm.Filter = ""
+        sOr = "[" & CStr(mTextSearchFields) & "] Like '*" & s & "*'"
     End If
 
-    Exit Sub
-
-EH:
-    MsgBox "抽出処理でエラーが発生しました。" & vbCrLf & _
-           Err.Number & " : " & Err.Description & vbCrLf & vbCrLf & _
-           "Filter = " & sFilter, vbExclamation
-End Sub
-
-'----------------------------------------
-' 検索欄クリア
-'----------------------------------------
-Public Sub ClearSearchControls(frm As Form, _
-                               Optional ByVal SearchControlName As String = "txtSearch", _
-                               Optional ByVal ComboControlName As String = "cboFilterKubun")
-    On Error Resume Next
-
-    frm.Controls(SearchControlName).Value = Null
-    frm.Controls(ComboControlName).Value = Null
-End Sub
-
-'----------------------------------------
-' フィルタ解除＋再表示
-'----------------------------------------
-Public Sub ClearFilterAndRefresh(frm As Form)
-    On Error GoTo EH
-
-    frm.FilterOn = False
-    frm.Filter = ""
-    frm.Requery
-    InitFormMode frm
-
-    Exit Sub
-
-EH:
-    MsgBox "フィルタ解除中にエラーが発生しました。" & vbCrLf & _
-           Err.Number & " : " & Err.Description, vbExclamation
-End Sub
-
-'----------------------------------------
-' 並び替え適用
-' SortText例: "[商品ID] ASC", "[更新日] DESC"
-'----------------------------------------
-Public Sub ApplySort(frm As Form, ByVal SortText As String)
-    On Error GoTo EH
-
-    frm.OrderBy = SortText
-    frm.OrderByOn = True
-
-    Exit Sub
-
-EH:
-    MsgBox "並び替え処理でエラーが発生しました。" & vbCrLf & _
-           Err.Number & " : " & Err.Description, vbExclamation
-End Sub
-
-'----------------------------------------
-' 並び替え解除
-'----------------------------------------
-Public Sub ClearSort(frm As Form)
-    On Error Resume Next
-
-    frm.OrderByOn = False
-    frm.OrderBy = ""
-End Sub
-
-'----------------------------------------
-' サブフォームコントロールから実フォーム取得
-'----------------------------------------
-Public Function GetSubForm(ByVal frmMain As Form, _
-                           ByVal SubFormControlName As String) As Form
-    On Error GoTo EH
-
-    Set GetSubForm = frmMain.Controls(SubFormControlName).Form
-    Exit Function
-
-EH:
-    MsgBox "サブフォーム取得中にエラーが発生しました。" & vbCrLf & _
-           "コントロール名: " & SubFormControlName & vbCrLf & _
-           Err.Number & " : " & Err.Description, vbExclamation
-    Set GetSubForm = Nothing
+    If sOr <> "" Then
+        BuildTextSearchCondition = "(" & sOr & ")"
+    End If
 End Function
 
 '----------------------------------------
-' サブフォームに検索適用
+' WHERE追加
 '----------------------------------------
-Public Sub ApplySearchToSubForm( _
-    ByVal frmMain As Form, _
-    ByVal SubFormControlName As String, _
-    ByVal SearchText As String, _
-    ByVal SearchFieldNames As Variant, _
-    Optional ByVal ComboFieldName As String = "", _
-    Optional ByVal ComboValue As Variant = Null)
-
-    On Error GoTo EH
-
-    Dim frmSub As Form
-
-    Set frmSub = GetSubForm(frmMain, SubFormControlName)
-    If frmSub Is Nothing Then Exit Sub
-
-    ApplySearchFilter frmSub, SearchText, SearchFieldNames, ComboFieldName, ComboValue
-    Exit Sub
-
-EH:
-    MsgBox "サブフォーム抽出中にエラーが発生しました。" & vbCrLf & _
-           Err.Number & " : " & Err.Description, vbExclamation
+Private Sub AddWhere(ByRef sWhere As String, ByVal sCondition As String)
+    If sWhere <> "" Then
+        sWhere = sWhere & " AND "
+    End If
+    sWhere = sWhere & sCondition
 End Sub
 
 '----------------------------------------
-' サブフォームのフィルタ解除＋再表示
+' 文字列エスケープ
 '----------------------------------------
-Public Sub ClearSubFormFilterAndRefresh( _
-    ByVal frmMain As Form, _
-    ByVal SubFormControlName As String)
-
-    On Error GoTo EH
-
-    Dim frmSub As Form
-
-    Set frmSub = GetSubForm(frmMain, SubFormControlName)
-    If frmSub Is Nothing Then Exit Sub
-
-    ClearFilterAndRefresh frmSub
-    Exit Sub
-
-EH:
-    MsgBox "サブフォーム再表示中にエラーが発生しました。" & vbCrLf & _
-           Err.Number & " : " & Err.Description, vbExclamation
-End Sub
-
-'----------------------------------------
-' サブフォームの新規
-'----------------------------------------
-Public Sub AddNewInSubForm( _
-    ByVal frmMain As Form, _
-    ByVal SubFormControlName As String, _
-    Optional ByVal FirstControlName As String = "")
-
-    Dim frmSub As Form
-
-    Set frmSub = GetSubForm(frmMain, SubFormControlName)
-    If frmSub Is Nothing Then Exit Sub
-
-    AddNewRecord frmSub, FirstControlName
-End Sub
-
-'----------------------------------------
-' サブフォームの編集
-'----------------------------------------
-Public Sub EditCurrentInSubForm( _
-    ByVal frmMain As Form, _
-    ByVal SubFormControlName As String, _
-    Optional ByVal FirstControlName As String = "")
-
-    Dim frmSub As Form
-
-    Set frmSub = GetSubForm(frmMain, SubFormControlName)
-    If frmSub Is Nothing Then Exit Sub
-
-    EditCurrentRecord frmSub, FirstControlName
-End Sub
-
-'----------------------------------------
-' サブフォームの保存
-'----------------------------------------
-Public Function SaveCurrentInSubForm( _
-    ByVal frmMain As Form, _
-    ByVal SubFormControlName As String) As Boolean
-
-    Dim frmSub As Form
-
-    Set frmSub = GetSubForm(frmMain, SubFormControlName)
-    If frmSub Is Nothing Then Exit Function
-
-    SaveCurrentInSubForm = SaveCurrentRecord(frmSub)
+Private Function EscapeText(ByVal s As String) As String
+    EscapeText = Replace(s, "'", "''")
 End Function
-
-'----------------------------------------
-' サブフォームの取消
-'----------------------------------------
-Public Function CancelEditInSubForm( _
-    ByVal frmMain As Form, _
-    ByVal SubFormControlName As String) As Boolean
-
-    Dim frmSub As Form
-
-    Set frmSub = GetSubForm(frmMain, SubFormControlName)
-    If frmSub Is Nothing Then Exit Function
-
-    CancelEditInSubForm = CancelEdit(frmSub)
-End Function
-
-'----------------------------------------
-' サブフォームの削除
-'----------------------------------------
-Public Sub DeleteCurrentInSubForm( _
-    ByVal frmMain As Form, _
-    ByVal SubFormControlName As String, _
-    ByVal KeyFieldName As String, _
-    ByVal NameFieldName As String, _
-    Optional ByVal RelatedTableName As String = "", _
-    Optional ByVal RelatedFieldName As String = "")
-
-    Dim frmSub As Form
-
-    Set frmSub = GetSubForm(frmMain, SubFormControlName)
-    If frmSub Is Nothing Then Exit Sub
-
-    DeleteCurrentRecord frmSub, KeyFieldName, NameFieldName, RelatedTableName, RelatedFieldName
-End Sub
-
-'----------------------------------------
-' サブフォーム再表示
-'----------------------------------------
-Public Sub RefreshSubFormList( _
-    ByVal frmMain As Form, _
-    ByVal SubFormControlName As String)
-
-    Dim frmSub As Form
-
-    Set frmSub = GetSubForm(frmMain, SubFormControlName)
-    If frmSub Is Nothing Then Exit Sub
-
-    RefreshRecordList frmSub
-End Sub
-
-'----------------------------------------
-' サブフォーム並び替え
-'----------------------------------------
-Public Sub ApplySortToSubForm( _
-    ByVal frmMain As Form, _
-    ByVal SubFormControlName As String, _
-    ByVal SortText As String)
-
-    Dim frmSub As Form
-
-    Set frmSub = GetSubForm(frmMain, SubFormControlName)
-    If frmSub Is Nothing Then Exit Sub
-
-    ApplySort frmSub, SortText
-End Sub

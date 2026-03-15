@@ -238,12 +238,68 @@ DoCmd.SetWarnings True
 
 End Sub
 
-Public Sub CheckFields()
+Public Sub CheckFields(tableName As String)
+'テスト用：指定テーブルのフィールド名とデータ型を書き出す
+
     Dim db As DAO.Database: Set db = CurrentDb
-    Dim tdf As DAO.TableDef: Set tdf = db.TableDefs("MoneyForward")
+    Dim tdf As DAO.TableDef: Set tdf = db.TableDefs(tableName)
     Dim fld As DAO.Field
+
     Debug.Print "--- テーブルのフィールド名一覧 ---"
     For Each fld In tdf.Fields
-        Debug.Print "[" & fld.name & "]"
+        Debug.Print "[" & fld.name & "]" & vbTab & FieldTypeName(fld.Type)
     Next fld
 End Sub
+
+Function FieldTypeName(fldType As Long) As String
+'データ型（数値）を文字列として取得する
+    Dim tpn As String
+    Select Case fldType
+        Case dbBigInt:      tpn = "dbBigInt"
+        Case dbBinary:      tpn = "dbBinary"
+        Case dbBoolean:     tpn = "dbBoolean"
+        Case dbByte:        tpn = "dbByte"
+        Case dbChar:        tpn = "dbChar"
+        Case dbCurrency:    tpn = "dbCurrency"
+        Case dbDate:        tpn = "dbDate"
+        Case dbDecimal:     tpn = "dbDecimal"
+        Case dbDouble:      tpn = "dbDouble"
+        Case dbFloat:       tpn = "dbFloat"
+        Case dbGUID:        tpn = "dbGUID"
+        Case dbInteger:     tpn = "dbInteger"
+        Case dbLong:        tpn = "dbLong"
+        Case dbLongBinary:  tpn = "dbLongBinary"
+        Case dbMemo:        tpn = "dbMemo"
+        Case dbNumeric:     tpn = "dbNumeric"
+        Case dbSingle:      tpn = "dbSingle"
+        Case dbText:        tpn = "dbText"
+        Case dbTime:        tpn = "dbTime"
+        Case dbTimeStamp:   tpn = "dbTimeStamp"
+        Case dbVarBinary:   tpn = "dbVarBinary"
+        Case Else:          tpn = "不明: " & fldType
+    End Select
+    FieldTypeName = tpn
+End Function
+
+Public Function HasRelatedRecord( _
+    ByVal tableName As String, _
+    ByVal FieldName As String, _
+    ByVal KeyValue As Variant) As Boolean
+'リレーションテーブルを調べる
+
+    Dim sWhere As String
+
+    If IsNull(KeyValue) Then
+        HasRelatedRecord = False
+        Exit Function
+    End If
+
+    If IsNumeric(KeyValue) Then
+        sWhere = "[" & FieldName & "]=" & KeyValue
+    Else
+        sWhere = "[" & FieldName & "]='" & Replace(KeyValue, "'", "''") & "'"
+    End If
+
+    HasRelatedRecord = (DCount("*", tableName, sWhere) > 0)
+
+End Function

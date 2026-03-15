@@ -5,21 +5,15 @@ Attribute VB_Exposed = False
 Option Compare Database
 Option Explicit
 
-Private App As New clsAppStore
-
-Private Sub cmbDkomoku_Click()
-    Me!cmbCkomoku.RowSource = "SELECT 中項目 FROM 中項目 WHERE 大項目CD=" & Nz(Me!cmbDkomoku, 0) & ";"
+Private Sub Form_Current()
+    On Error Resume Next
+    Me.Parent.RefreshSelectedInfo
 End Sub
 
-Private Sub cmdCancel_Click()
-
-    DoCmd.Close acForm, Me.name
-
-End Sub
-
-Private Sub cmdEnter_Click()
-
-    Me.Requery
-    Call App.Selector.ApplyDiff("中項目", "中項目Wk", "中項目CD")
-
+Private Sub Form_BeforeUpdate(Cancel As Integer)
+    If Nz(Me!項目名, "") = "" Then
+        MsgBox "項目名を入力してください。", vbExclamation
+        Me!項目名.SetFocus
+        Cancel = True
+    End If
 End Sub

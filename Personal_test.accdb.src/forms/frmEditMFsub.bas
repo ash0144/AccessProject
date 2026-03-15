@@ -10,12 +10,16 @@ Begin Form
     Width =18878
     DatasheetFontHeight =11
     ItemSuffix =71
-    Right =14172
-    Bottom =11568
+    Left =912
+    Top =3756
+    Right =20076
+    Bottom =11292
     RecSrcDt = Begin
         0x1db95bc7e181e640
     End
     RecordSource ="MoneyForwardWk"
+    OnCurrent ="[Event Procedure]"
+    BeforeUpdate ="[Event Procedure]"
     DatasheetFontName ="ＭＳ Ｐゴシック"
     FilterOnLoad =0
     ShowPageMargins =0
