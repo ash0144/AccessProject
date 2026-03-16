@@ -11,8 +11,8 @@ Begin Form
     GridY =10
     Width =19994
     DatasheetFontHeight =11
-    ItemSuffix =86
-    Right =14172
+    ItemSuffix =88
+    Right =19740
     Bottom =11568
     OnUnload ="[Event Procedure]"
     RecSrcDt = Begin
@@ -263,6 +263,7 @@ Begin Form
                     RowSourceType ="Table/Query"
                     RowSource ="大項目"
                     ColumnWidths ="0;1701"
+                    AfterUpdate ="[Event Procedure]"
                     Format ="@"
 
                     LayoutCachedLeft =6630
@@ -336,8 +337,9 @@ Begin Form
                     Width =1137
                     Height =561
                     TabIndex =4
-                    Name ="cmdPickUp"
+                    Name ="cmdSearch"
                     Caption ="抽出"
+                    OnClick ="[Event Procedure]"
 
                     LayoutCachedLeft =10148
                     LayoutCachedTop =228
@@ -354,6 +356,7 @@ Begin Form
                     TabIndex =5
                     Name ="cmdClear"
                     Caption ="クリア"
+                    OnClick ="[Event Procedure]"
 
                     LayoutCachedLeft =10152
                     LayoutCachedTop =852
@@ -370,6 +373,7 @@ Begin Form
                     TabIndex =6
                     Name ="cmdAdd"
                     Caption ="新規"
+                    OnClick ="[Event Procedure]"
 
                     LayoutCachedLeft =564
                     LayoutCachedTop =1704
@@ -389,6 +393,7 @@ Begin Form
                     TabIndex =7
                     Name ="cmdEdit"
                     Caption ="編集"
+                    OnClick ="[Event Procedure]"
 
                     LayoutCachedLeft =1812
                     LayoutCachedTop =1704
@@ -409,6 +414,7 @@ Begin Form
                     ForeColor =1643706
                     Name ="cmdDelete"
                     Caption ="削除"
+                    OnClick ="[Event Procedure]"
 
                     LayoutCachedLeft =3059
                     LayoutCachedTop =1704
@@ -426,8 +432,9 @@ Begin Form
                     Height =567
                     FontWeight =700
                     TabIndex =9
-                    Name ="cmdEnter"
+                    Name ="cmdConfirm"
                     Caption ="確定"
+                    OnClick ="[Event Procedure]"
 
                     LayoutCachedLeft =4824
                     LayoutCachedTop =1704
@@ -554,7 +561,7 @@ Begin Form
                     Left =564
                     Width =19428
                     Height =7800
-                    Name ="subMF"
+                    Name ="subList"
                     SourceObject ="Form.frmEditMFsub"
 
                     LayoutCachedLeft =564
@@ -572,17 +579,32 @@ Begin Form
             Begin
                 Begin CommandButton
                     OverlapFlags =85
-                    Left =566
+                    Left =8674
                     Top =283
                     Height =567
-                    Name ="cmdCancel"
+                    Name ="cmdClose"
                     Caption ="閉じる"
+                    OnClick ="[Event Procedure]"
 
-                    LayoutCachedLeft =566
+                    LayoutCachedLeft =8674
                     LayoutCachedTop =283
-                    LayoutCachedWidth =2267
+                    LayoutCachedWidth =10375
                     LayoutCachedHeight =850
                     Overlaps =1
+                End
+                Begin TextBox
+                    OldBorderStyle =0
+                    OverlapFlags =85
+                    Left =566
+                    Top =170
+                    Width =7881
+                    TabIndex =1
+                    Name ="txtSelInfo"
+
+                    LayoutCachedLeft =566
+                    LayoutCachedTop =170
+                    LayoutCachedWidth =8447
+                    LayoutCachedHeight =422
                 End
             End
         End

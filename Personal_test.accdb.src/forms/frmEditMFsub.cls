@@ -11,9 +11,9 @@ Private Sub Form_Current()
 End Sub
 
 Private Sub Form_BeforeUpdate(Cancel As Integer)
-    If Nz(Me!項目名, "") = "" Then
-        MsgBox "項目名を入力してください。", vbExclamation
-        Me!項目名.SetFocus
+    If Nz(Me!txtNaiyo, "") = "" Then
+        MsgBox "内容を入力してください。", vbExclamation
+        Me!txtNaiyo.SetFocus
         Cancel = True
     End If
 End Sub

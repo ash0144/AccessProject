@@ -10,60 +10,70 @@ Attribute VB_Exposed = False
 Option Compare Database
 Option Explicit
 
-Private mFrmMain As Form
+Private App As New clsAppStore
 
-Private mSubFormControlName As String
+Private frmMainForm As Form         'メインフォーム
 
-Private mDateFieldName As String
-Private mLargeCategoryFieldName As String
-Private mMiddleCategoryFieldName As String
-Private mTextSearchFields As Variant
+Private strSubFormCtrN As String    'サブフォームのコントロール名
 
-Private mKeyFieldName As String
-Private mDisplayFieldName As String
-Private mFirstFocusControlName As String
+Private strDateFldN As String       '日付のフィールド名
+Private strDkomokuFldN As String    '大項目のフィールド名
+Private strCkomokuFldN As String    '中項目のフィールド名
+Private valSearchFlds As Variant    '検索するフィールド
 
-Private mDefaultOrderBy As String
+Private strKeyFldN As String        'キーフィールド名
+Private strDisplayFldN As String    '表示フィールド名
+Private str1stFocusCtrN As String   '最初にフォーカスするコントロール名
 
-Private mRelatedTableName As String
-Private mRelatedFieldName As String
+Private strDefaultOrder As String   '既定の並び順
 
-Private mLargeCategoryComboName As String
-Private mMiddleCategoryComboName As String
+Private strRelatedTblN As String    'リレーションテーブル名
+Private strRelatedFldN As String    'リレーションフィールド名
+
+Private strDkomokuCmbN As String    '大項目コンボボックス名
+Private strCkomokuCmbN As String    '中項目コンボボックス名
 
 '----------------------------------------
-' この画面専用セットアップ
+' 共通セットアップ
 '----------------------------------------
 Public Sub SetupItemForm(ByVal frmMain As Form)
 
-    Set mFrmMain = frmMain
+    Set frmMainForm = frmMain
 
-    mSubFormControlName = "subList"
+    strSubFormCtrN = "subList"
 
-    mDateFieldName = "対象日"
-    mLargeCategoryFieldName = "大分類ID"
-    mMiddleCategoryFieldName = "中分類ID"
-    mTextSearchFields = Array("項目名", "項目コード", "備考")
+    strDateFldN = "日付"
+    strDkomokuFldN = "大項目"
+    strCkomokuFldN = "中項目"
+    valSearchFlds = Array("内容", "備考")
 
-    mKeyFieldName = "項目ID"
-    mDisplayFieldName = "項目名"
-    mFirstFocusControlName = "項目名"
+    strKeyFldN = "ID"
+    strDisplayFldN = "内容"
+    str1stFocusCtrN = "txtDate"
 
-    mDefaultOrderBy = "[対象日] DESC, [項目ID] ASC"
+    strDefaultOrder = "[日付] DESC, [中項目CD] ASC"
 
-    mRelatedTableName = "T_明細"
-    mRelatedFieldName = "項目ID"
+    strRelatedTblN = "中項目"
+    strRelatedFldN = "中項目CD"
 
-    mLargeCategoryComboName = "cboLargeCategory"
-    mMiddleCategoryComboName = "cboMiddleCategory"
+    strDkomokuCmbN = "cmbDkomoku"
+    strCkomokuCmbN = "cmbCkomoku"
 
 End Sub
 
 '----------------------------------------
-' サブフォーム取得
+' フォーム参照
 '----------------------------------------
 Private Property Get SubFrm() As Form
-    Set SubFrm = mFrmMain.Controls(mSubFormControlName).Form
+    Set SubFrm = frmMainForm.Controls(strSubFormCtrN).Form
+End Property
+
+Private Property Get MasterTblN() As String
+    MasterTblN = frmMainForm.MasterTblN
+End Property
+
+Private Property Get WorkTblN() As String
+    WorkTblN = frmMainForm.WorkTblN
 End Property
 
 '----------------------------------------
@@ -77,11 +87,8 @@ Public Sub OnLoad()
         .AllowEdits = False
         .AllowAdditions = True
         .AllowDeletions = False
-
-        If mDefaultOrderBy <> "" Then
-            .OrderBy = mDefaultOrderBy
-            .OrderByOn = True
-        End If
+        .OrderBy = strDefaultOrder
+        .OrderByOn = True
     End With
 
     ShowCurrentRecord
@@ -106,13 +113,13 @@ End Sub
 Private Sub SetButtonMode(ByVal isEditing As Boolean)
     On Error Resume Next
 
-    mFrmMain!btnAdd.Enabled = Not isEditing
-    mFrmMain!btnEdit.Enabled = Not isEditing
-    mFrmMain!btnDelete.Enabled = Not isEditing
-    mFrmMain!btnSearch.Enabled = Not isEditing
-    mFrmMain!btnClear.Enabled = Not isEditing
+    frmMainForm!cmdAdd.Enabled = Not isEditing
+    frmMainForm!cmdEdit.Enabled = Not isEditing
+    frmMainForm!cmdDelete.Enabled = Not isEditing
+    frmMainForm!cmdSearch.Enabled = Not isEditing
+    frmMainForm!cmdClear.Enabled = Not isEditing
 
-    mFrmMain!btnConfirm.Enabled = isEditing
+    frmMainForm!cmdConfirm.Enabled = isEditing
 End Sub
 
 '----------------------------------------
@@ -144,23 +151,20 @@ End Sub
 Public Sub ClearSearch()
     On Error Resume Next
 
-    mFrmMain!txtDateFrom = Null
-    mFrmMain!txtDateTo = Null
-    mFrmMain.Controls(mLargeCategoryComboName) = Null
-    mFrmMain.Controls(mMiddleCategoryComboName) = Null
-    mFrmMain!txtItemName = Null
+    frmMainForm!txtDateFrom = Null
+    frmMainForm!txtDateTo = Null
+    frmMainForm.Controls(strDkomokuCmbN) = Null
+    frmMainForm.Controls(strCkomokuCmbN) = Null
+    frmMainForm!txtItemName = Null
 
-    mFrmMain.Controls(mMiddleCategoryComboName).Requery
+    frmMainForm.Controls(strCkomokuCmbN).Requery
 
     With SubFrm
         .FilterOn = False
         .Filter = ""
         .Requery
-
-        If mDefaultOrderBy <> "" Then
-            .OrderBy = mDefaultOrderBy
-            .OrderByOn = True
-        End If
+        .OrderBy = strDefaultOrder
+        .OrderByOn = True
     End With
 
     ShowCurrentRecord
@@ -169,11 +173,11 @@ End Sub
 '----------------------------------------
 ' 大分類変更時
 '----------------------------------------
-Public Sub LargeCategoryAfterUpdate()
+Public Sub DkomokuAfterUpdate()
     On Error Resume Next
 
-    mFrmMain.Controls(mMiddleCategoryComboName) = Null
-    mFrmMain.Controls(mMiddleCategoryComboName).Requery
+    frmMainForm.Controls(strCkomokuCmbN) = Null
+    frmMainForm.Controls(strCkomokuCmbN).Requery
 End Sub
 
 '----------------------------------------
@@ -186,10 +190,11 @@ Public Sub AddNew()
     With SubFrm
         .AllowEdits = True
         .AllowAdditions = True
-        .SetFocus
-        DoCmd.GoToRecord , , acNewRec
-        .Controls(mFirstFocusControlName).SetFocus
     End With
+
+    frmMainForm.Controls(strSubFormCtrN).SetFocus
+    DoCmd.GoToRecord , , acNewRec
+    SubFrm.Controls(str1stFocusCtrN).SetFocus
 
     ShowCurrentRecord
 End Sub
@@ -203,11 +208,10 @@ Public Sub EditCurrent()
 
     SetButtonMode True
 
-    With SubFrm
-        .AllowEdits = True
-        .SetFocus
-        .Controls(mFirstFocusControlName).SetFocus
-    End With
+    SubFrm.AllowEdits = True
+
+    frmMainForm.Controls(strSubFormCtrN).SetFocus
+    SubFrm.Controls(str1stFocusCtrN).SetFocus
 
     ShowCurrentRecord
 End Sub
@@ -219,6 +223,15 @@ Public Sub ConfirmEdit()
 
     With SubFrm
         If .Dirty Then .Dirty = False
+        .Requery
+        .AllowEdits = False
+    End With
+
+    If Nz(WorkTblN, "") <> "" And Nz(MasterTblN, "") <> "" Then
+        Call App.Selector.ApplyDiff(MasterTblN, WorkTblN, strKeyFldN)
+    End If
+
+    With SubFrm
         .Requery
         .AllowEdits = False
     End With
@@ -238,16 +251,16 @@ Public Sub DeleteCurrent()
 
     If frmSub.NewRecord Then Exit Sub
 
-    If mRelatedTableName <> "" And mRelatedFieldName <> "" Then
-        If HasRelatedRecord(mRelatedTableName, mRelatedFieldName, frmSub.Controls(mKeyFieldName)) Then
+    If strRelatedTblN <> "" And strRelatedFldN <> "" Then
+        If HasRelatedRecord(strRelatedTblN, strRelatedFldN, frmSub.Controls(strKeyFldN)) Then
             MsgBox "関連データで使用中のため削除できません。", vbExclamation
             Exit Sub
         End If
     End If
 
     msg = "以下のレコードを削除します。" & vbCrLf & vbCrLf & _
-          mKeyFieldName & " : " & Nz(frmSub.Controls(mKeyFieldName), "") & vbCrLf & _
-          mDisplayFieldName & " : " & Nz(frmSub.Controls(mDisplayFieldName), "") & vbCrLf & vbCrLf & _
+          strKeyFldN & " : " & Nz(frmSub.Controls(strKeyFldN), "") & vbCrLf & _
+          strDisplayFldN & " : " & Nz(frmSub.Controls(strDisplayFldN), "") & vbCrLf & vbCrLf & _
           "よろしいですか？"
 
     If MsgBox(msg, vbYesNo + vbQuestion + vbDefaultButton2, "削除確認") = vbNo Then
@@ -270,20 +283,24 @@ Public Sub ShowCurrentRecord()
 
     With SubFrm
         If .RecordsetClone.RecordCount = 0 Then
-            mFrmMain!txtSelInfo = ""
+            frmMainForm!txtSelInfo = ""
         ElseIf .NewRecord Then
-            mFrmMain!txtSelInfo = "新規レコード入力中"
+            frmMainForm!txtSelInfo = "新規レコード入力中"
         Else
-            mFrmMain!txtSelInfo = _
-                Nz(.Controls(mKeyFieldName), "") & " / " & _
-                Nz(.Controls(mDisplayFieldName), "")
+            If frmMainForm.name = "frmEditMF" Then
+                frmMainForm!txtSelInfo = Nz(.Controls(strDateFldN), "") & " / " & _
+                Nz(.Controls(strDisplayFldN), "")
+            Else
+                frmMainForm!txtSelInfo = Nz(.Controls(strKeyFldN), "") & " / " & _
+                Nz(.Controls(strDisplayFldN), "")
+            End If
         End If
     End With
 
     Exit Sub
 
 EH:
-    mFrmMain!txtSelInfo = ""
+    frmMainForm!txtSelInfo = ""
 End Sub
 
 '----------------------------------------
@@ -295,27 +312,27 @@ Private Function BuildSearchWhere() As String
 
     sWhere = ""
 
-    If Not IsNull(mFrmMain!txtDateFrom) And mFrmMain!txtDateFrom <> "" Then
-        AddWhere sWhere, "[" & mDateFieldName & "] >= #" & _
-                         Format(mFrmMain!txtDateFrom, "yyyy/mm/dd") & "#"
+    If Not IsNull(frmMainForm!txtDateFrom) And frmMainForm!txtDateFrom <> "" Then
+        AddWhere sWhere, "[" & strDateFldN & "] >= #" & _
+                         Format(frmMainForm!txtDateFrom, "yyyy/mm/dd") & "#"
     End If
 
-    If Not IsNull(mFrmMain!txtDateTo) And mFrmMain!txtDateTo <> "" Then
-        AddWhere sWhere, "[" & mDateFieldName & "] < #" & _
-                         Format(DateAdd("d", 1, mFrmMain!txtDateTo), "yyyy/mm/dd") & "#"
+    If Not IsNull(frmMainForm!txtDateTo) And frmMainForm!txtDateTo <> "" Then
+        AddWhere sWhere, "[" & strDateFldN & "] < #" & _
+                         Format(DateAdd("d", 1, frmMainForm!txtDateTo), "yyyy/mm/dd") & "#"
     End If
 
-    If Nz(mFrmMain.Controls(mLargeCategoryComboName), "") <> "" Then
-        AddWhere sWhere, "[" & mLargeCategoryFieldName & "] = " & _
-                         mFrmMain.Controls(mLargeCategoryComboName)
+    If Nz(frmMainForm.Controls(strDkomokuCmbN), "") <> "" Then
+        AddWhere sWhere, "[" & strDkomokuFldN & "] = " & _
+                         frmMainForm.Controls(strDkomokuCmbN)
     End If
 
-    If Nz(mFrmMain.Controls(mMiddleCategoryComboName), "") <> "" Then
-        AddWhere sWhere, "[" & mMiddleCategoryFieldName & "] = " & _
-                         mFrmMain.Controls(mMiddleCategoryComboName)
+    If Nz(frmMainForm.Controls(strCkomokuCmbN), "") <> "" Then
+        AddWhere sWhere, "[" & strCkomokuFldN & "] = " & _
+                         frmMainForm.Controls(strCkomokuCmbN)
     End If
 
-    sTextCondition = BuildTextSearchCondition(Nz(mFrmMain!txtItemName, ""))
+    sTextCondition = BuildTextSearchCondition(Nz(frmMainForm!txtItemName, ""))
     If sTextCondition <> "" Then
         AddWhere sWhere, sTextCondition
     End If
@@ -336,13 +353,13 @@ Private Function BuildTextSearchCondition(ByVal SearchText As String) As String
 
     s = EscapeText(s)
 
-    If IsArray(mTextSearchFields) Then
-        For i = LBound(mTextSearchFields) To UBound(mTextSearchFields)
+    If IsArray(valSearchFlds) Then
+        For i = LBound(valSearchFlds) To UBound(valSearchFlds)
             If sOr <> "" Then sOr = sOr & " OR "
-            sOr = sOr & "[" & CStr(mTextSearchFields(i)) & "] Like '*" & s & "*'"
+            sOr = sOr & "[" & CStr(valSearchFlds(i)) & "] Like '*" & s & "*'"
         Next i
     Else
-        sOr = "[" & CStr(mTextSearchFields) & "] Like '*" & s & "*'"
+        sOr = "[" & CStr(valSearchFlds) & "] Like '*" & s & "*'"
     End If
 
     If sOr <> "" Then

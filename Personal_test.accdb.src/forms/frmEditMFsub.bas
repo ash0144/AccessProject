@@ -2,6 +2,7 @@
 VersionRequired =20
 Begin Form
     DividingLines = NotDefault
+    OrderByOn = NotDefault
     AllowDesignChanges = NotDefault
     TabularCharSet =128
     PictureAlignment =2
@@ -10,10 +11,11 @@ Begin Form
     Width =18878
     DatasheetFontHeight =11
     ItemSuffix =71
-    Left =912
-    Top =3756
-    Right =20076
-    Bottom =11292
+    Left =324
+    Top =2820
+    Right =19488
+    Bottom =10356
+    OrderBy ="[日付] DESC, [中項目CD]"
     RecSrcDt = Begin
         0x1db95bc7e181e640
     End

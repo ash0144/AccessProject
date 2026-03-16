@@ -171,7 +171,7 @@ Public Sub ApplyDiff(mstTbl As String, wkTbl As String, keyCD As String)
     Dim cntDel As Long
     Dim keyFound As Boolean
 
-    If MsgBox("表示内容で更新してフォームを閉じます" & vbCrLf & "よろしいですか？", _
+    If MsgBox("表示内容で更新します" & vbCrLf & "よろしいですか？", _
               vbQuestion + vbYesNo + vbDefaultButton2) = vbNo Then
         Exit Sub
     End If
@@ -279,5 +279,21 @@ ErrHandler:
 
     Set db = Nothing
     Set ws = Nothing
+
+End Sub
+
+
+Public Sub OpenWorkEditForm( _
+    ByVal frmN As String, _
+    ByVal fromTbl As String, _
+    ByVal toTbl As String)
+
+    LoadWorkTable fromTbl, toTbl
+
+    DoCmd.OpenForm frmN
+
+    Forms(frmN).MasterTblN = fromTbl
+    Forms(frmN).WorkTblN = toTbl
+    Forms(frmN).InitializeForm
 
 End Sub
