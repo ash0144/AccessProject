@@ -1,6 +1,7 @@
 ﻿Version =20
 VersionRequired =20
 Begin Form
+    AllowDeletions = NotDefault
     DividingLines = NotDefault
     OrderByOn = NotDefault
     AllowDesignChanges = NotDefault
@@ -11,10 +12,8 @@ Begin Form
     Width =18878
     DatasheetFontHeight =11
     ItemSuffix =71
-    Left =324
-    Top =2820
-    Right =19488
-    Bottom =10356
+    Right =14172
+    Bottom =11568
     OrderBy ="[日付] DESC, [中項目CD]"
     RecSrcDt = Begin
         0x1db95bc7e181e640
@@ -154,11 +153,12 @@ Begin Form
             Begin
                 Begin TextBox
                     OverlapFlags =93
-                    IMEMode =1
+                    IMEMode =2
                     Width =1247
                     Height =284
                     Name ="txtDate"
                     ControlSource ="日付"
+                    Format ="Short Date"
 
                     LayoutCachedWidth =1247
                     LayoutCachedHeight =284
@@ -169,7 +169,7 @@ Begin Form
                     Left =1247
                     Width =3856
                     Height =284
-                    TabIndex =2
+                    TabIndex =1
                     Name ="txtNaiyo"
                     ControlSource ="内容"
 
@@ -185,13 +185,14 @@ Begin Form
                     ListWidth =2268
                     Left =8220
                     Height =284
-                    TabIndex =1
+                    TabIndex =4
                     BoundColumn =1
-                    Name ="cmbDcd"
+                    Name ="cmbDkomoku"
                     ControlSource ="大項目"
                     RowSourceType ="Table/Query"
                     RowSource ="大項目"
                     ColumnWidths ="0;1701"
+                    AfterUpdate ="[Event Procedure]"
 
                     LayoutCachedLeft =8220
                     LayoutCachedWidth =9921
@@ -209,12 +210,11 @@ Begin Form
                     Left =9921
                     Width =1707
                     Height =284
-                    TabIndex =3
+                    TabIndex =5
                     BoundColumn =1
-                    Name ="cmbCcd"
+                    Name ="cmbCkomoku"
                     ControlSource ="中項目"
                     RowSourceType ="Table/Query"
-                    RowSource ="中項目"
                     ColumnWidths ="0;1701"
 
                     LayoutCachedLeft =9921
@@ -229,7 +229,7 @@ Begin Form
                     Left =5102
                     Width =1418
                     Height =284
-                    TabIndex =4
+                    TabIndex =2
                     Name ="txtPrice"
                     ControlSource ="金額（円）"
                     Format ="General Number"
@@ -244,7 +244,7 @@ Begin Form
                     Left =11624
                     Width =3686
                     Height =284
-                    TabIndex =5
+                    TabIndex =6
                     Name ="txtMemo"
                     ControlSource ="メモ"
                     Format ="@"
@@ -259,7 +259,7 @@ Begin Form
                     Left =17574
                     Width =621
                     Height =284
-                    TabIndex =6
+                    TabIndex =7
                     Name ="振替"
                     ControlSource ="振替"
                     Format ="General Number"
@@ -275,7 +275,7 @@ Begin Form
                     Left =18198
                     Width =393
                     Height =284
-                    TabIndex =7
+                    TabIndex =8
                     Name ="ID"
                     ControlSource ="ID"
                     Format ="@"
@@ -290,9 +290,9 @@ Begin Form
                     Left =15307
                     Width =573
                     Height =284
-                    TabIndex =8
+                    TabIndex =9
                     Name ="中項目CD"
-                    ControlSource ="=[cmbCcd].[column](0)"
+                    ControlSource ="=[cmbCkomoku].column(0)"
 
                     LayoutCachedLeft =15307
                     LayoutCachedWidth =15880
@@ -302,7 +302,7 @@ Begin Form
                     Visible = NotDefault
                     OverlapFlags =87
                     Left =15874
-                    TabIndex =9
+                    TabIndex =10
                     Name ="計算対象"
                     ControlSource ="計算対象"
                     Format ="General Number"
@@ -316,7 +316,7 @@ Begin Form
                     IMEMode =1
                     Left =6521
                     Height =284
-                    TabIndex =10
+                    TabIndex =3
                     Name ="txtKinyu"
                     ControlSource ="保有金融機関"
                     Format ="@"

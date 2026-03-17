@@ -303,3 +303,37 @@ Public Function HasRelatedRecord( _
     HasRelatedRecord = (DCount("*", tableName, sWhere) > 0)
 
 End Function
+
+Public Function GetCkomokuRowSource(ByVal vDkomoku As Variant) As String
+
+    If Nz(vDkomoku, "") = "" Then
+        GetCkomokuRowSource = _
+            "SELECT 中項目CD, 中項目 " & _
+            "FROM 中項目 " & _
+            "ORDER BY 中項目CD;"
+    Else
+        GetCkomokuRowSource = _
+            "SELECT 中項目CD, 中項目 " & _
+            "FROM 中項目 " & _
+            "WHERE 大項目CD = " & vDkomoku & " " & _
+            "ORDER BY 中項目CD;"
+    End If
+
+End Function
+
+Public Function GetID() As String
+
+    Dim strID As String
+    Dim i As Long
+
+    Randomize
+    For i = 1 To 100
+        strID = CStr(Int((999999999 * Rnd) + 1))
+        If DCount("*", "MoneyForward", "ID='" & strID & "'") = 0 Then
+            Exit For
+        End If
+    Next i
+
+    GetID = strID
+
+End Function

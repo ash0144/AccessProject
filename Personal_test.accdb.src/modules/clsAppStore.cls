@@ -34,5 +34,3 @@ End Property
 Public Property Get FormF() As clsFormFormat
     Set FormF = pForm
 End Property
-
-'よく使う一連の流れを「セットメニュー」として提供することも可能

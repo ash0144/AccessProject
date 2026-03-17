@@ -20,11 +20,9 @@ Private strDateFldN As String       '日付のフィールド名
 Private strDkomokuFldN As String    '大項目のフィールド名
 Private strCkomokuFldN As String    '中項目のフィールド名
 Private valSearchFlds As Variant    '検索するフィールド
-
 Private strKeyFldN As String        'キーフィールド名
 Private strDisplayFldN As String    '表示フィールド名
 Private str1stFocusCtrN As String   '最初にフォーカスするコントロール名
-
 Private strDefaultOrder As String   '既定の並び順
 
 Private strRelatedTblN As String    'リレーションテーブル名
@@ -171,13 +169,19 @@ Public Sub ClearSearch()
 End Sub
 
 '----------------------------------------
-' 大分類変更時
+' メインフォームの大分類変更時
 '----------------------------------------
 Public Sub DkomokuAfterUpdate()
-    On Error Resume Next
+    Dim cmbD As Control
+    Dim cmbC As Control
 
-    frmMainForm.Controls(strCkomokuCmbN) = Null
-    frmMainForm.Controls(strCkomokuCmbN).Requery
+    Set cmbD = frmMainForm.Controls(strDkomokuCmbN)
+    Set cmbC = frmMainForm.Controls(strCkomokuCmbN)
+
+    cmbC = Null
+
+    cmbC.RowSource = GetCkomokuRowSource(cmbD.Value)
+    cmbC.Requery
 End Sub
 
 '----------------------------------------
@@ -196,6 +200,8 @@ Public Sub AddNew()
     DoCmd.GoToRecord , , acNewRec
     SubFrm.Controls(str1stFocusCtrN).SetFocus
 
+    frmMainForm.HasPendingChanges = True   ' ←追加
+
     ShowCurrentRecord
 End Sub
 
@@ -213,6 +219,8 @@ Public Sub EditCurrent()
     frmMainForm.Controls(strSubFormCtrN).SetFocus
     SubFrm.Controls(str1stFocusCtrN).SetFocus
 
+    frmMainForm.HasPendingChanges = True   ' ←追加
+
     ShowCurrentRecord
 End Sub
 
@@ -220,6 +228,15 @@ End Sub
 ' 確定
 '----------------------------------------
 Public Sub ConfirmEdit()
+    Dim strSQL As String
+    Dim qdf As DAO.QueryDef
+
+    Debug.Print "=== clsFormFormat.ConfirmEdit START ==="
+    Debug.Print "frmMainForm.Name       = " & frmMainForm.name
+    Debug.Print "frmMainForm.MasterTblN = " & frmMainForm.MasterTblN
+    Debug.Print "frmMainForm.WorkTblN   = " & frmMainForm.WorkTblN
+
+    If Not frmMainForm.HasPendingChanges Then Exit Sub
 
     With SubFrm
         If .Dirty Then .Dirty = False
@@ -227,17 +244,26 @@ Public Sub ConfirmEdit()
         .AllowEdits = False
     End With
 
-    If Nz(WorkTblN, "") <> "" And Nz(MasterTblN, "") <> "" Then
-        Call App.Selector.ApplyDiff(MasterTblN, WorkTblN, strKeyFldN)
+    '新規入力があった場合、計算対象とIDを自動入力
+    strSQL = "UPDATE MoneyForwardWk SET MoneyForwardWk.計算対象 = 1, MoneyForwardWk.ID = [tmpID] " & _
+            "WHERE (MoneyForwardWk.計算対象 IS NULL) AND (MoneyForwardWk.ID IS NULL OR MoneyForwardWk.ID = '');"
+
+    Set qdf = CurrentDb.CreateQueryDef("", strSQL)
+    qdf.Parameters("tmpID").Value = GetID
+    qdf.Execute dbFailOnError
+    Set qdf = Nothing
+
+    If frmMainForm.HasPendingChanges Then
+        Call App.Selector.ApplyDiff(frmMainForm.MasterTblN, frmMainForm.WorkTblN, strKeyFldN)
     End If
 
-    With SubFrm
-        .Requery
-        .AllowEdits = False
-    End With
+    frmMainForm.HasPendingChanges = False   ' ←ここがポイント
 
     SetButtonMode False
     ShowCurrentRecord
+
+    Debug.Print "=== clsFormFormat.ConfirmEdit END ==="
+
 End Sub
 
 '----------------------------------------
@@ -245,33 +271,46 @@ End Sub
 '----------------------------------------
 Public Sub DeleteCurrent()
     Dim msg As String
-    Dim frmSub As Form
+    Dim strSQL As String
 
-    Set frmSub = SubFrm
+    If SubFrm.NewRecord Then Exit Sub
 
-    If frmSub.NewRecord Then Exit Sub
-
-    If strRelatedTblN <> "" And strRelatedFldN <> "" Then
-        If HasRelatedRecord(strRelatedTblN, strRelatedFldN, frmSub.Controls(strKeyFldN)) Then
-            MsgBox "関連データで使用中のため削除できません。", vbExclamation
-            Exit Sub
-        End If
-    End If
+'    If strRelatedTblN <> "" And strRelatedFldN <> "" Then
+'        If HasRelatedRecord(strRelatedTblN, strRelatedFldN, SubFrm.Controls(strKeyFldN)) Then
+'            MsgBox "関連データで使用中のため削除できません。", vbExclamation
+'            Exit Sub
+'        End If
+'    End If
 
     msg = "以下のレコードを削除します。" & vbCrLf & vbCrLf & _
-          strKeyFldN & " : " & Nz(frmSub.Controls(strKeyFldN), "") & vbCrLf & _
-          strDisplayFldN & " : " & Nz(frmSub.Controls(strDisplayFldN), "") & vbCrLf & vbCrLf & _
+          strKeyFldN & " : " & Nz(SubFrm.Controls(strKeyFldN), "") & vbCrLf & _
+          strDisplayFldN & " : " & Nz(SubFrm.Controls(strDisplayFldN), "") & vbCrLf & vbCrLf & _
           "よろしいですか？"
 
     If MsgBox(msg, vbYesNo + vbQuestion + vbDefaultButton2, "削除確認") = vbNo Then
         Exit Sub
     End If
 
-    frmSub.SetFocus
-    DoCmd.RunCommand acCmdDeleteRecord
-    frmSub.Requery
+    SubFrm.AllowDeletions = True
+    frmMainForm.Controls(strSubFormCtrN).SetFocus
+    SubFrm.Controls(str1stFocusCtrN).SetFocus
 
-    SetButtonMode False
+    strSQL = "DELETE FROM [" & WorkTblN & "] WHERE [" & strKeyFldN & "] = "
+
+    If strKeyFldN = "ID" Then
+        strSQL = strSQL & "'" & SubFrm.Controls(strKeyFldN) & "';"
+    Else
+        strSQL = strSQL & SubFrm.Controls(strKeyFldN) & ";"
+    End If
+
+    CurrentDb.Execute strSQL, dbFailOnError
+
+    SubFrm.Requery
+
+    SubFrm.AllowDeletions = False
+
+    frmMainForm.HasPendingChanges = True   ' ←追加
+
     ShowCurrentRecord
 End Sub
 

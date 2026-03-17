@@ -5,8 +5,14 @@ Attribute VB_Exposed = False
 Option Compare Database
 Option Explicit
 
+Private Sub cmbDkomoku_AfterUpdate()
+    Me!cmbCkomoku.RowSource = GetCkomokuRowSource(Me!cmbDkomoku.Column(0))
+    Me!cmbCkomoku.Requery
+End Sub
+
 Private Sub Form_Current()
     On Error Resume Next
+
     Me.Parent.RefreshSelectedInfo
 End Sub
 

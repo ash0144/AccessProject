@@ -30,8 +30,7 @@ End Sub
 Private Sub cmdEdit_Click()
 '編集画面の表示
 
-Call App.Selector.LoadWorkTable("MoneyForward", "MoneyForwardWk")
-DoCmd.OpenForm "frmEditMF"
+App.Selector.OpenWorkEditForm "frmEditMF", "MoneyForward", "MoneyForwardWk"
 
 End Sub
 

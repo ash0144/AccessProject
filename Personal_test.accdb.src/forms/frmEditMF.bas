@@ -19,6 +19,7 @@ Begin Form
         0x1db95bc7e181e640
     End
     RecordSource ="MoneyForwardWk"
+    OnOpen ="[Event Procedure]"
     DatasheetFontName ="ＭＳ Ｐゴシック"
     OnLoad ="[Event Procedure]"
     FilterOnLoad =0
@@ -295,6 +296,8 @@ Begin Form
                     OverlapFlags =85
                     TextFontFamily =50
                     IMEMode =2
+                    ColumnCount =2
+                    ListWidth =1701
                     Left =6630
                     Top =1023
                     Width =3402
@@ -302,7 +305,7 @@ Begin Form
                     TabIndex =3
                     Name ="cmbCkomoku"
                     RowSourceType ="Table/Query"
-                    ColumnWidths ="1701"
+                    ColumnWidths ="0;1701"
                     Format ="@"
 
                     LayoutCachedLeft =6630
@@ -331,6 +334,7 @@ Begin Form
                     End
                 End
                 Begin CommandButton
+                    Enabled = NotDefault
                     OverlapFlags =85
                     Left =10148
                     Top =228
@@ -347,6 +351,7 @@ Begin Form
                     LayoutCachedHeight =789
                 End
                 Begin CommandButton
+                    Enabled = NotDefault
                     OverlapFlags =85
                     TextFontFamily =50
                     Left =10152
@@ -364,6 +369,7 @@ Begin Form
                     LayoutCachedHeight =1293
                 End
                 Begin CommandButton
+                    Enabled = NotDefault
                     OverlapFlags =85
                     TextFontFamily =50
                     Left =564
@@ -384,6 +390,7 @@ Begin Form
                     ForeShade =75.0
                 End
                 Begin CommandButton
+                    Enabled = NotDefault
                     OverlapFlags =85
                     TextFontFamily =50
                     Left =1812
@@ -404,6 +411,7 @@ Begin Form
                     ForeShade =75.0
                 End
                 Begin CommandButton
+                    Enabled = NotDefault
                     OverlapFlags =85
                     TextFontFamily =50
                     Left =3059
