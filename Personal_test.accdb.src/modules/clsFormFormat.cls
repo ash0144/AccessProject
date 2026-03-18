@@ -10,6 +10,9 @@ Attribute VB_Exposed = False
 Option Compare Database
 Option Explicit
 
+'フォーム回り、インターフェースなど
+'コントロール名など、各フォーム共通部分をセットアップして、同様の処理を集約できる
+
 Private App As New clsAppStore
 
 Private frmMainForm As Form         'メインフォーム
@@ -43,7 +46,7 @@ Public Sub SetupItemForm(ByVal frmMain As Form)
     strDateFldN = "日付"
     strDkomokuFldN = "大項目"
     strCkomokuFldN = "中項目"
-    valSearchFlds = Array("内容", "備考")
+    valSearchFlds = Array("内容", "メモ")
 
     strKeyFldN = "ID"
     strDisplayFldN = "内容"
@@ -111,7 +114,6 @@ End Sub
 Private Sub SetButtonMode(ByVal isEditing As Boolean)
     On Error Resume Next
 
-    frmMainForm!cmdAdd.Enabled = Not isEditing
     frmMainForm!cmdEdit.Enabled = Not isEditing
     frmMainForm!cmdDelete.Enabled = Not isEditing
     frmMainForm!cmdSearch.Enabled = Not isEditing
@@ -149,8 +151,8 @@ End Sub
 Public Sub ClearSearch()
     On Error Resume Next
 
-    frmMainForm!txtDateFrom = Null
-    frmMainForm!txtDateTo = Null
+    frmMainForm!txtFrom = Null
+    frmMainForm!txtTo = Null
     frmMainForm.Controls(strDkomokuCmbN) = Null
     frmMainForm.Controls(strCkomokuCmbN) = Null
     frmMainForm!txtItemName = Null
@@ -184,26 +186,6 @@ Public Sub DkomokuAfterUpdate()
     cmbC.Requery
 End Sub
 
-'----------------------------------------
-' 新規
-'----------------------------------------
-Public Sub AddNew()
-
-    SetButtonMode True
-
-    With SubFrm
-        .AllowEdits = True
-        .AllowAdditions = True
-    End With
-
-    frmMainForm.Controls(strSubFormCtrN).SetFocus
-    DoCmd.GoToRecord , , acNewRec
-    SubFrm.Controls(str1stFocusCtrN).SetFocus
-
-    frmMainForm.HasPendingChanges = True   ' ←追加
-
-    ShowCurrentRecord
-End Sub
 
 '----------------------------------------
 ' 編集
@@ -275,12 +257,14 @@ Public Sub DeleteCurrent()
 
     If SubFrm.NewRecord Then Exit Sub
 
-'    If strRelatedTblN <> "" And strRelatedFldN <> "" Then
-'        If HasRelatedRecord(strRelatedTblN, strRelatedFldN, SubFrm.Controls(strKeyFldN)) Then
-'            MsgBox "関連データで使用中のため削除できません。", vbExclamation
-'            Exit Sub
-'        End If
-'    End If
+    If frmMainForm.name <> "frmEditMF" Then
+        If strRelatedTblN <> "" And strRelatedFldN <> "" Then
+            If HasRelatedRecord(strRelatedTblN, strRelatedFldN, SubFrm.Controls(strKeyFldN)) Then
+                MsgBox "関連データで使用中のため削除できません。", vbExclamation
+                Exit Sub
+            End If
+        End If
+    End If
 
     msg = "以下のレコードを削除します。" & vbCrLf & vbCrLf & _
           strKeyFldN & " : " & Nz(SubFrm.Controls(strKeyFldN), "") & vbCrLf & _
@@ -337,9 +321,9 @@ Public Sub ShowCurrentRecord()
     End With
 
     Exit Sub
-
 EH:
     frmMainForm!txtSelInfo = ""
+
 End Sub
 
 '----------------------------------------
@@ -351,24 +335,24 @@ Private Function BuildSearchWhere() As String
 
     sWhere = ""
 
-    If Not IsNull(frmMainForm!txtDateFrom) And frmMainForm!txtDateFrom <> "" Then
+    If Not IsNull(frmMainForm!txtFrom) And frmMainForm!txtFrom <> "" Then
         AddWhere sWhere, "[" & strDateFldN & "] >= #" & _
-                         Format(frmMainForm!txtDateFrom, "yyyy/mm/dd") & "#"
+                         Format(frmMainForm!txtFrom, "yyyy/mm/dd") & "#"
     End If
 
-    If Not IsNull(frmMainForm!txtDateTo) And frmMainForm!txtDateTo <> "" Then
+    If Not IsNull(frmMainForm!txtTo) And frmMainForm!txtTo <> "" Then
         AddWhere sWhere, "[" & strDateFldN & "] < #" & _
-                         Format(DateAdd("d", 1, frmMainForm!txtDateTo), "yyyy/mm/dd") & "#"
+                         Format(DateAdd("d", 1, frmMainForm!txtTo), "yyyy/mm/dd") & "#"
     End If
 
     If Nz(frmMainForm.Controls(strDkomokuCmbN), "") <> "" Then
         AddWhere sWhere, "[" & strDkomokuFldN & "] = " & _
-                         frmMainForm.Controls(strDkomokuCmbN)
+                         "'" & frmMainForm.Controls(strDkomokuCmbN).Column(1) & "'"
     End If
 
     If Nz(frmMainForm.Controls(strCkomokuCmbN), "") <> "" Then
         AddWhere sWhere, "[" & strCkomokuFldN & "] = " & _
-                         frmMainForm.Controls(strCkomokuCmbN)
+                         "'" & frmMainForm.Controls(strCkomokuCmbN).Column(1) & "'"
     End If
 
     sTextCondition = BuildTextSearchCondition(Nz(frmMainForm!txtItemName, ""))

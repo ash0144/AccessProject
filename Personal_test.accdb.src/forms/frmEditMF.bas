@@ -2,6 +2,7 @@
 VersionRequired =20
 Begin Form
     RecordSelectors = NotDefault
+    CloseButton = NotDefault
     DividingLines = NotDefault
     AllowDesignChanges = NotDefault
     DefaultView =0
@@ -11,7 +12,7 @@ Begin Form
     GridY =10
     Width =19994
     DatasheetFontHeight =11
-    ItemSuffix =88
+    ItemSuffix =90
     Right =19740
     Bottom =11568
     OnUnload ="[Event Procedure]"
@@ -335,7 +336,7 @@ Begin Form
                 Begin CommandButton
                     Enabled = NotDefault
                     OverlapFlags =85
-                    Left =10148
+                    Left =10656
                     Top =228
                     Width =1137
                     Height =561
@@ -344,16 +345,17 @@ Begin Form
                     Caption ="抽出"
                     OnClick ="[Event Procedure]"
 
-                    LayoutCachedLeft =10148
+                    LayoutCachedLeft =10656
                     LayoutCachedTop =228
-                    LayoutCachedWidth =11285
+                    LayoutCachedWidth =11793
                     LayoutCachedHeight =789
+                    Overlaps =1
                 End
                 Begin CommandButton
                     Enabled = NotDefault
                     OverlapFlags =85
                     TextFontFamily =50
-                    Left =10152
+                    Left =10660
                     Top =852
                     Width =1137
                     Height =441
@@ -362,10 +364,11 @@ Begin Form
                     Caption ="クリア"
                     OnClick ="[Event Procedure]"
 
-                    LayoutCachedLeft =10152
+                    LayoutCachedLeft =10660
                     LayoutCachedTop =852
-                    LayoutCachedWidth =11289
+                    LayoutCachedWidth =11797
                     LayoutCachedHeight =1293
+                    Overlaps =1
                 End
                 Begin CommandButton
                     Enabled = NotDefault
@@ -376,64 +379,45 @@ Begin Form
                     Width =1137
                     Height =567
                     TabIndex =6
-                    Name ="cmdAdd"
-                    Caption ="新規"
+                    Name ="cmdEdit"
+                    Caption ="編集"
                     OnClick ="[Event Procedure]"
 
                     LayoutCachedLeft =564
                     LayoutCachedTop =1704
                     LayoutCachedWidth =1701
                     LayoutCachedHeight =2271
-                    ForeThemeColorIndex =4
+                    ForeThemeColorIndex =6
                     ForeTint =100.0
                     ForeShade =75.0
+                    Overlaps =1
                 End
                 Begin CommandButton
                     Enabled = NotDefault
                     OverlapFlags =85
                     TextFontFamily =50
-                    Left =1812
+                    Left =1811
                     Top =1704
                     Width =1137
                     Height =567
                     TabIndex =7
-                    Name ="cmdEdit"
-                    Caption ="編集"
-                    OnClick ="[Event Procedure]"
-
-                    LayoutCachedLeft =1812
-                    LayoutCachedTop =1704
-                    LayoutCachedWidth =2949
-                    LayoutCachedHeight =2271
-                    ForeThemeColorIndex =6
-                    ForeTint =100.0
-                    ForeShade =75.0
-                End
-                Begin CommandButton
-                    Enabled = NotDefault
-                    OverlapFlags =85
-                    TextFontFamily =50
-                    Left =3059
-                    Top =1704
-                    Width =1137
-                    Height =567
-                    TabIndex =8
                     ForeColor =1643706
                     Name ="cmdDelete"
                     Caption ="削除"
                     OnClick ="[Event Procedure]"
 
-                    LayoutCachedLeft =3059
+                    LayoutCachedLeft =1811
                     LayoutCachedTop =1704
-                    LayoutCachedWidth =4196
+                    LayoutCachedWidth =2948
                     LayoutCachedHeight =2271
                     ForeThemeColorIndex =-1
                     ForeTint =100.0
+                    Overlaps =1
                 End
                 Begin CommandButton
                     OverlapFlags =85
                     TextFontFamily =50
-                    Left =4824
+                    Left =3576
                     Top =1704
                     Width =1137
                     Height =567
@@ -443,10 +427,11 @@ Begin Form
                     Caption ="確定"
                     OnClick ="[Event Procedure]"
 
-                    LayoutCachedLeft =4824
+                    LayoutCachedLeft =3576
                     LayoutCachedTop =1704
-                    LayoutCachedWidth =5961
+                    LayoutCachedWidth =4713
                     LayoutCachedHeight =2271
+                    Overlaps =1
                 End
                 Begin Label
                     OverlapFlags =95
@@ -552,6 +537,40 @@ Begin Form
                     LayoutCachedTop =226
                     LayoutCachedWidth =6405
                     LayoutCachedHeight =496
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    TextFontFamily =50
+                    IMEMode =2
+                    Left =6630
+                    Top =1413
+                    Width =3402
+                    Height =270
+                    TabIndex =8
+                    Name ="txtItemName"
+                    Format ="@"
+
+                    LayoutCachedLeft =6630
+                    LayoutCachedTop =1413
+                    LayoutCachedWidth =10032
+                    LayoutCachedHeight =1683
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            TextAlign =3
+                            TextFontFamily =50
+                            Left =5358
+                            Top =1413
+                            Width =1044
+                            Height =252
+                            Name ="ラベル89"
+                            Caption ="検索文字："
+                            LayoutCachedLeft =5358
+                            LayoutCachedTop =1413
+                            LayoutCachedWidth =6402
+                            LayoutCachedHeight =1665
+                        End
+                    End
                 End
             End
         End

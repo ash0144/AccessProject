@@ -10,7 +10,7 @@ Attribute VB_Exposed = False
 ' --- clsDataSelector ---
 Option Explicit
 
-'検索結果の抽出などを行うクラス
+'検索、抽出、データ加工など
 
 Public Sub ExtractToWorkTable(dFrom As Date, dTo As Date, optB As Integer, Optional dKomokuCD As Variant = Null)
 '抽出テーブルへのインサート

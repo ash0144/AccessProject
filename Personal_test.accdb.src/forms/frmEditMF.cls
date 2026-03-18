@@ -6,7 +6,7 @@ Option Compare Database
 Option Explicit
 
 Private App As New clsAppStore
-
+Private blnFormInitialized As Boolean
 Private strMasterTblN As String
 Private strWorkTblN As String
 Private blnDirtyWork As Boolean   'ワークテーブル未確定フラグ
@@ -60,13 +60,29 @@ Public Sub InitializeForm()
     App.FormF.SetupItemForm Me
     App.FormF.OnLoad
 
+    blnFormInitialized = True
     Me.HasPendingChanges = False
 
     Debug.Print "=== InitializeForm END ==="
 End Sub
 
 Private Sub cmdClose_Click()
+
+    Dim ret As VbMsgBoxResult
+
+    If Me.HasPendingChanges Then
+        ret = MsgBox( _
+            "未確定の変更があります。" & vbCrLf & _
+            "このまま閉じると、本テーブルには反映されません。" & vbCrLf & vbCrLf & _
+            "閉じますか？", _
+            vbYesNo + vbExclamation + vbDefaultButton2, _
+            "未確定変更")
+
+        If ret = vbNo Then Exit Sub
+    End If
+
     DoCmd.Close acForm, Me.name
+
 End Sub
 
 '----------------------------------------
@@ -80,26 +96,13 @@ End Sub
 ' 終了時
 '----------------------------------------
 Private Sub Form_Unload(Cancel As Integer)
-    Debug.Print "Form_Unload : " & Me.name
 
-    Dim ret As VbMsgBoxResult
-
-    If Me.HasPendingChanges Then
-        ret = MsgBox( _
-            "未確定の変更があります。" & vbCrLf & _
-            "このまま閉じると、本テーブルには反映されません。" & vbCrLf & vbCrLf & _
-            "閉じますか？", _
-            vbYesNo + vbExclamation + vbDefaultButton2, _
-            "未確定変更")
-
-        If ret = vbNo Then
-            Cancel = True
-            Exit Sub
-        End If
+    If blnFormInitialized Then
+        App.FormF.OnUnload
     End If
 
-    App.FormF.OnUnload
 End Sub
+
 Private Sub cmdSearch_Click()
     App.FormF.Search
 End Sub
@@ -110,10 +113,6 @@ End Sub
 
 Private Sub cmbDkomoku_AfterUpdate()
     App.FormF.DkomokuAfterUpdate
-End Sub
-
-Private Sub cmdAdd_Click()
-    App.FormF.AddNew
 End Sub
 
 Private Sub cmdEdit_Click()

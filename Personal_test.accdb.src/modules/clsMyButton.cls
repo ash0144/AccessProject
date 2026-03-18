@@ -9,6 +9,8 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
+'ボタン管理
+
 Private WithEvents MyBtn As Access.CommandButton
 Attribute MyBtn.VB_VarHelpID = -1
 'WithEventsキーワードにより、クラス内でボタンのイベントをキャッチ

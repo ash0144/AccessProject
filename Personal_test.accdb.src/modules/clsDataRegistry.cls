@@ -10,7 +10,7 @@ Attribute VB_Exposed = False
 ' --- clsDataRegistry ---
 Option Explicit
 
-'テーブルにデータを登録する処理
+'外部ファイルの読込、新規登録など
 
 '手動登録
 Public Function RegisterManualEntry( _

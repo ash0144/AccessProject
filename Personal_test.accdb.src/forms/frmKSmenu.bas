@@ -13,8 +13,8 @@ Begin Form
     Width =8333
     DatasheetFontHeight =11
     ItemSuffix =37
-    Right =19992
-    Bottom =11568
+    Right =14424
+    Bottom =11820
     RecSrcDt = Begin
         0x2d1d1047d67fe640
     End
@@ -510,7 +510,7 @@ Begin Form
                     Height =567
                     TabIndex =9
                     Name ="cmdInput"
-                    Caption ="手入力"
+                    Caption ="新規登録"
                     OnClick ="[Event Procedure]"
 
                     LayoutCachedLeft =1129
@@ -581,7 +581,7 @@ Begin Form
                     FontSize =10
                     FontWeight =700
                     Name ="ラベル22"
-                    Caption ="入力/編集/削除"
+                    Caption ="登録/編集/削除"
                     LayoutCachedLeft =732
                     LayoutCachedTop =3504
                     LayoutCachedWidth =3567
@@ -688,7 +688,7 @@ Begin Form
                     OverlapFlags =85
                     TextFontFamily =50
                     Left =1128
-                    Top =8100
+                    Top =8051
                     Width =2268
                     Height =567
                     TabIndex =11
@@ -697,15 +697,15 @@ Begin Form
                     OnClick ="[Event Procedure]"
 
                     LayoutCachedLeft =1128
-                    LayoutCachedTop =8100
+                    LayoutCachedTop =8051
                     LayoutCachedWidth =3396
-                    LayoutCachedHeight =8667
+                    LayoutCachedHeight =8618
                 End
                 Begin CommandButton
                     OverlapFlags =85
                     TextFontFamily =50
                     Left =1128
-                    Top =8787
+                    Top =8732
                     Width =2268
                     Height =567
                     TabIndex =12
@@ -714,9 +714,9 @@ Begin Form
                     OnClick ="[Event Procedure]"
 
                     LayoutCachedLeft =1128
-                    LayoutCachedTop =8787
+                    LayoutCachedTop =8732
                     LayoutCachedWidth =3396
-                    LayoutCachedHeight =9354
+                    LayoutCachedHeight =9299
                 End
                 Begin CommandButton
                     OverlapFlags =85
@@ -739,7 +739,7 @@ Begin Form
                     OverlapFlags =85
                     TextFontFamily =50
                     Left =3686
-                    Top =8738
+                    Top =8732
                     Width =2268
                     Height =567
                     TabIndex =14
@@ -748,9 +748,9 @@ Begin Form
                     OnClick ="[Event Procedure]"
 
                     LayoutCachedLeft =3686
-                    LayoutCachedTop =8738
+                    LayoutCachedTop =8732
                     LayoutCachedWidth =5954
-                    LayoutCachedHeight =9305
+                    LayoutCachedHeight =9299
                 End
                 Begin Label
                     OverlapFlags =85
@@ -774,7 +774,7 @@ Begin Form
                     TextAlign =1
                     TextFontFamily =50
                     Left =3686
-                    Top =7656
+                    Top =7655
                     Width =1985
                     Height =240
                     FontSize =10
@@ -782,9 +782,9 @@ Begin Form
                     Name ="ラベル35"
                     Caption ="確定申告"
                     LayoutCachedLeft =3686
-                    LayoutCachedTop =7656
+                    LayoutCachedTop =7655
                     LayoutCachedWidth =5671
-                    LayoutCachedHeight =7896
+                    LayoutCachedHeight =7895
                 End
                 Begin CommandButton
                     OverlapFlags =85
