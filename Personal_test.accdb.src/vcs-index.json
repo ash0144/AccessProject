@@ -6,7 +6,7 @@
   "Items": {
     "MergeBuildDate": null,
     "FullBuildDate": "2026-03-07T06:45:55.000Z",
-    "ExportDate": "2026-03-17T17:30:27.000Z",
+    "ExportDate": "2026-03-18T01:45:49.000Z",
     "FullExportDate": "2026-03-07T02:45:49.000Z",
     "OptionsHash": "1e652c7",
     "LastMergedCommit": "",
@@ -35,18 +35,18 @@
       },
       "Forms": {
         "frmEditMF.bas": {
-          "FileHash": "0356cc1",
-          "OtherHash": "c85b18d",
-          "ExportDate": "2026-03-17T17:30:27.000Z",
+          "FileHash": "3507fe3",
+          "OtherHash": "1d71101",
+          "ExportDate": "2026-03-18T01:45:49.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "d8c2e5f"
+          "FilePropertiesHash": "b6590cc"
         },
         "frmEditMFsub.bas": {
           "FileHash": "d681485",
-          "OtherHash": "4f411de",
-          "ExportDate": "2026-03-17T17:30:27.000Z",
+          "OtherHash": "a0073cb",
+          "ExportDate": "2026-03-18T01:45:49.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "33ab1e7"
+          "FilePropertiesHash": "4332623"
         },
         "frmKamokubetu.bas": {
           "FileHash": "aa00459",
@@ -73,11 +73,11 @@
         },
         "frmKSmenu.bas": {
           "FileHash": "49ac5db",
-          "ExportDate": "2026-03-17T17:30:27.000Z",
+          "ExportDate": "2026-03-18T01:45:49.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "46e66f3",
+          "FilePropertiesHash": "9eb667b",
           "ImportDate": "2026-03-07T06:45:52.000Z",
-          "OtherHash": "0ab4583"
+          "OtherHash": "802a968"
         },
         "frmKSmenuB.bas": {
           "FileHash": "3a5bf5e",

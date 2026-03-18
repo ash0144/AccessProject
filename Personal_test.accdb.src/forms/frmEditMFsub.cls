@@ -12,7 +12,6 @@ End Sub
 
 Private Sub Form_Current()
     On Error Resume Next
-
     Me.Parent.RefreshSelectedInfo
 End Sub
 

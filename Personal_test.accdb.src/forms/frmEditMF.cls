@@ -5,7 +5,7 @@ Attribute VB_Exposed = False
 Option Compare Database
 Option Explicit
 
-Private App As clsAppStore
+Private App As New clsAppStore
 
 Private strMasterTblN As String
 Private strWorkTblN As String
@@ -52,16 +52,10 @@ End Property
 ' 初期化
 '----------------------------------------
 Public Sub InitializeForm()
-
     Debug.Print "=== InitializeForm START ==="
     Debug.Print "Me.Name       = " & Me.name
     Debug.Print "strMasterTblN = " & strMasterTblN
     Debug.Print "strWorkTblN   = " & strWorkTblN
-
-    If App Is Nothing Then
-        Debug.Print "Create clsAppStore"
-        Set App = New clsAppStore
-    End If
 
     App.FormF.SetupItemForm Me
     App.FormF.OnLoad
@@ -69,7 +63,6 @@ Public Sub InitializeForm()
     Me.HasPendingChanges = False
 
     Debug.Print "=== InitializeForm END ==="
-
 End Sub
 
 Private Sub cmdClose_Click()
@@ -81,10 +74,6 @@ End Sub
 '----------------------------------------
 Private Sub Form_Load()
     Debug.Print "Form_Load : " & Me.name
-End Sub
-
-Private Sub Form_Open(Cancel As Integer)
-    Set App = New clsAppStore
 End Sub
 
 '----------------------------------------
@@ -109,13 +98,7 @@ Private Sub Form_Unload(Cancel As Integer)
         End If
     End If
 
-
-    If Not App Is Nothing Then
-        If Not App.FormF Is Nothing Then
-            App.FormF.OnUnload
-        End If
-        Set App = Nothing
-    End If
+    App.FormF.OnUnload
 End Sub
 Private Sub cmdSearch_Click()
     App.FormF.Search
@@ -150,9 +133,5 @@ Private Sub cmdConfirm_Click()
 End Sub
 
 Public Sub RefreshSelectedInfo()
-    If Not App Is Nothing Then
-        If Not App.FormF Is Nothing Then
-            App.FormF.ShowCurrentRecord
-        End If
-    End If
+    App.FormF.ShowCurrentRecord
 End Sub

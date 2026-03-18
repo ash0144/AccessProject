@@ -19,7 +19,6 @@ Begin Form
         0x1db95bc7e181e640
     End
     RecordSource ="MoneyForwardWk"
-    OnOpen ="[Event Procedure]"
     DatasheetFontName ="ＭＳ Ｐゴシック"
     OnLoad ="[Event Procedure]"
     FilterOnLoad =0

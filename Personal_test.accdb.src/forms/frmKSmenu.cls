@@ -57,11 +57,7 @@ Private Sub cmdKomoku_Click()
     pubDkomoku = Me!cmbDkomoku
     pubFromTo = App.Period.GetString(dF, dT)
 
-    If optB = 1 Then
-        DoCmd.OpenForm "frmKomokubetu"
-    Else
-        DoCmd.OpenForm "frmKamokubetu"
-    End If
+    DoCmd.OpenForm IIf(optB = 1, "frmKomokubetu", "frmKamokubetu")
 
 End Sub
 
