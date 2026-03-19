@@ -8,11 +8,14 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 ' --- clsDataRegistry ---
-Option Explicit
-
 '外部ファイルの読込、新規登録など
 
-'手動登録
+Option Compare Database
+Option Explicit
+
+'新規登録（手入力）
+'登録画面の確定ボタンで呼び出される
+
 Public Function RegisterManualEntry( _
     hizuke As Variant, _
     naiyo As Variant, _
@@ -63,10 +66,12 @@ Err_Handler:
     MsgBox "登録エラー: " & Err.Description, vbCritical
     If Not rs Is Nothing Then rs.Close
     RegisterManualEntry = False
+
 End Function
 
 'インポート
 Public Function ImportMFData() As Boolean
+
     On Error GoTo Err_Handler
     Dim strFilename As String, strFn As String, arr() As String, i As Integer
     Dim db As DAO.Database: Set db = CurrentDb
@@ -74,15 +79,12 @@ Public Function ImportMFData() As Boolean
     strFilename = GetFileName(Nz(DLookup("MoneyForwardフォルダ", "履歴"), ""), "", ".xls", True)
     If strFilename = "" Then Exit Function
 
-    '警告を一時的にONにして詳細を見る（テスト用）
-'    DoCmd.SetWarnings True
-
     arr = Split(strFilename, ",")
     For i = LBound(arr) To UBound(arr)
         strFn = arr(i)
 
-        ' 1. 一時テーブル(TmpMF)として新規作成（テーブルがなければ自動で作られる）
-        '    ここにはExcelの列だけが入ります。
+        ' 1. 一時テーブル(TmpMF)として新規作成
+        '    ここにはExcelの列だけが入る
         On Error Resume Next: db.Execute "DROP TABLE TmpMF": On Error GoTo Err_Handler
         DoCmd.TransferSpreadsheet acImport, acSpreadsheetTypeExcel12, "TmpMF", strFn, True
 
@@ -101,4 +103,5 @@ Public Function ImportMFData() As Boolean
 Err_Handler:
     MsgBox "インポートエラー: " & Err.Description, vbCritical
     ImportMFData = False
+
 End Function

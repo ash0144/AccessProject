@@ -8,16 +8,21 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 ' --- clsAppStore (総合案内クラス) ---
+'属性によって分類した各クラスモジュールをIntelliSenceで呼び出す仕組み
+Option Compare Database
 Option Explicit
 
-'属性によって分類した各クラスモジュールをPrivateで保持
-
+'インスタンス生成
 Private pPeriod  As New clsPeriodManager
 Private pSelector As New clsDataSelector
 Private pRegistry As New clsDataRegistry
 Private pForm As New clsFormFormat
+Private pMyButton As New clsMyButton
 
-' フォームからは、ここの窓口を通して各機能を呼び出す
+'clsAppStoreのプロパティとして、各インスタンスを取得
+'他クラスの先頭に、Private App As New clsAppStore（clsAppStoreのインスタンスとしてAppを生成）
+'App.Selector.xxxx の書き方で、各クラスのプロパティ、メソッドを呼び出すことができる
+'意味は、AppインスタンスのプロパティSelector（clsDataSelectorのインスタンス）のxxxxメソッド/プロパティ
 
 Public Property Get Period() As clsPeriodManager
     Set Period = pPeriod
@@ -33,4 +38,8 @@ End Property
 
 Public Property Get FormF() As clsFormFormat
     Set FormF = pForm
+End Property
+
+Public Property Get MyBtn() As clsFormFormat
+    Set MyBtn = pMyButton
 End Property

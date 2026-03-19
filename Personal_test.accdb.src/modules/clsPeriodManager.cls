@@ -8,9 +8,10 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 ' --- clsPeriodManager ---
-Option Explicit
-
 '期間設定など、表示と内部処理が異なるデータ加工など
+
+Option Compare Database
+Option Explicit
 
 Public Function GetMinDate(val As Variant) As Date: GetMinDate = CDate(IIf(IsNull(val), "2000/01/01", val)): End Function
 '開始が未入力の場合、2000/01/01と仮に設定

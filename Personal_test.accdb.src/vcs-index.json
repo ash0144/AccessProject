@@ -6,7 +6,7 @@
   "Items": {
     "MergeBuildDate": null,
     "FullBuildDate": "2026-03-07T06:45:55.000Z",
-    "ExportDate": "2026-03-18T16:06:45.000Z",
+    "ExportDate": "2026-03-19T16:18:25.000Z",
     "FullExportDate": "2026-03-07T02:45:49.000Z",
     "OptionsHash": "1e652c7",
     "LastMergedCommit": "",
@@ -17,10 +17,10 @@
       },
       "DB Properties": {
         "dbs-properties.json": {
-          "FileHash": "47ac0df",
-          "ExportDate": "2026-03-11T16:49:57.000Z",
+          "FileHash": "113aa73",
+          "ExportDate": "2026-03-19T16:18:24.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "f126cee",
+          "FilePropertiesHash": "12c221f",
           "ImportDate": "2026-03-07T06:45:51.000Z"
         }
       },
@@ -72,12 +72,12 @@
           "OtherHash": "ce4cf8a"
         },
         "frmKSmenu.bas": {
-          "FileHash": "847e6af",
-          "ExportDate": "2026-03-18T16:06:45.000Z",
+          "FileHash": "6dab36e",
+          "ExportDate": "2026-03-19T16:18:25.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "794c98c",
+          "FilePropertiesHash": "20e7fa3",
           "ImportDate": "2026-03-07T06:45:52.000Z",
-          "OtherHash": "802a968"
+          "OtherHash": "078712a"
         },
         "frmKSmenuB.bas": {
           "FileHash": "3a5bf5e",
@@ -202,28 +202,28 @@
       },
       "Modules": {
         "clsAppStore.cls": {
-          "FileHash": "8ae4ad0",
-          "ExportDate": "2026-03-17T17:30:26.000Z",
+          "FileHash": "013720f",
+          "ExportDate": "2026-03-19T16:18:24.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "83fc725",
+          "FilePropertiesHash": "5267c56",
           "ImportDate": "2026-03-07T06:45:51.000Z",
-          "OtherHash": "30486a9"
+          "OtherHash": "ddebe4b"
         },
         "clsDataRegistry.cls": {
-          "FileHash": "e3a466b",
-          "ExportDate": "2026-03-18T16:06:44.000Z",
+          "FileHash": "9df8673",
+          "ExportDate": "2026-03-19T16:18:24.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "398e28b",
+          "FilePropertiesHash": "8cd389b",
           "ImportDate": "2026-03-07T06:45:51.000Z",
-          "OtherHash": "12a28bf"
+          "OtherHash": "8784ca1"
         },
         "clsDataSelector.cls": {
-          "FileHash": "149bd70",
-          "ExportDate": "2026-03-18T16:06:44.000Z",
+          "FileHash": "190dc72",
+          "ExportDate": "2026-03-19T16:18:24.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "2a504e4",
+          "FilePropertiesHash": "c58dbfa",
           "ImportDate": "2026-03-07T06:45:51.000Z",
-          "OtherHash": "28feedb"
+          "OtherHash": "cc8bd90"
         },
         "clsFormFormat.cls": {
           "FileHash": "0a9ad2b",
@@ -241,12 +241,12 @@
           "OtherHash": "04f5984"
         },
         "clsPeriodManager.cls": {
-          "FileHash": "5c22ec0",
-          "ExportDate": "2026-03-18T16:06:44.000Z",
+          "FileHash": "25fc4f2",
+          "ExportDate": "2026-03-19T16:18:24.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "73afe31",
+          "FilePropertiesHash": "64ad352",
           "ImportDate": "2026-03-07T06:45:51.000Z",
-          "OtherHash": "70f9bd5"
+          "OtherHash": "715a4c5"
         },
         "ExpImp.bas": {
           "FileHash": "15aa79c",

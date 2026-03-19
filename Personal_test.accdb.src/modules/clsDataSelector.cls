@@ -8,13 +8,15 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 ' --- clsDataSelector ---
-Option Explicit
-
 '検索、抽出、データ加工など
 
-Public Sub ExtractToWorkTable(dFrom As Date, dTo As Date, optB As Integer, Optional dKomokuCD As Variant = Null)
+Option Compare Database
+Option Explicit
+
 '抽出テーブルへのインサート
 'optBは家計簿/確定申告の分類、dKomokuCDは抽出に用いる大項目CD/勘定科目CD
+
+Public Sub ExtractToWorkTable(dFrom As Date, dTo As Date, optB As Integer, Optional dKomokuCD As Variant = Null)
 
     Dim db As DAO.Database: Set db = CurrentDb
     Dim qdf As DAO.QueryDef

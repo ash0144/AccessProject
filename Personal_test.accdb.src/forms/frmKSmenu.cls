@@ -10,19 +10,19 @@ Private App As New clsAppStore
 Private Sub cmdAll_Click()
 '"項目別一覧"/"勘定科目別一覧"の出力
 
-    Dim dF As Date: dF = App.Period.GetMinDate(Me!txtFrom)
-    Dim dT As Date: dT = App.Period.GetMaxDate(Me!txtTo)
-    Dim optB As Integer
+    Dim dF As Date: dF = App.Period.GetMinDate(Me!txtFrom)  '日付（From）を検索用に整形
+    Dim dT As Date: dT = App.Period.GetMaxDate(Me!txtTo)    '日付（To）を検索用に整形
+    Dim optB As Integer                                     '家計簿/確定申告の分類
 
     optB = Me!optBunrui
 
-    pubFromTo = App.Period.GetString(dF, dT)
-    App.Selector.ExtractToWorkTable dF, dT, optB
+    pubFromTo = App.Period.GetString(dF, dT)                '表示画面用日付範囲の文字列作成
+    App.Selector.ExtractToWorkTable dF, dT, optB            '検索条件で抽出テーブルに出力
 
     If optB = 1 Then
-        DoCmd.OpenForm "frmZenkomoku"
+        DoCmd.OpenForm "frmZenkomoku"                       '家計簿分類の大項目別一覧（明細：中項目）
     Else
-        DoCmd.OpenForm "frmSinkoku"
+        DoCmd.OpenForm "frmSinkoku"                         '確定申告分類の勘定科目別一覧（明細：中項目）
     End If
 
 End Sub
