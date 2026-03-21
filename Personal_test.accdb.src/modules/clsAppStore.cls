@@ -17,7 +17,6 @@ Private pPeriod  As New clsPeriodManager
 Private pSelector As New clsDataSelector
 Private pRegistry As New clsDataRegistry
 Private pForm As New clsFormFormat
-Private pMyButton As New clsMyButton
 
 'clsAppStoreのプロパティとして、各インスタンスを取得
 '他クラスの先頭に、Private App As New clsAppStore（clsAppStoreのインスタンスとしてAppを生成）
@@ -38,8 +37,4 @@ End Property
 
 Public Property Get FormF() As clsFormFormat
     Set FormF = pForm
-End Property
-
-Public Property Get MyBtn() As clsFormFormat
-    Set MyBtn = pMyButton
 End Property
