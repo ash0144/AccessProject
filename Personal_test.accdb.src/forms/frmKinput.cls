@@ -5,7 +5,7 @@ Attribute VB_Exposed = False
 Option Compare Database
 Option Explicit
 
-Private App As New clsAppStore
+Private Registry As New clsDataRegistry
 
 ' 中項目コンボボックスの連動
 Private Sub cmbDkomoku_AfterUpdate()
@@ -18,7 +18,7 @@ Private Sub cmdEnter_Click()
     If MsgBox("表示内容を手動登録します" & vbCrLf & "よろしいですか？", vbYesNo + vbQuestion, "確認") = vbNo Then Exit Sub
 
     ' クラスに処理を委譲
-    If App.Registry.RegisterManualEntry(Me!txtHizuke, Me!txtNaiyo, Me!txtKingaku, _
+    If Registry.RegisterManualEntry(Me!txtHizuke, Me!txtNaiyo, Me!txtKingaku, _
                               Me!cmbDkomoku, Me!cmbCkomoku, Me!txtMemo) Then
 
         ' 登録成功ならコントロールを掃除

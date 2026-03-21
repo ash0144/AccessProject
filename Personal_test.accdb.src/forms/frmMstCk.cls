@@ -5,7 +5,7 @@ Attribute VB_Exposed = False
 Option Compare Database
 Option Explicit
 
-Private App As New clsAppStore
+Private Selector As New clsDataSelector
 
 Private Sub cmdCancel_Click()
 
@@ -16,6 +16,6 @@ End Sub
 Private Sub cmdEnter_Click()
 
     Me.Requery
-    Call App.Selector.ApplyDiff("中項目", "中項目Wk", "中項目CD")
+    Call Selector.ApplyDiff("中項目", "中項目Wk", "中項目CD")
 
 End Sub

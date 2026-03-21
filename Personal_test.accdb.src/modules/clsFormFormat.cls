@@ -12,19 +12,16 @@ Option Explicit
 
 'フォーム回り、インターフェースなど
 'コントロール名など、各フォーム共通部分をセットアップして、同様の処理を集約できる
+Private Period As New clsPeriodManager
+Private Selector As New clsDataSelector
 
-Private App As New clsAppStore
+Private frmMain As Form         'メインフォーム
 
-Private frmMainForm As Form         'メインフォーム
+Private strSubCtrN As String    'サブフォームのコントロール名
 
-Private strSubFormCtrN As String    'サブフォームのコントロール名
-
-Private strDateFldN As String       '日付のフィールド名
-Private strDkomokuFldN As String    '大項目のフィールド名
-Private strCkomokuFldN As String    '中項目のフィールド名
 Private valSearchFlds As Variant    '検索するフィールド
 Private strKeyFldN As String        'キーフィールド名
-Private strDisplayFldN As String    '表示フィールド名
+Private strDisplayN As String    '表示フィールド名
 Private str1stFocusCtrN As String   '最初にフォーカスするコントロール名
 Private strDefaultOrder As String   '既定の並び順
 
@@ -37,20 +34,18 @@ Private strCkomokuCmbN As String    '中項目コンボボックス名
 '----------------------------------------
 ' 共通セットアップ
 '----------------------------------------
-Public Sub SetupItemForm(ByVal frmMain As Form)
+Public Sub SetupItemForm(ByVal frmM As Form)
 
-    Set frmMainForm = frmMain
+    Set frmMain = frmM
 
-    strSubFormCtrN = "subList"
+    strSubCtrN = "subList"
 
-    strDateFldN = "日付"
-    strDkomokuFldN = "大項目"
-    strCkomokuFldN = "中項目"
-    valSearchFlds = Array("内容", "メモ")
 
-    strKeyFldN = "ID"
-    strDisplayFldN = "内容"
-    str1stFocusCtrN = "txtDate"
+    valSearchFlds = Array("内容", "メモ")   'フォームによって分岐で切り替える
+
+    strKeyFldN = "ID"                       'フォームによって分岐で切り替える
+    strDisplayN = "内容"                    'フォームによって分岐で切り替える
+    str1stFocusCtrN = "txtDate"             'フォームによって分岐で切り替える
 
     strDefaultOrder = "[日付] DESC, [中項目CD] ASC"
 
@@ -66,15 +61,15 @@ End Sub
 ' フォーム参照
 '----------------------------------------
 Private Property Get SubFrm() As Form
-    Set SubFrm = frmMainForm.Controls(strSubFormCtrN).Form
+    Set SubFrm = frmMain.Controls(strSubCtrN).Form
 End Property
 
 Private Property Get MasterTblN() As String
-    MasterTblN = frmMainForm.MasterTblN
+    MasterTblN = frmMain.MasterTblN
 End Property
 
 Private Property Get WorkTblN() As String
-    WorkTblN = frmMainForm.WorkTblN
+    WorkTblN = frmMain.WorkTblN
 End Property
 
 '----------------------------------------
@@ -114,12 +109,12 @@ End Sub
 Private Sub SetButtonMode(ByVal isEditing As Boolean)
     On Error Resume Next
 
-    frmMainForm!cmdEdit.Enabled = Not isEditing
-    frmMainForm!cmdDelete.Enabled = Not isEditing
-    frmMainForm!cmdSearch.Enabled = Not isEditing
-    frmMainForm!cmdClear.Enabled = Not isEditing
+    frmMain!cmdEdit.Enabled = Not isEditing
+    frmMain!cmdDelete.Enabled = Not isEditing
+    frmMain!cmdSearch.Enabled = Not isEditing
+    frmMain!cmdClear.Enabled = Not isEditing
 
-    frmMainForm!cmdConfirm.Enabled = isEditing
+    frmMain!cmdConfirm.Enabled = isEditing
 End Sub
 
 '----------------------------------------
@@ -151,13 +146,13 @@ End Sub
 Public Sub ClearSearch()
     On Error Resume Next
 
-    frmMainForm!txtFrom = Null
-    frmMainForm!txtTo = Null
-    frmMainForm.Controls(strDkomokuCmbN) = Null
-    frmMainForm.Controls(strCkomokuCmbN) = Null
-    frmMainForm!txtItemName = Null
+    frmMain!txtFrom = Null
+    frmMain!txtTo = Null
+    frmMain.Controls(strDkomokuCmbN) = Null
+    frmMain.Controls(strCkomokuCmbN) = Null
+    frmMain!txtItemName = Null
 
-    frmMainForm.Controls(strCkomokuCmbN).Requery
+    frmMain.Controls(strCkomokuCmbN).Requery
 
     With SubFrm
         .FilterOn = False
@@ -177,8 +172,8 @@ Public Sub DkomokuAfterUpdate()
     Dim cmbD As Control
     Dim cmbC As Control
 
-    Set cmbD = frmMainForm.Controls(strDkomokuCmbN)
-    Set cmbC = frmMainForm.Controls(strCkomokuCmbN)
+    Set cmbD = frmMain.Controls(strDkomokuCmbN)
+    Set cmbC = frmMain.Controls(strCkomokuCmbN)
 
     cmbC = Null
 
@@ -198,10 +193,10 @@ Public Sub EditCurrent()
 
     SubFrm.AllowEdits = True
 
-    frmMainForm.Controls(strSubFormCtrN).SetFocus
+    frmMain.Controls(strSubCtrN).SetFocus
     SubFrm.Controls(str1stFocusCtrN).SetFocus
 
-    frmMainForm.HasPendingChanges = True   ' ←追加
+    frmMain.HasPendingChanges = True   ' ←追加
 
     ShowCurrentRecord
 End Sub
@@ -214,11 +209,11 @@ Public Sub ConfirmEdit()
     Dim qdf As DAO.QueryDef
 
     Debug.Print "=== clsFormFormat.ConfirmEdit START ==="
-    Debug.Print "frmMainForm.Name       = " & frmMainForm.name
-    Debug.Print "frmMainForm.MasterTblN = " & frmMainForm.MasterTblN
-    Debug.Print "frmMainForm.WorkTblN   = " & frmMainForm.WorkTblN
+    Debug.Print "frmMain.Name       = " & frmMain.name
+    Debug.Print "frmMain.MasterTblN = " & frmMain.MasterTblN
+    Debug.Print "frmMain.WorkTblN   = " & frmMain.WorkTblN
 
-    If Not frmMainForm.HasPendingChanges Then Exit Sub
+    If Not frmMain.HasPendingChanges Then Exit Sub
 
     With SubFrm
         If .Dirty Then .Dirty = False
@@ -235,11 +230,11 @@ Public Sub ConfirmEdit()
     qdf.Execute dbFailOnError
     Set qdf = Nothing
 
-    If frmMainForm.HasPendingChanges Then
-        Call App.Selector.ApplyDiff(frmMainForm.MasterTblN, frmMainForm.WorkTblN, strKeyFldN)
+    If frmMain.HasPendingChanges Then
+        Call Selector.ApplyDiff(frmMain.MasterTblN, frmMain.WorkTblN, strKeyFldN)
     End If
 
-    frmMainForm.HasPendingChanges = False   ' ←ここがポイント
+    frmMain.HasPendingChanges = False   ' ←ここがポイント
 
     SetButtonMode False
     ShowCurrentRecord
@@ -257,7 +252,7 @@ Public Sub DeleteCurrent()
 
     If SubFrm.NewRecord Then Exit Sub
 
-    If frmMainForm.name <> "frmEditMF" Then
+    If frmMain.name <> "frmEditMF" Then
         If strRelatedTblN <> "" And strRelatedFldN <> "" Then
             If HasRelatedRecord(strRelatedTblN, strRelatedFldN, SubFrm.Controls(strKeyFldN)) Then
                 MsgBox "関連データで使用中のため削除できません。", vbExclamation
@@ -268,7 +263,7 @@ Public Sub DeleteCurrent()
 
     msg = "以下のレコードを削除します。" & vbCrLf & vbCrLf & _
           strKeyFldN & " : " & Nz(SubFrm.Controls(strKeyFldN), "") & vbCrLf & _
-          strDisplayFldN & " : " & Nz(SubFrm.Controls(strDisplayFldN), "") & vbCrLf & vbCrLf & _
+          strDisplayN & " : " & Nz(SubFrm.Controls(strDisplayN), "") & vbCrLf & vbCrLf & _
           "よろしいですか？"
 
     If MsgBox(msg, vbYesNo + vbQuestion + vbDefaultButton2, "削除確認") = vbNo Then
@@ -276,7 +271,7 @@ Public Sub DeleteCurrent()
     End If
 
     SubFrm.AllowDeletions = True
-    frmMainForm.Controls(strSubFormCtrN).SetFocus
+    frmMain.Controls(strSubCtrN).SetFocus
     SubFrm.Controls(str1stFocusCtrN).SetFocus
 
     strSQL = "DELETE FROM [" & WorkTblN & "] WHERE [" & strKeyFldN & "] = "
@@ -293,7 +288,7 @@ Public Sub DeleteCurrent()
 
     SubFrm.AllowDeletions = False
 
-    frmMainForm.HasPendingChanges = True   ' ←追加
+    frmMain.HasPendingChanges = True   ' ←追加
 
     ShowCurrentRecord
 End Sub
@@ -306,23 +301,23 @@ Public Sub ShowCurrentRecord()
 
     With SubFrm
         If .RecordsetClone.RecordCount = 0 Then
-            frmMainForm!txtSelInfo = ""
+            frmMain!txtSelInfo = ""
         ElseIf .NewRecord Then
-            frmMainForm!txtSelInfo = "新規レコード入力中"
+            frmMain!txtSelInfo = "新規レコード入力中"
         Else
-            If frmMainForm.name = "frmEditMF" Then
-                frmMainForm!txtSelInfo = Nz(.Controls(strDateFldN), "") & " / " & _
-                Nz(.Controls(strDisplayFldN), "")
+            If frmMain.name = "frmEditMF" Then
+                frmMain!txtSelInfo = Nz(.Controls("日付"), "") & " / " & _
+                Nz(.Controls(strDisplayN), "")
             Else
-                frmMainForm!txtSelInfo = Nz(.Controls(strKeyFldN), "") & " / " & _
-                Nz(.Controls(strDisplayFldN), "")
+                frmMain!txtSelInfo = Nz(.Controls(strKeyFldN), "") & " / " & _
+                Nz(.Controls(strDisplayN), "")
             End If
         End If
     End With
 
     Exit Sub
 EH:
-    frmMainForm!txtSelInfo = ""
+    frmMain!txtSelInfo = ""
 
 End Sub
 
@@ -330,32 +325,35 @@ End Sub
 ' WHERE句作成
 '----------------------------------------
 Private Function BuildSearchWhere() As String
+
     Dim sWhere As String
     Dim sTextCondition As String
+    Dim MinD As Date, MaxD As Date
+
+    MinD = Period.GetMinDate(frmMain!txtFrom)
+    MaxD = Period.GetMinDate(frmMain!txtTo)
 
     sWhere = ""
-
-    If Not IsNull(frmMainForm!txtFrom) And frmMainForm!txtFrom <> "" Then
-        AddWhere sWhere, "[" & strDateFldN & "] >= #" & _
-                         Format(frmMainForm!txtFrom, "yyyy/mm/dd") & "#"
+    If Not IsNull(frmMain!txtFrom) And frmMain!txtFrom <> "" Then
+        AddWhere sWhere, "[日付] >=" & MinD
     End If
 
-    If Not IsNull(frmMainForm!txtTo) And frmMainForm!txtTo <> "" Then
-        AddWhere sWhere, "[" & strDateFldN & "] < #" & _
-                         Format(DateAdd("d", 1, frmMainForm!txtTo), "yyyy/mm/dd") & "#"
+    If Not IsNull(frmMain!txtTo) And frmMain!txtTo <> "" Then
+        AddWhere sWhere, "[日付] < " & DateAdd("d", 1, MaxD)
     End If
 
-    If Nz(frmMainForm.Controls(strDkomokuCmbN), "") <> "" Then
-        AddWhere sWhere, "[" & strDkomokuFldN & "] = " & _
-                         "'" & frmMainForm.Controls(strDkomokuCmbN).Column(1) & "'"
+    If Nz(frmMain.Controls("cmbDkomoku"), "") <> "" Then
+        AddWhere sWhere, "[大項目] = " & _
+                         "'" & frmMain.Controls("cmbDkomoku").Column(1) & "'"
     End If
 
-    If Nz(frmMainForm.Controls(strCkomokuCmbN), "") <> "" Then
-        AddWhere sWhere, "[" & strCkomokuFldN & "] = " & _
-                         "'" & frmMainForm.Controls(strCkomokuCmbN).Column(1) & "'"
+    If Nz(frmMain.Controls("cmbCkomoku"), "") <> "" Then
+        AddWhere sWhere, "[中項目] = " & _
+                         "'" & frmMain.Controls("cmbCkomoku").Column(1) & "'"
     End If
 
-    sTextCondition = BuildTextSearchCondition(Nz(frmMainForm!txtItemName, ""))
+    sTextCondition = BuildTextSearchCondition(Nz(frmMain!txtItemName, ""))
+
     If sTextCondition <> "" Then
         AddWhere sWhere, sTextCondition
     End If

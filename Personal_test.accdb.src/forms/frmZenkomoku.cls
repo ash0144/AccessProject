@@ -4,7 +4,7 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
-Private App As New clsAppStore
+Private Selector As New clsDataSelector
 Private btnGroup As New Collection ' ボタンクラスをまとめて入れておく袋
 
 Private Sub cmdClose_Click()
@@ -20,7 +20,7 @@ Private Sub Form_Open(Cancel As Integer)
     Me!txtRange = pubFromTo
     Me!txtGokei = DSum("金額（円）", "抽出テーブル")
 
-    mainCDs = App.Selector.GetCategoryList("Zenkomoku")
+    mainCDs = Selector.GetCategoryList("Zenkomoku")
 
     If IsEmpty(mainCDs) Then Exit Sub
 
@@ -44,7 +44,7 @@ End Sub
 ' クラスから呼び出される共通メソッド
 ' ※ Publicにする必要があります
 Public Sub ShowMeisaiFromClass(targetCD As Long)
-    App.Selector.CreateMeisai targetCD, "大項目CD"
+    Selector.CreateMeisai targetCD, "大項目CD"
     Me!subMeisai.Visible = True
     Me!subMeisai.Requery
 End Sub
