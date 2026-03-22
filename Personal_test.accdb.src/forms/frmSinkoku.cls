@@ -17,8 +17,8 @@ Private Sub Form_Open(Cancel As Integer)
     Dim mCD As Long
     Dim btnHandler As clsMyButton
 
-    Me!txtRange = pubFromTo
-    Me!txtGokei = DSum("金額（円）", "抽出テーブル")
+    Me.txtRange = Me.OpenArgs
+    Me.txtGokei = DSum("金額（円）", "抽出テーブル")
 
     mainCDs = Selector.GetCategoryList("Sinkoku")
 

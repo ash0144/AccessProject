@@ -16,13 +16,19 @@ Private Sub Form_Open(Cancel As Integer)
     Dim i As Integer
     Dim sCD As Long
     Dim btnHandler As clsMyButton
+    Dim args() As String, strRange As String, lngDkomoku As Long
 
-    Me!txtRange = pubFromTo
-    Me!txtDkomoku = DLookup("勘定科目", "勘定科目", "勘定科目CD=" & pubDkomoku)
-    Me!txtGokei = DSum("金額（円）", "抽出テーブル", "勘定科目CD=" & pubDkomoku)
+    If Not IsNull(Me.OpenArgs) Then
+        args = Split(Me.OpenArgs, ",")
+        lngDkomoku = CLng(args(0))
+        strRange = args(1)
+        Me.txtDkomoku = DLookup("勘定科目", "勘定科目", "勘定科目CD=" & lngDkomoku)
+        Me.txtRange = args(1)
+        Me!txtGokei = DSum("金額（円）", "抽出テーブル", "勘定科目CD=" & lngDkomoku)
+    End If
 
     ' 中項目リストを取得
-    subCDs = Selector.GetCategoryList("Kamokubetu", pubDkomoku)
+    subCDs = Selector.GetCategoryList("Kamokubetu", lngDkomoku)
 
     If IsEmpty(subCDs) Then Exit Sub
 

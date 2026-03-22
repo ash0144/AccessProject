@@ -76,9 +76,10 @@ End Property
 ' 起動時
 '----------------------------------------
 Public Sub OnLoad()
-
+    '確定以外のボタンを使用可能にする
     SetButtonMode False
 
+    'サブフォームのプロパティ設定
     With SubFrm
         .AllowEdits = False
         .AllowAdditions = True
@@ -87,8 +88,8 @@ Public Sub OnLoad()
         .OrderByOn = True
     End With
 
+    '現在選択中レコードの情報を左下に表示
     ShowCurrentRecord
-
 End Sub
 
 '----------------------------------------
@@ -196,7 +197,7 @@ Public Sub EditCurrent()
     frmMain.Controls(strSubCtrN).SetFocus
     SubFrm.Controls(str1stFocusCtrN).SetFocus
 
-    frmMain.HasPendingChanges = True   ' ←追加
+    frmMain.PendingState = True   ' ←追加
 
     ShowCurrentRecord
 End Sub
@@ -213,7 +214,7 @@ Public Sub ConfirmEdit()
     Debug.Print "frmMain.MasterTblN = " & frmMain.MasterTblN
     Debug.Print "frmMain.WorkTblN   = " & frmMain.WorkTblN
 
-    If Not frmMain.HasPendingChanges Then Exit Sub
+    If Not frmMain.PendingState Then Exit Sub
 
     With SubFrm
         If .Dirty Then .Dirty = False
@@ -230,11 +231,11 @@ Public Sub ConfirmEdit()
     qdf.Execute dbFailOnError
     Set qdf = Nothing
 
-    If frmMain.HasPendingChanges Then
+    If frmMain.PendingState Then
         Call Selector.ApplyDiff(frmMain.MasterTblN, frmMain.WorkTblN, strKeyFldN)
     End If
 
-    frmMain.HasPendingChanges = False   ' ←ここがポイント
+    frmMain.PendingState = False   ' ←ここがポイント
 
     SetButtonMode False
     ShowCurrentRecord
@@ -288,7 +289,7 @@ Public Sub DeleteCurrent()
 
     SubFrm.AllowDeletions = False
 
-    frmMain.HasPendingChanges = True   ' ←追加
+    frmMain.PendingState = True   ' ←追加
 
     ShowCurrentRecord
 End Sub
@@ -397,10 +398,3 @@ Private Sub AddWhere(ByRef sWhere As String, ByVal sCondition As String)
     End If
     sWhere = sWhere & sCondition
 End Sub
-
-'----------------------------------------
-' 文字列エスケープ
-'----------------------------------------
-Private Function EscapeText(ByVal s As String) As String
-    EscapeText = Replace(s, "'", "''")
-End Function

@@ -128,3 +128,10 @@ Public Function GetID() As String
     GetID = strID
 
 End Function
+
+'----------------------------------------
+' 文字列エスケープ
+'----------------------------------------
+Public Function EscapeText(ByVal s As String) As String
+    EscapeText = Replace(s, "'", "''")
+End Function

@@ -18,13 +18,13 @@ Private Sub cmdAll_Click()
 
     optB = Me!optBunrui
 
-    pubFromTo = Period.GetString(dF, dT)                '表示画面用日付範囲の文字列作成
+'    pubFromTo = Period.GetString(dF, dT)                '表示画面用日付範囲の文字列作成
     Selector.ExtractToWorkTable dF, dT, optB            '検索条件で抽出テーブルに出力
 
     If optB = 1 Then
-        DoCmd.OpenForm "frmZenkomoku"                       '家計簿分類の大項目別一覧（明細：中項目）
+        DoCmd.OpenForm "frmZenkomoku", , , , , , Period.GetString(dF, dT) '家計簿分類の大項目別一覧（明細：中項目）
     Else
-        DoCmd.OpenForm "frmSinkoku"                         '確定申告分類の勘定科目別一覧（明細：中項目）
+        DoCmd.OpenForm "frmSinkoku", , , , , , Period.GetString(dF, dT)   '確定申告分類の勘定科目別一覧（明細：中項目）
     End If
 
 End Sub
@@ -56,10 +56,10 @@ Private Sub cmdKomoku_Click()
 
     Selector.ExtractToWorkTable dF, dT, optB, Me!cmbDkomoku
 
-    pubDkomoku = Me!cmbDkomoku
-    pubFromTo = Period.GetString(dF, dT)
+'    pubDkomoku = Me!cmbDkomoku
+'    pubFromTo = Period.GetString(dF, dT)
 
-    DoCmd.OpenForm IIf(optB = 1, "frmKomokubetu", "frmKamokubetu")
+    DoCmd.OpenForm IIf(optB = 1, "frmKomokubetu", "frmKamokubetu"), , , , , , Me!cmbDkomoku & "," & Period.GetString(dF, dT)
 
 End Sub
 

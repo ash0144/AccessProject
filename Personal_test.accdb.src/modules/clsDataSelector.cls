@@ -43,7 +43,7 @@ Public Sub ExtractToWorkTable(dFrom As Date, dTo As Date, optB As Integer, Optio
     Set qdf = db.CreateQueryDef("", strSQL)
     qdf.Parameters("pFrom").Value = dFrom
     qdf.Parameters("pTo").Value = dTo
-    If Not IsNull(dKomokuCD) Then qdf.Parameters("pCD").Value = dKomokuCD
+    If Not IsNull(dKomokuCD) Then qdf.Parameters("pCD").Value = CLng(dKomokuCD)
 
     qdf.Execute dbFailOnError
 
@@ -294,8 +294,8 @@ Public Sub OpenWorkEditForm( _
 
     DoCmd.OpenForm frmN
 
-    Forms(frmN).MasterTblN = fromTbl
-    Forms(frmN).WorkTblN = toTbl
+'    Forms(frmN).MasterTblN = fromTbl
+'    Forms(frmN).WorkTblN = toTbl
     Forms(frmN).InitializeForm
 
 End Sub

@@ -5,7 +5,7 @@ Attribute VB_Exposed = False
 Option Compare Database
 Option Explicit
 
-Private App As New clsAppStore
+Private FormF As New clsFormFormat
 Private blnFormInitialized As Boolean
 Private strMasterTblN As String
 Private strWorkTblN As String
@@ -15,37 +15,23 @@ Private blnPendingChanges As Boolean
 '----------------------------------------
 ' プロパティ
 '----------------------------------------
-Public Property Let MasterTblN(ByVal v As String)
-    Debug.Print "Let MasterTblN = " & v
-    strMasterTblN = v
-End Property
-
+'Getのみのプロパティは外から読取専用、代入は不可
 Public Property Get MasterTblN() As String
-    Debug.Print "Get MasterTblN = " & strMasterTblN
-    MasterTblN = strMasterTblN
-End Property
-
-Public Property Let WorkTblN(ByVal v As String)
-    Debug.Print "Let WorkTblN = " & v
-    strWorkTblN = v
+    MasterTblN = "MoneyForward"
 End Property
 
 Public Property Get WorkTblN() As String
-    Debug.Print "Get WorkTblN = " & strWorkTblN
-    WorkTblN = strWorkTblN
+    WorkTblN = "MoneyForwardWk"
 End Property
 
-Public Property Let HasPendingChanges(ByVal v As Boolean)
+' 外からTrueを代入されると確定ボタンが使用可能に
+Public Property Let PendingState(ByVal v As Boolean)
     blnDirtyWork = v
-
-    Debug.Print "HasPendingChanges = " & v
-
-    ' 確定ボタンだけここで制御
     Me!cmdConfirm.Enabled = v
 End Property
 
-Public Property Get HasPendingChanges() As Boolean
-    HasPendingChanges = blnDirtyWork
+Public Property Get PendingState() As Boolean
+    PendingState = blnDirtyWork
 End Property
 
 '----------------------------------------
@@ -57,11 +43,11 @@ Public Sub InitializeForm()
     Debug.Print "strMasterTblN = " & strMasterTblN
     Debug.Print "strWorkTblN   = " & strWorkTblN
 
-    App.FormF.SetupItemForm Me
-    App.FormF.OnLoad
+    FormF.SetupItemForm Me
+    FormF.OnLoad
 
     blnFormInitialized = True
-    Me.HasPendingChanges = False
+    Me.PendingState = False
 
     Debug.Print "=== InitializeForm END ==="
 End Sub
@@ -70,7 +56,7 @@ Private Sub cmdClose_Click()
 
     Dim ret As VbMsgBoxResult
 
-    If Me.HasPendingChanges Then
+    If Me.PendingState Then
         ret = MsgBox( _
             "未確定の変更があります。" & vbCrLf & _
             "このまま閉じると、本テーブルには反映されません。" & vbCrLf & vbCrLf & _
@@ -98,29 +84,29 @@ End Sub
 Private Sub Form_Unload(Cancel As Integer)
 
     If blnFormInitialized Then
-        App.FormF.OnUnload
+        FormF.OnUnload
     End If
 
 End Sub
 
 Private Sub cmdSearch_Click()
-    App.FormF.Search
+    FormF.Search
 End Sub
 
 Private Sub cmdClear_Click()
-    App.FormF.ClearSearch
+    FormF.ClearSearch
 End Sub
 
 Private Sub cmbDkomoku_AfterUpdate()
-    App.FormF.DkomokuAfterUpdate
+    FormF.DkomokuAfterUpdate
 End Sub
 
 Private Sub cmdEdit_Click()
-    App.FormF.EditCurrent
+    FormF.EditCurrent
 End Sub
 
 Private Sub cmdDelete_Click()
-    App.FormF.DeleteCurrent
+    FormF.DeleteCurrent
 End Sub
 
 Private Sub cmdConfirm_Click()
@@ -128,9 +114,9 @@ Private Sub cmdConfirm_Click()
     Debug.Print "  Me.MasterTblN = " & Me.MasterTblN
     Debug.Print "  Me.WorkTblN   = " & Me.WorkTblN
 
-    App.FormF.ConfirmEdit
+    FormF.ConfirmEdit
 End Sub
 
 Public Sub RefreshSelectedInfo()
-    App.FormF.ShowCurrentRecord
+    FormF.ShowCurrentRecord
 End Sub
