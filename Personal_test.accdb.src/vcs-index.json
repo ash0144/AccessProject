@@ -6,7 +6,7 @@
   "Items": {
     "MergeBuildDate": null,
     "FullBuildDate": "2026-03-07T06:45:55.000Z",
-    "ExportDate": "2026-03-22T07:49:48.000Z",
+    "ExportDate": "2026-03-22T14:57:30.000Z",
     "FullExportDate": "2026-03-07T02:45:49.000Z",
     "OptionsHash": "1e652c7",
     "LastMergedCommit": "",
@@ -35,11 +35,11 @@
       },
       "Forms": {
         "frmEditMF.bas": {
-          "FileHash": "a98d97f",
-          "OtherHash": "7ccad06",
-          "ExportDate": "2026-03-22T07:49:48.000Z",
+          "FileHash": "8411f63",
+          "OtherHash": "ed8a176",
+          "ExportDate": "2026-03-22T14:57:30.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "089e04d"
+          "FilePropertiesHash": "956850b"
         },
         "frmEditMFsub.bas": {
           "FileHash": "d681485",
@@ -49,35 +49,35 @@
           "FilePropertiesHash": "4332623"
         },
         "frmKamokubetu.bas": {
-          "FileHash": "768e236",
-          "OtherHash": "dce29a9",
-          "ExportDate": "2026-03-22T07:49:47.000Z",
+          "FileHash": "31b9827",
+          "OtherHash": "630c7e7",
+          "ExportDate": "2026-03-22T14:57:29.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "8798d78"
+          "FilePropertiesHash": "0febb09"
         },
         "frmKinput.bas": {
           "FileHash": "31a8d56",
-          "ExportDate": "2026-03-21T16:30:56.000Z",
+          "ExportDate": "2026-03-22T14:57:29.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "958ddd3",
+          "FilePropertiesHash": "7c0e142",
           "ImportDate": "2026-03-07T06:45:52.000Z",
-          "OtherHash": "e7e658d"
+          "OtherHash": "f7d3585"
         },
         "frmKomokubetu.bas": {
-          "FileHash": "5a46b67",
-          "ExportDate": "2026-03-22T07:49:48.000Z",
+          "FileHash": "3ad66bc",
+          "ExportDate": "2026-03-22T14:57:29.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "57087d1",
+          "FilePropertiesHash": "e38f647",
           "ImportDate": "2026-03-07T06:45:52.000Z",
-          "OtherHash": "c87d618"
+          "OtherHash": "5c731fd"
         },
         "frmKSmenu.bas": {
-          "FileHash": "063c475",
-          "ExportDate": "2026-03-22T07:49:48.000Z",
+          "FileHash": "7309328",
+          "ExportDate": "2026-03-22T14:57:29.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "a0297d8",
+          "FilePropertiesHash": "1c8594b",
           "ImportDate": "2026-03-07T06:45:52.000Z",
-          "OtherHash": "1e3d156"
+          "OtherHash": "f30e950"
         },
         "frmKSmenuB.bas": {
           "FileHash": "3a5bf5e",
@@ -115,46 +115,46 @@
         },
         "frmMstCk.bas": {
           "FileHash": "6e4ce5b",
-          "OtherHash": "e06e11a",
-          "ExportDate": "2026-03-21T16:30:56.000Z",
+          "OtherHash": "4be1efe",
+          "ExportDate": "2026-03-22T14:57:30.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "200e070"
+          "FilePropertiesHash": "0d070f3"
         },
         "frmMstDk.bas": {
           "FileHash": "492eb77",
-          "OtherHash": "526c5fc",
-          "ExportDate": "2026-03-21T16:30:56.000Z",
+          "OtherHash": "bbdeea1",
+          "ExportDate": "2026-03-22T14:57:29.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "35dd8af"
+          "FilePropertiesHash": "5f9366a"
         },
         "frmMstKb.bas": {
           "FileHash": "f6d7d3b",
-          "OtherHash": "fa665fa",
-          "ExportDate": "2026-03-21T16:30:56.000Z",
+          "OtherHash": "828d6d5",
+          "ExportDate": "2026-03-22T14:57:29.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "f21eced"
+          "FilePropertiesHash": "8e672f4"
         },
         "frmMstKk.bas": {
           "FileHash": "07a2ab2",
-          "OtherHash": "931d21d",
-          "ExportDate": "2026-03-21T16:30:56.000Z",
+          "OtherHash": "45092dd",
+          "ExportDate": "2026-03-22T14:57:29.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "e1bd4c5"
+          "FilePropertiesHash": "154cd58"
         },
         "frmSinkoku.bas": {
           "FileHash": "f9beb91",
-          "OtherHash": "3d4061c",
-          "ExportDate": "2026-03-22T07:49:48.000Z",
+          "OtherHash": "6b965eb",
+          "ExportDate": "2026-03-22T14:57:29.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "8d8e3b4"
+          "FilePropertiesHash": "6ad4d2b"
         },
         "frmSinput.bas": {
           "FileHash": "c5f084a",
-          "ExportDate": "2026-03-21T16:30:56.000Z",
+          "ExportDate": "2026-03-22T14:57:29.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "7ab8638",
+          "FilePropertiesHash": "8df882b",
           "ImportDate": "2026-03-07T06:45:52.000Z",
-          "OtherHash": "7082b3f"
+          "OtherHash": "cb143e5"
         },
         "frmSPEC.bas": {
           "FileHash": "cc970f0",
@@ -166,11 +166,11 @@
         },
         "frmZenkomoku.bas": {
           "FileHash": "4fa4949",
-          "ExportDate": "2026-03-22T07:49:47.000Z",
+          "ExportDate": "2026-03-22T14:57:29.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "6ad185f",
+          "FilePropertiesHash": "2fd6eb5",
           "ImportDate": "2026-03-07T06:45:53.000Z",
-          "OtherHash": "1ab2a35"
+          "OtherHash": "681fe5f"
         }
       },
       "Hidden Attributes": {
@@ -226,11 +226,11 @@
           "OtherHash": "dc2e947"
         },
         "clsFormFormat.cls": {
-          "FileHash": "c45fe6f",
-          "OtherHash": "f68e43d",
-          "ExportDate": "2026-03-22T07:49:47.000Z",
+          "FileHash": "a4c23ec",
+          "OtherHash": "b1beb29",
+          "ExportDate": "2026-03-22T14:57:28.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "88b5ba2"
+          "FilePropertiesHash": "ff7c1e6"
         },
         "clsMyButton.cls": {
           "FileHash": "3d063f1",
@@ -257,18 +257,32 @@
           "OtherHash": "ca44951"
         },
         "modFileDialog.bas": {
-          "FileHash": "c3c6915",
-          "OtherHash": "025ca5c",
-          "ExportDate": "2026-03-22T07:49:47.000Z",
+          "FileHash": "7703dca",
+          "OtherHash": "fdf9f1a",
+          "ExportDate": "2026-03-22T14:57:28.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "82d957b"
+          "FilePropertiesHash": "aad938a"
+        },
+        "modFormIO.bas": {
+          "FileHash": "1303f31",
+          "OtherHash": "b7963ac",
+          "ExportDate": "2026-03-22T14:57:28.000Z",
+          "SourceModified": null,
+          "FilePropertiesHash": "830ca72"
+        },
+        "modFormSelect.bas": {
+          "FileHash": "56d3633",
+          "OtherHash": "a9bc8dc",
+          "ExportDate": "2026-03-22T14:57:28.000Z",
+          "SourceModified": null,
+          "FilePropertiesHash": "7c0dd83"
         },
         "modTool.bas": {
-          "FileHash": "1abe0e0",
-          "OtherHash": "ba2bbed",
-          "ExportDate": "2026-03-22T07:49:47.000Z",
+          "FileHash": "d33add6",
+          "OtherHash": "1996abf",
+          "ExportDate": "2026-03-22T14:57:28.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "8c6c2be"
+          "FilePropertiesHash": "7067d04"
         },
         "共通モジュール.bas": {
           "FileHash": "49c788d",

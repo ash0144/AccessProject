@@ -6,9 +6,6 @@ Dim strSQL As String
 
 Private Const C_DELIMITER   As String = ","
 
-'Public pubDkomoku As Integer
-'Public pubFromTo As String
-
 '***************************************************************************
 '名称　：GetFileName
 '機能　：ファイル選択ダイアログ

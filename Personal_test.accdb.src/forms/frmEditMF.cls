@@ -38,10 +38,6 @@ End Property
 ' 初期化
 '----------------------------------------
 Public Sub InitializeForm()
-    Debug.Print "=== InitializeForm START ==="
-    Debug.Print "Me.Name       = " & Me.name
-    Debug.Print "strMasterTblN = " & strMasterTblN
-    Debug.Print "strWorkTblN   = " & strWorkTblN
 
     FormF.SetupItemForm Me
     FormF.OnLoad
@@ -110,10 +106,6 @@ Private Sub cmdDelete_Click()
 End Sub
 
 Private Sub cmdConfirm_Click()
-    Debug.Print "cmdConfirm_Click"
-    Debug.Print "  Me.MasterTblN = " & Me.MasterTblN
-    Debug.Print "  Me.WorkTblN   = " & Me.WorkTblN
-
     FormF.ConfirmEdit
 End Sub
 

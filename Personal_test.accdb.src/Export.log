@@ -5,7 +5,7 @@ VCS Version 4.1.2
 Full Path: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb
 Export Folder: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\
 Using Fast Save
-2026/03/22 16:49:46
+2026/03/22 23:57:27
 -------------------------------------
 Scanning for changes...
 No modified db connections found in this database.
@@ -15,6 +15,9 @@ No modified vbe references found in this database.
 No modified vbe forms found in this database.
 No modified proj properties found in this database.
 No modified saved specs found in this database.
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\modules\clsDataRegistry.cls
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\modules\clsDataSelector.cls
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\modules\clsPeriodManager.cls
 No modified commandbars found in this database.
 No modified shared images found in this database.
 No modified themes found in this database.
@@ -32,11 +35,12 @@ No modified nav pane groups found in this database.
 No modified hidden attributes found in this database.
 -------------------------------------
 Exporting modules...          
-  clsDataSelector
   modTool
   modFileDialog
   clsFormFormat
-[4]
+  modFormIO
+  modFormSelect
+[5]
 -------------------------------------
 Exporting forms...            
   frmZenkomoku
@@ -47,23 +51,35 @@ Exporting forms...
     Sanitized in 0.023 seconds.
   frmKomokubetu
     Sanitized in 0.016 seconds.
+  frmSinput
+    Sanitized in 0.007 seconds.
+  frmKinput
+    Sanitized in 0.007 seconds.
+  frmMstKb
+    Sanitized in 0.005 seconds.
   frmKSmenu
     Sanitized in 0.011 seconds.
+  frmMstDk
+    Sanitized in 0.005 seconds.
+  frmMstKk
+    Sanitized in 0.007 seconds.
+  frmMstCk
+    Sanitized in 0.007 seconds.
   frmEditMF
-    Sanitized in 0.010 seconds.
-[6]
+    Sanitized in 0.009 seconds.
+[12]
 -------------------------------------
-Done. (1.83 seconds)
+Done. (2.17 seconds)
 
 --------------------------------------------------
                 PERFORMANCE REPORTS
 --------------------------------------------------
 Category                      Count     Seconds
 --------------------------------------------------
-Forms                         6         1.10
-Modules                       4         0.19
+Forms                         12        1.43
+Modules                       5         0.22
 DB Properties                 0         0.10
-Tables                        0         0.09
+Tables                        0         0.08
 Relations                     0         0.04
 Doc Properties                0         0.04
 CommandBars                   0         0.02
@@ -77,48 +93,48 @@ Queries                       0         0.01
 Proj Properties               0         0.01
 Themes                        0         0.01
 VB Project                    0         0.01
-Project                       0         0.01
+Project                       0         0.00
 Shared Images                 0         0.00
 Table Data                    0         0.00
 VBE Forms                     0         0.00
-Saved Specs                   0         0.00
-Macros                        0         0.00
 Reports                       0         0.00
+Macros                        0         0.00
+Saved Specs                   0         0.00
 --------------------------------------------------
-TOTALS:                       10        1.72
+TOTALS:                       17        2.07
 --------------------------------------------------
 
 --------------------------------------------------
 Operations                    Count     Seconds
 --------------------------------------------------
-Convert to JSON               811       0.20
+Read File Bytes               17        0.26
+App.SaveAsText()              12        0.25
+Convert to JSON               913       0.21
+Sanitize File                 12        0.16
 Scan DB Objects               1         0.15
-Read File Bytes               10        0.15
-App.SaveAsText()              6         0.12
-Sanitize File                 6         0.11
 Clear Orphaned Files          16        0.09
-Increment Progress            138       0.08
-Read File                     11        0.05
-Console Updates               3         0.05
-Read File DevMode             6         0.04
+Read File DevMode             12        0.08
+Increment Progress            152       0.08
+Read File                     18        0.07
+Console Updates               3         0.04
 Check for linked table        60        0.03
-Export VBE Module             4         0.01
+Export VBE Module             5         0.02
+Get File Property Hash        32        0.02
+Write File                    29        0.01
 Parse JSON                    1         0.01
-Get VBA Hash                  29        0.01
-Write File                    16        0.01
-Get File Property Hash        20        0.01
-Quick Count Files             1         0.01
-Delete File                   17        0.01
-Compute SHA256                90        0.00
-modFileAccess.VerifyPath      22        0.00
-Sanitize VBA Code             10        0.00
-Quick Count Objects           1         0.00
+Delete File                   33        0.01
+Get VBA Hash                  37        0.01
+modFileAccess.VerifyPath      41        0.01
+Compute SHA256                123       0.01
+Quick Count Files             1         0.00
+Sanitize VBA Code             17        0.00
 Parse JSON ISO Date           148       0.00
-Get Modified Date             20        0.00
+Quick Count Objects           1         0.00
+Get Modified Date             34        0.00
 Close Open Objects            1         0.00
 modFileAccess.GetUncPath      2         0.00
 --------------------------------------------------
-Other Operations                        0.67
+Other Operations                        0.64
 --------------------------------------------------
 
 

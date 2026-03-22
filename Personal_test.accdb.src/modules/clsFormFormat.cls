@@ -12,8 +12,6 @@ Option Explicit
 
 'フォーム回り、インターフェースなど
 'コントロール名など、各フォーム共通部分をセットアップして、同様の処理を集約できる
-Private Period As New clsPeriodManager
-Private Selector As New clsDataSelector
 
 Private frmMain As Form         'メインフォーム
 
@@ -37,21 +35,14 @@ Private strCkomokuCmbN As String    '中項目コンボボックス名
 Public Sub SetupItemForm(ByVal frmM As Form)
 
     Set frmMain = frmM
-
     strSubCtrN = "subList"
-
-
     valSearchFlds = Array("内容", "メモ")   'フォームによって分岐で切り替える
-
     strKeyFldN = "ID"                       'フォームによって分岐で切り替える
     strDisplayN = "内容"                    'フォームによって分岐で切り替える
     str1stFocusCtrN = "txtDate"             'フォームによって分岐で切り替える
-
     strDefaultOrder = "[日付] DESC, [中項目CD] ASC"
-
     strRelatedTblN = "中項目"
     strRelatedFldN = "中項目CD"
-
     strDkomokuCmbN = "cmbDkomoku"
     strCkomokuCmbN = "cmbCkomoku"
 
@@ -232,7 +223,7 @@ Public Sub ConfirmEdit()
     Set qdf = Nothing
 
     If frmMain.PendingState Then
-        Call Selector.ApplyDiff(frmMain.MasterTblN, frmMain.WorkTblN, strKeyFldN)
+        Call ApplyDiff(frmMain.MasterTblN, frmMain.WorkTblN, strKeyFldN)
     End If
 
     frmMain.PendingState = False   ' ←ここがポイント
@@ -331,8 +322,8 @@ Private Function BuildSearchWhere() As String
     Dim sTextCondition As String
     Dim MinD As Date, MaxD As Date
 
-    MinD = Period.GetMinDate(frmMain!txtFrom)
-    MaxD = Period.GetMinDate(frmMain!txtTo)
+    MinD = GetMinDate(frmMain!txtFrom)
+    MaxD = GetMinDate(frmMain!txtTo)
 
     sWhere = ""
     If Not IsNull(frmMain!txtFrom) And frmMain!txtFrom <> "" Then

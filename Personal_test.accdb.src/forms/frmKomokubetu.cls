@@ -4,7 +4,6 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
-Private Selector As New clsDataSelector
 Private btnGroup As New Collection ' ボタン監視インスタンスを保管する袋
 
 Private Sub cmdClose_Click()
@@ -29,7 +28,7 @@ Private Sub Form_Open(Cancel As Integer)
 
 
     ' 中項目リストを取得
-    subCDs = Selector.GetCategoryList("Komokubetu", lngDkomoku)
+    subCDs = GetCategoryList("Komokubetu", lngDkomoku)
 
     If IsEmpty(subCDs) Then Exit Sub
 
@@ -54,7 +53,7 @@ End Sub
 ' ※名前を共通化しておくと管理が楽です
 Public Sub ShowMeisaiFromClass(targetCD As Long)
     ' 抽出担当に中項目CDを渡して明細作成
-    Selector.CreateMeisai targetCD, "中項目CD"
+    CreateMeisai targetCD, "中項目CD"
     Me!subMeisai.Visible = True
     Me!subMeisai.Requery
 End Sub

@@ -5,26 +5,21 @@ Attribute VB_Exposed = False
 Option Compare Database
 Option Explicit
 
-Private Period As New clsPeriodManager
-Private Selector As New clsDataSelector
-Private Registry As New clsDataRegistry
-
 Private Sub cmdAll_Click()
 '"項目別一覧"/"勘定科目別一覧"の出力
 
-    Dim dF As Date: dF = Period.GetMinDate(Me!txtFrom)  '日付（From）を検索用に整形
-    Dim dT As Date: dT = Period.GetMaxDate(Me!txtTo)    '日付（To）を検索用に整形
+    Dim dF As Date: dF = GetMinDate(Me!txtFrom)  '日付（From）を検索用に整形
+    Dim dT As Date: dT = GetMaxDate(Me!txtTo)    '日付（To）を検索用に整形
     Dim optB As Integer                                     '家計簿/確定申告の分類
 
     optB = Me!optBunrui
 
-'    pubFromTo = Period.GetString(dF, dT)                '表示画面用日付範囲の文字列作成
-    Selector.ExtractToWorkTable dF, dT, optB            '検索条件で抽出テーブルに出力
+    ExtractToWorkTable dF, dT, optB            '検索条件で抽出テーブルに出力
 
     If optB = 1 Then
-        DoCmd.OpenForm "frmZenkomoku", , , , , , Period.GetString(dF, dT) '家計簿分類の大項目別一覧（明細：中項目）
+        DoCmd.OpenForm "frmZenkomoku", , , , , , GetString(dF, dT) '家計簿分類の大項目別一覧（明細：中項目）
     Else
-        DoCmd.OpenForm "frmSinkoku", , , , , , Period.GetString(dF, dT)   '確定申告分類の勘定科目別一覧（明細：中項目）
+        DoCmd.OpenForm "frmSinkoku", , , , , , GetString(dF, dT)   '確定申告分類の勘定科目別一覧（明細：中項目）
     End If
 
 End Sub
@@ -32,15 +27,18 @@ End Sub
 Private Sub cmdEdit_Click()
 '編集画面の表示
 
-Selector.OpenWorkEditForm "frmEditMF", "MoneyForward", "MoneyForwardWk"
+    LoadWorkTable "MoneyForward", "MoneyForwardWk"
+    DoCmd.OpenForm "frmEditMF"
+
+    Forms!frmEditMF.InitializeForm
 
 End Sub
 
 Private Sub cmdKomoku_Click()
 '"項目明細"/"勘定科目明細"の出力
 
-    Dim dF As Date: dF = Period.GetMinDate(Me!txtFrom)
-    Dim dT As Date: dT = Period.GetMaxDate(Me!txtTo)
+    Dim dF As Date: dF = GetMinDate(Me!txtFrom)
+    Dim dT As Date: dT = GetMaxDate(Me!txtTo)
     Dim optB As Integer
 
     optB = Me!optBunrui
@@ -54,12 +52,9 @@ Private Sub cmdKomoku_Click()
         Exit Sub
     End If
 
-    Selector.ExtractToWorkTable dF, dT, optB, Me!cmbDkomoku
+    ExtractToWorkTable dF, dT, optB, Me!cmbDkomoku
 
-'    pubDkomoku = Me!cmbDkomoku
-'    pubFromTo = Period.GetString(dF, dT)
-
-    DoCmd.OpenForm IIf(optB = 1, "frmKomokubetu", "frmKamokubetu"), , , , , , Me!cmbDkomoku & "," & Period.GetString(dF, dT)
+    DoCmd.OpenForm IIf(optB = 1, "frmKomokubetu", "frmKamokubetu"), , , , , , Me!cmbDkomoku & "," & GetString(dF, dT)
 
 End Sub
 
@@ -67,7 +62,7 @@ Private Sub cmdImpMF_Click()
 'Excelファイル(MoneyForward出力）の取込
 'クラス側でエラーメッセージが出るので、ここでは成功時のみメッセージ
 
-    If Registry.ImportMFData() Then
+    If ImportMFData() Then
         Me.Requery
         MsgBox "完了しました"
     End If
@@ -97,7 +92,7 @@ End Sub
 
 Private Sub cmdMstCk_Click()
 
-    Call Selector.LoadWorkTable("中項目", "中項目Wk")
+    LoadWorkTable "中項目", "中項目Wk"
 
     DoCmd.OpenForm "frmMstCk"
 
@@ -105,7 +100,7 @@ End Sub
 
 Private Sub cmdMstDk_Click()
 
-    Call Selector.LoadWorkTable("大項目", "大項目Wk")
+    LoadWorkTable "大項目", "大項目Wk"
 
     DoCmd.OpenForm "frmMstDk"
 
@@ -113,7 +108,7 @@ End Sub
 
 Private Sub cmdMstKb_Click()
 
-    Call Selector.LoadWorkTable("勘定分類", "勘定分類Wk")
+    LoadWorkTable "勘定分類", "勘定分類Wk"
 
     DoCmd.OpenForm "frmMstKb"
 
@@ -121,7 +116,7 @@ End Sub
 
 Private Sub cmdMstKk_Click()
 
-    Call Selector.LoadWorkTable("勘定科目", "勘定科目Wk")
+    LoadWorkTable "勘定科目", "勘定科目Wk"
 
     DoCmd.OpenForm "frmMstKk"
 
