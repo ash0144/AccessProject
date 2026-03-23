@@ -29,7 +29,6 @@ Public Sub ApplyDiff(mstTbl As String, wkTbl As String, keyCD As String)
         Exit Sub
     End If
 
-
     '挿入時にカラム順のズレによる誤挿入を防ぐため、明示的にフィールド一覧を指定する
 
     fieldList = ""

@@ -3,6 +3,7 @@ VersionRequired =20
 Begin Form
     RecordSelectors = NotDefault
     NavigationButtons = NotDefault
+    CloseButton = NotDefault
     DividingLines = NotDefault
     AllowDesignChanges = NotDefault
     DefaultView =0
@@ -13,13 +14,13 @@ Begin Form
     Width =8333
     DatasheetFontHeight =11
     ItemSuffix =37
-    Right =12672
-    Bottom =11232
+    Right =19992
+    Bottom =11568
     RecSrcDt = Begin
         0x2d1d1047d67fe640
     End
     RecordSource ="履歴"
-    Caption ="家計簿/確定申告"
+    Caption ="メニュー"
     DatasheetFontName ="ＭＳ Ｐゴシック"
     FilterOnLoad =0
     ShowPageMargins =0

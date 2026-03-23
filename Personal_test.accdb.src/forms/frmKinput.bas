@@ -13,8 +13,8 @@ Begin Form
     Width =6236
     DatasheetFontHeight =11
     ItemSuffix =10
-    Right =14172
-    Bottom =11568
+    Right =19992
+    Bottom =11820
     RecSrcDt = Begin
         0xc541a593813be640
     End
@@ -116,8 +116,42 @@ Begin Form
             GridlineThemeColorIndex =1
             GridlineShade =65.0
         End
+        Begin FormHeader
+            Height =850
+            Name ="フォームヘッダー"
+            AlternateBackThemeColorIndex =1
+            AlternateBackShade =95.0
+            BackThemeColorIndex =2
+            BackTint =20.0
+            Begin
+                Begin Label
+                    OverlapFlags =85
+                    TextAlign =1
+                    TextFontFamily =50
+                    Left =336
+                    Top =228
+                    Width =4488
+                    Height =456
+                    FontSize =18
+                    Name ="lblTitle"
+                    Caption ="新規登録(家計簿分類)"
+                    GroupTable =1
+                    LayoutCachedLeft =336
+                    LayoutCachedTop =228
+                    LayoutCachedWidth =4824
+                    LayoutCachedHeight =684
+                    LayoutGroup =1
+                    ThemeFontIndex =0
+                    BorderThemeColorIndex =2
+                    BorderTint =100.0
+                    ForeThemeColorIndex =2
+                    ForeTint =100.0
+                    GroupTable =1
+                End
+            End
+        End
         Begin Section
-            Height =5102
+            Height =4762
             Name ="詳細"
             AlternateBackThemeColorIndex =1
             AlternateBackShade =95.0
@@ -428,6 +462,14 @@ Begin Form
                     End
                 End
             End
+        End
+        Begin FormFooter
+            Height =1134
+            Name ="フォームフッター"
+            AutoHeight =1
+            AlternateBackThemeColorIndex =1
+            AlternateBackShade =95.0
+            BackThemeColorIndex =1
         End
     End
 End

@@ -1,0 +1,4 @@
+﻿CREATE TABLE [金融機関] (
+  [金融機関CD] LONG CONSTRAINT [PrimaryKey] PRIMARY KEY UNIQUE NOT NULL,
+  [金融機関] VARCHAR (255)
+)

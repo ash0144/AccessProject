@@ -5,24 +5,30 @@ Attribute VB_Exposed = False
 Option Compare Database
 Option Explicit
 
-Private Sub cmbDkomoku_AfterUpdate()
-    Me!cmbCkomoku.RowSource = "SELECT 中項目 FROM 中項目 WHERE 大項目CD=" & Nz(Me!cmbDkomoku, 0) & ";"
+Private Sub cmdClose_Click()
+    DoCmd.Close acForm, Me.name
 End Sub
 
 Private Sub cmdEnter_Click()
-    If MsgBox("上記を手動登録します。よろしいですか？", vbYesNo + vbQuestion, "確認") = vbNo Then Exit Sub
 
-    ' 第7引数に False を渡して、中項目CDの更新をスキップする
-    If RegisterManualEntry(Me!txtHizuke, Me!txtNaiyo, Me!txtKingaku, _
-                              Me!cmbDkomoku, Me!cmbCkomoku, Me!txtMemo, False) Then
-        ClearControls
-        MsgBox "登録しました。", vbInformation
+    If MsgBox("上記を登録します。よろしいですか？", vbYesNo + vbQuestion, "確認") = vbNo Then Exit Sub
+
+    Dim reg As New clsRegister
+
+    reg.Init Me  ' 自分(フォーム)をクラスに渡す
+
+    ' 検証してOKなら登録実行
+    If reg.IsValid Then
+        reg.Register "MoneyForward"
     End If
+
+    ClearControls
+
 End Sub
 
 Private Sub ClearControls()
     Dim ctl As Variant
-    For Each ctl In Array(Me!txtHizuke, Me!txtNaiyo, Me!txtKingaku, Me!cmbDkomoku, Me!cmbCkomoku, Me!txtMemo)
+    For Each ctl In Array(Me!txtHizuke, Me!txtNaiyo, Me!txtKingaku, Me!cmbKamoku, Me!txtMemo)
         ctl.Value = Null
     Next ctl
 End Sub

@@ -30,7 +30,7 @@ End Sub
 'リレーションテーブルを調べる
 
 Public Function HasRelatedRecord( _
-    ByVal tableName As String, _
+    ByVal TableName As String, _
     ByVal FieldName As String, _
     ByVal KeyValue As Variant) As Boolean
 
@@ -47,7 +47,7 @@ Public Function HasRelatedRecord( _
         sWhere = "[" & FieldName & "]='" & Replace(KeyValue, "'", "''") & "'"
     End If
 
-    HasRelatedRecord = (DCount("*", tableName, sWhere) > 0)
+    HasRelatedRecord = (DCount("*", TableName, sWhere) > 0)
 
 End Function
 
@@ -120,10 +120,10 @@ End Function
 
 'テスト用：指定テーブルのフィールド名とデータ型をイミディエイトに書き出す
 
-Public Sub CheckFields(tableName As String)
+Public Sub CheckFields(TableName As String)
 
     Dim db As DAO.Database: Set db = CurrentDb
-    Dim tdf As DAO.TableDef: Set tdf = db.TableDefs(tableName)
+    Dim tdf As DAO.TableDef: Set tdf = db.TableDefs(TableName)
     Dim fld As DAO.Field
 
     Debug.Print "--- テーブルのフィールド名一覧 ---"

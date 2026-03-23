@@ -13,8 +13,8 @@ Begin Form
     Width =19994
     DatasheetFontHeight =11
     ItemSuffix =90
-    Right =12420
-    Bottom =11232
+    Right =14172
+    Bottom =11568
     OnUnload ="[Event Procedure]"
     RecSrcDt = Begin
         0x1db95bc7e181e640
@@ -167,18 +167,18 @@ Begin Form
                     OverlapFlags =85
                     TextAlign =1
                     TextFontFamily =50
-                    Left =564
-                    Top =36
+                    Left =288
+                    Top =288
                     Width =4488
                     Height =456
                     FontSize =18
-                    Name ="Auto_Header0"
+                    Name ="lblTitle"
                     Caption ="MoneyForwardデータ編集"
                     GroupTable =1
-                    LayoutCachedLeft =564
-                    LayoutCachedTop =36
-                    LayoutCachedWidth =5052
-                    LayoutCachedHeight =492
+                    LayoutCachedLeft =288
+                    LayoutCachedTop =288
+                    LayoutCachedWidth =4776
+                    LayoutCachedHeight =744
                     LayoutGroup =1
                     ThemeFontIndex =0
                     BorderThemeColorIndex =2

@@ -13,12 +13,12 @@ Begin Form
     Width =6236
     DatasheetFontHeight =11
     ItemSuffix =10
-    Right =20208
+    Right =14172
     Bottom =11568
     RecSrcDt = Begin
         0xc541a593813be640
     End
-    Caption ="手動入力"
+    Caption ="新規登録_確定申告"
     DatasheetFontName ="ＭＳ Ｐゴシック"
     FilterOnLoad =0
     ShowPageMargins =0
@@ -116,8 +116,42 @@ Begin Form
             GridlineThemeColorIndex =1
             GridlineShade =65.0
         End
+        Begin FormHeader
+            Height =737
+            Name ="フォームヘッダー"
+            AlternateBackThemeColorIndex =1
+            AlternateBackShade =95.0
+            BackThemeColorIndex =2
+            BackTint =20.0
+            Begin
+                Begin Label
+                    OverlapFlags =85
+                    TextAlign =1
+                    TextFontFamily =50
+                    Left =228
+                    Top =168
+                    Width =4488
+                    Height =456
+                    FontSize =18
+                    Name ="lblTitle"
+                    Caption ="新規登録(確定申告分類)"
+                    GroupTable =1
+                    LayoutCachedLeft =228
+                    LayoutCachedTop =168
+                    LayoutCachedWidth =4716
+                    LayoutCachedHeight =624
+                    LayoutGroup =1
+                    ThemeFontIndex =0
+                    BorderThemeColorIndex =2
+                    BorderTint =100.0
+                    ForeThemeColorIndex =2
+                    ForeTint =100.0
+                    GroupTable =1
+                End
+            End
+        End
         Begin Section
-            Height =5102
+            Height =4705
             Name ="詳細"
             AlternateBackThemeColorIndex =1
             AlternateBackShade =95.0
@@ -130,6 +164,7 @@ Begin Form
                     Top =570
                     Name ="txtHizuke"
                     Format ="Short Date"
+                    Tag ="日付,IsDate"
 
                     LayoutCachedLeft =2271
                     LayoutCachedTop =570
@@ -160,6 +195,7 @@ Begin Form
                     TabIndex =1
                     Name ="txtNaiyo"
                     Format ="@"
+                    Tag ="内容,Required"
 
                     LayoutCachedLeft =2271
                     LayoutCachedTop =910
@@ -190,6 +226,7 @@ Begin Form
                     TabIndex =2
                     Name ="txtKingaku"
                     Format ="General Number"
+                    Tag ="金額（円）,Required"
 
                     LayoutCachedLeft =2271
                     LayoutCachedTop =1250
@@ -212,38 +249,6 @@ Begin Form
                     End
                 End
                 Begin TextBox
-                    Visible = NotDefault
-                    OverlapFlags =85
-                    IMEMode =1
-                    Left =2271
-                    Top =3454
-                    Width =3402
-                    TabIndex =4
-                    Name ="txtKinyu"
-                    Format ="@"
-
-                    LayoutCachedLeft =2271
-                    LayoutCachedTop =3454
-                    LayoutCachedWidth =5673
-                    LayoutCachedHeight =3724
-                    Begin
-                        Begin Label
-                            Visible = NotDefault
-                            OverlapFlags =85
-                            Left =570
-                            Top =3454
-                            Width =1425
-                            Height =270
-                            Name ="ラベル3"
-                            Caption ="保有金融機関"
-                            LayoutCachedLeft =570
-                            LayoutCachedTop =3454
-                            LayoutCachedWidth =1995
-                            LayoutCachedHeight =3724
-                        End
-                    End
-                End
-                Begin TextBox
                     OverlapFlags =85
                     IMEMode =1
                     Left =2271
@@ -252,6 +257,7 @@ Begin Form
                     TabIndex =5
                     Name ="txtMemo"
                     Format ="@"
+                    Tag ="メモ,NA"
 
                     LayoutCachedLeft =2271
                     LayoutCachedTop =2391
@@ -276,30 +282,31 @@ Begin Form
                 Begin TextBox
                     Visible = NotDefault
                     OverlapFlags =85
-                    Left =2271
-                    Top =2775
+                    Left =2265
+                    Top =3060
                     Width =3402
                     TabIndex =6
                     Name ="txtFurikae"
+                    Tag ="振替,NA"
 
-                    LayoutCachedLeft =2271
-                    LayoutCachedTop =2775
-                    LayoutCachedWidth =5673
-                    LayoutCachedHeight =3045
+                    LayoutCachedLeft =2265
+                    LayoutCachedTop =3060
+                    LayoutCachedWidth =5667
+                    LayoutCachedHeight =3330
                     Begin
                         Begin Label
                             Visible = NotDefault
                             OverlapFlags =85
-                            Left =570
-                            Top =2775
+                            Left =564
+                            Top =3060
                             Width =525
                             Height =270
                             Name ="ラベル7"
                             Caption ="振替"
-                            LayoutCachedLeft =570
-                            LayoutCachedTop =2775
-                            LayoutCachedWidth =1095
-                            LayoutCachedHeight =3045
+                            LayoutCachedLeft =564
+                            LayoutCachedTop =3060
+                            LayoutCachedWidth =1089
+                            LayoutCachedHeight =3330
                         End
                     End
                 End
@@ -307,32 +314,33 @@ Begin Form
                     Visible = NotDefault
                     OverlapFlags =85
                     IMEMode =1
-                    Left =2271
-                    Top =3115
+                    Left =2265
+                    Top =3400
                     Width =3402
                     ColumnWidth =5715
                     TabIndex =7
                     Name ="txtID"
                     Format ="@"
+                    Tag ="ID,NA"
 
-                    LayoutCachedLeft =2271
-                    LayoutCachedTop =3115
-                    LayoutCachedWidth =5673
-                    LayoutCachedHeight =3385
+                    LayoutCachedLeft =2265
+                    LayoutCachedTop =3400
+                    LayoutCachedWidth =5667
+                    LayoutCachedHeight =3670
                     Begin
                         Begin Label
                             Visible = NotDefault
                             OverlapFlags =85
-                            Left =570
-                            Top =3115
+                            Left =564
+                            Top =3400
                             Width =285
                             Height =270
                             Name ="ラベル8"
                             Caption ="ID"
-                            LayoutCachedLeft =570
-                            LayoutCachedTop =3115
-                            LayoutCachedWidth =855
-                            LayoutCachedHeight =3385
+                            LayoutCachedLeft =564
+                            LayoutCachedTop =3400
+                            LayoutCachedWidth =849
+                            LayoutCachedHeight =3670
                         End
                     End
                 End
@@ -360,12 +368,13 @@ Begin Form
                     Left =2271
                     Top =1710
                     Width =3402
-                    TabIndex =3
-                    Name ="cmbDkomoku"
+                    TabIndex =4
+                    Name ="cmbKamoku"
                     RowSourceType ="Table/Query"
                     RowSource ="勘定科目"
                     ColumnWidths ="0;1701"
                     AfterUpdate ="[Event Procedure]"
+                    Tag ="勘定科目,Required"
                     Format ="@"
 
                     LayoutCachedLeft =2271
@@ -390,6 +399,107 @@ Begin Form
                             LayoutCachedHeight =1980
                         End
                     End
+                End
+                Begin ComboBox
+                    OverlapFlags =85
+                    TextFontFamily =50
+                    IMEMode =1
+                    ColumnCount =2
+                    Left =2265
+                    Top =2040
+                    Width =3402
+                    Height =252
+                    TabIndex =3
+                    BoundColumn =1
+                    Name ="txtKinyu"
+                    RowSourceType ="Table/Query"
+                    RowSource ="金融機関"
+                    ColumnWidths ="0;1701"
+                    Tag ="保有金融機関,Required"
+                    Format ="@"
+
+                    LayoutCachedLeft =2265
+                    LayoutCachedTop =2040
+                    LayoutCachedWidth =5667
+                    LayoutCachedHeight =2292
+                    ForeThemeColorIndex =0
+                    ForeTint =75.0
+                    ForeShade =100.0
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            Left =564
+                            Top =2040
+                            Width =1425
+                            Height =270
+                            Name ="ラベル3"
+                            Caption ="保有金融機関"
+                            LayoutCachedLeft =564
+                            LayoutCachedTop =2040
+                            LayoutCachedWidth =1989
+                            LayoutCachedHeight =2310
+                        End
+                    End
+                End
+            End
+        End
+        Begin FormFooter
+            Height =793
+            Name ="フォームフッター"
+            AlternateBackThemeColorIndex =1
+            AlternateBackShade =95.0
+            BackThemeColorIndex =1
+            Begin
+                Begin CommandButton
+                    OverlapFlags =85
+                    TextFontFamily =50
+                    Left =5102
+                    Top =56
+                    Width =567
+                    Height =567
+                    Name ="cmdClose"
+                    OnClick ="[Event Procedure]"
+                    ImageData = Begin
+                        0x2800000010000000100000000100200000000000000000000000000000000000 ,
+                        0x000000000000000000000000000000000000000082c2ea0982c2ea4b82c2ea90 ,
+                        0x82c2eade00000000000000000000000000000000000000000000000000000000 ,
+                        0x000000000000000082c2ea2182c2ea7582c2eab782c2eaf982c2eaff82c2eaff ,
+                        0x82c2eaff00000000000000000000000000000000000000000000000000000000 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff000000000000000000000000 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaffffffffffffffffffffffffff82c2eaff000000000000000000000000 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaffffffffffffffffffffffffa500000000000000000000000000000000 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaffffffffffffffffc000000000b17d4a90b17d4affb17d4af0b17d4a36 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaffffffffedffffff30b17d4a87b17d4affb17d4af0b17d4a3600000000 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaffffffffffd7ecf8ff82c2eaff ,
+                        0x82c2eaffffffff30b17d4a81b17d4affb17d4affb17d4affb17d4affb17d4aff ,
+                        0xb17d4affb17d4aff82c2eaff82c2eaff82c2eaffdceef9ffc4e2f5ff82c2eaff ,
+                        0x82c2eaffffffff27b17d4a7eb17d4affb17d4affb17d4affb17d4affb17d4aff ,
+                        0xb17d4affb17d4aff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaffffffffe4ffffff27b17d4a84b17d4affb17d4af0b17d4a3900000000 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaffffffffffffffffbd00000000b17d4a8db17d4affb17d4af0b17d4a39 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaffffffffffffffffffffffffa500000000000000000000000000000000 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaffffffffffffffffffffffffff82c2eaff000000000000000000000000 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff000000000000000000000000 ,
+                        0x000000000000000082c2ea2182c2ea6f82c2eab782c2eaf982c2eaff82c2eaff ,
+                        0x82c2eaff00000000000000000000000000000000000000000000000000000000 ,
+                        0x000000000000000000000000000000000000000082c2ea0982c2ea4e82c2ea96 ,
+                        0x82c2eae400000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000
+                    End
+
+                    LayoutCachedLeft =5102
+                    LayoutCachedTop =56
+                    LayoutCachedWidth =5669
+                    LayoutCachedHeight =623
                 End
             End
         End
