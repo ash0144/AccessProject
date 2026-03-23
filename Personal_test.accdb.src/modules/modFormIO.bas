@@ -1,16 +1,58 @@
 ﻿Attribute VB_Name = "modFormIO"
 Option Compare Database
+Option Explicit
+
+'MoneyForwadから出力したExcelファイルのインポート
+'大項目、中項目がコード化されていないことに留意
+'中項目CDはインポート後に追記
+
+Public Function ImportMFData() As Boolean
+
+    On Error GoTo Err_Handler
+    Dim strFilename As String, strFn As String, arr() As String, i As Integer
+    Dim db As DAO.Database: Set db = CurrentDb
+
+    strFilename = GetFileName(Nz(DLookup("MoneyForwardフォルダ", "履歴"), ""), "", ".xls", True)
+    If strFilename = "" Then Exit Function
+
+    arr = Split(strFilename, ",")
+    For i = LBound(arr) To UBound(arr)
+        strFn = arr(i)
+
+        '一時テーブル(TmpMF)として新規作成
+        'ここにはExcelの列だけが入る
+        On Error Resume Next: db.Execute "DROP TABLE TmpMF": On Error GoTo Err_Handler
+        DoCmd.TransferSpreadsheet acImport, acSpreadsheetTypeExcel12, "TmpMF", strFn, True
+
+        '一時テーブルから本番テーブルへ、存在する列だけを流し込む
+        '[中項目CD] はこの時点では空のままでOK
+        db.Execute "INSERT INTO MoneyForward ( 計算対象, 日付, 内容, [金額（円）], 保有金融機関, 大項目, 中項目, メモ, 振替, ID ) " & _
+                   "SELECT 1, 日付, 内容, [金額（円）], 保有金融機関, 大項目, 中項目, メモ, 振替, ID FROM TmpMF;", dbFailOnError
+    Next i
+
+    ' 3. 最後に「中項目CD更新」クエリで、空の [中項目CD] を一括で埋める
+    Call QUERYrun("中項目CD更新")
+
+    ImportMFData = True
+
+Err_Handler:
+    MsgBox "インポートエラー: " & Err.Description, vbCritical
+    ImportMFData = False
+
+    Exit Function
+
+End Function
 
 '抽出テーブルへのインサート
 'optBは家計簿/確定申告の分類、dKomokuCDは抽出に用いる大項目CD/勘定科目CD
 
-Public Sub ExtractToWorkTable(dFrom As Date, dTo As Date, optB As Integer, Optional dKomokuCD As Variant = Null)
+Public Sub ToPickUpTable(dFrom As Date, dTo As Date, optB As Integer, Optional dKomokuCD As Variant = Null)
 
     Dim db As DAO.Database: Set db = CurrentDb
     Dim qdf As DAO.QueryDef
     Dim strSQL As String
 
-    Call tblClr("抽出テーブル")
+    tblClr "抽出テーブル"
 
     If optB = 1 Then
         strSQL = "INSERT INTO 抽出テーブル ( 日付, 内容, [金額（円）], 保有金融機関, 大項目, 中項目, 大項目CD, 中項目CD, ID ) " & _
@@ -35,8 +77,7 @@ Public Sub ExtractToWorkTable(dFrom As Date, dTo As Date, optB As Integer, Optio
 
     qdf.Execute dbFailOnError
 
-    Set qdf = Nothing
-    Set db = Nothing
+    Set qdf = Nothing: Set db = Nothing
 
 End Sub
 
@@ -47,7 +88,7 @@ Public Sub LoadWorkTable(fromTable As String, toTable As String)
     Dim db As DAO.Database: Set db = CurrentDb
     Dim strSQL As String
 
-    Call tblClr(toTable)
+    tblClr toTable
 
     strSQL = "INSERT INTO [" & toTable & "] SELECT * FROM [" & fromTable & "];"
     db.Execute strSQL, dbFailOnError
@@ -55,44 +96,6 @@ Public Sub LoadWorkTable(fromTable As String, toTable As String)
     Set db = Nothing
 
 End Sub
-
-'インポート
-Public Function ImportMFData() As Boolean
-
-    On Error GoTo Err_Handler
-    Dim strFilename As String, strFn As String, arr() As String, i As Integer
-    Dim db As DAO.Database: Set db = CurrentDb
-
-    strFilename = GetFileName(Nz(DLookup("MoneyForwardフォルダ", "履歴"), ""), "", ".xls", True)
-    If strFilename = "" Then Exit Function
-
-    arr = Split(strFilename, ",")
-    For i = LBound(arr) To UBound(arr)
-        strFn = arr(i)
-
-        ' 1. 一時テーブル(TmpMF)として新規作成
-        '    ここにはExcelの列だけが入る
-        On Error Resume Next: db.Execute "DROP TABLE TmpMF": On Error GoTo Err_Handler
-        DoCmd.TransferSpreadsheet acImport, acSpreadsheetTypeExcel12, "TmpMF", strFn, True
-
-        ' 2. 一時テーブルから本番テーブルへ、存在する列だけを流し込む
-        '    [中項目CD] はこの時点では空のままでOK
-        db.Execute "INSERT INTO MoneyForward ( 計算対象, 日付, 内容, [金額（円）], 保有金融機関, 大項目, 中項目, メモ, 振替, ID ) " & _
-                   "SELECT 1, 日付, 内容, [金額（円）], 保有金融機関, 大項目, 中項目, メモ, 振替, ID FROM TmpMF;", dbFailOnError
-    Next i
-
-    ' 3. 最後に「中項目CD更新」クエリで、空の [中項目CD] を一括で埋める
-    Call QUERYrun("中項目CD更新")
-
-    ImportMFData = True
-
-Err_Handler:
-    MsgBox "インポートエラー: " & Err.Description, vbCritical
-    ImportMFData = False
-
-    Exit Function
-
-End Function
 
 '新規登録（手入力）
 '登録画面の確定ボタンで呼び出される
@@ -130,13 +133,7 @@ Public Function RegisterManualEntry( _
             rs!中項目CD = Nz(DLookup("中項目CD", "中項目", "中項目='" & cKomokuName & "'"), 0)
         End If
 
-        Randomize
-        For i = 1 To 100
-            strID = CStr(Int((999999999 * Rnd) + 1))
-            If DCount("*", "MoneyForward", "ID='" & strID & "'") = 0 Then
-                rs!ID = strID: Exit For
-            End If
-        Next i
+        rs!ID = GetID
     rs.Update
 
     rs.Close: Set rs = Nothing

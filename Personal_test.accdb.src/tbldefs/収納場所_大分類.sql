@@ -1,4 +1,0 @@
-﻿CREATE TABLE [収納場所_大分類] (
-  [大分類CD] LONG CONSTRAINT [PrimaryKey] PRIMARY KEY UNIQUE NOT NULL,
-  [大分類] VARCHAR (255)
-)

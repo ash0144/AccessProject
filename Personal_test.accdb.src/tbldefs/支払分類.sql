@@ -1,4 +1,0 @@
-﻿CREATE TABLE [支払分類] (
-  [支払分類CD] VARCHAR (255) CONSTRAINT [PrimaryKey] PRIMARY KEY UNIQUE NOT NULL,
-  [支払分類] VARCHAR (255)
-)

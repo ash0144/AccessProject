@@ -6,6 +6,7 @@ Option Compare Database
 Option Explicit
 
 Private FormF As New clsFormFormat
+
 Private blnFormInitialized As Boolean
 Private strMasterTblN As String
 Private strWorkTblN As String

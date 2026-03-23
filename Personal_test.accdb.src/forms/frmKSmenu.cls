@@ -14,7 +14,7 @@ Private Sub cmdAll_Click()
 
     optB = Me!optBunrui
 
-    ExtractToWorkTable dF, dT, optB            '検索条件で抽出テーブルに出力
+    ToPickUpTable dF, dT, optB            '検索条件で抽出テーブルに出力
 
     If optB = 1 Then
         DoCmd.OpenForm "frmZenkomoku", , , , , , GetString(dF, dT) '家計簿分類の大項目別一覧（明細：中項目）
@@ -52,7 +52,7 @@ Private Sub cmdKomoku_Click()
         Exit Sub
     End If
 
-    ExtractToWorkTable dF, dT, optB, Me!cmbDkomoku
+    ToPickUpTable dF, dT, optB, Me!cmbDkomoku
 
     DoCmd.OpenForm IIf(optB = 1, "frmKomokubetu", "frmKamokubetu"), , , , , , Me!cmbDkomoku & "," & GetString(dF, dT)
 

@@ -27,8 +27,100 @@ DoCmd.SetWarnings True
 
 End Sub
 
+'リレーションテーブルを調べる
+
+Public Function HasRelatedRecord( _
+    ByVal tableName As String, _
+    ByVal FieldName As String, _
+    ByVal KeyValue As Variant) As Boolean
+
+    Dim sWhere As String
+
+    If IsNull(KeyValue) Then
+        HasRelatedRecord = False
+        Exit Function
+    End If
+
+    If IsNumeric(KeyValue) Then
+        sWhere = "[" & FieldName & "]=" & KeyValue
+    Else
+        sWhere = "[" & FieldName & "]='" & Replace(KeyValue, "'", "''") & "'"
+    End If
+
+    HasRelatedRecord = (DCount("*", tableName, sWhere) > 0)
+
+End Function
+
+'中項目コンボボックスのソース設定
+
+Public Function GetCkomokuRowSource(ByVal vDkomoku As Variant) As String
+
+    If Nz(vDkomoku, "") = "" Then
+        GetCkomokuRowSource = _
+            "SELECT 中項目CD, 中項目 " & _
+            "FROM 中項目 " & _
+            "ORDER BY 中項目CD;"
+    Else
+        GetCkomokuRowSource = _
+            "SELECT 中項目CD, 中項目 " & _
+            "FROM 中項目 " & _
+            "WHERE 大項目CD = " & vDkomoku & " " & _
+            "ORDER BY 中項目CD;"
+    End If
+
+End Function
+
+'新規登録に用いるIDのランダム生成
+
+Public Function GetID() As String
+
+    Dim strID As String
+    Dim i As Long
+
+    Randomize
+    For i = 1 To 100
+        strID = CStr(Int((999999999 * Rnd) + 1))
+        If DCount("*", "MoneyForward", "ID='" & strID & "'") = 0 Then
+            Exit For
+        End If
+    Next i
+
+    GetID = strID
+
+End Function
+
+'文字列エスケープ
+
+Public Function EscapeText(ByVal s As String) As String
+    EscapeText = Replace(s, "'", "''")
+End Function
+
+'開始が未入力の場合、2000/01/01と仮に設定
+
+Public Function GetMinDate(val As Variant) As Date: GetMinDate = CDate(IIf(IsNull(val), "2000/01/01", val)): End Function
+
+'終了が未入力の場合、2100/12/31と仮に設定
+
+Public Function GetMaxDate(val As Variant) As Date: GetMaxDate = CDate(IIf(IsNull(val), "2100/12/31", val)): End Function
+
+'表示用日付範囲文字列を生成（上の仮設定を見せないため）
+
+Public Function GetString(dFrom As Date, dTo As Date) As String
+
+    Dim sF As String: sF = Format(dFrom, "yyyy/mm/dd")
+    Dim sT As String: sT = Format(dTo, "yyyy/mm/dd")
+
+    If sF = "2000/01/01" Then
+        GetString = IIf(sT = "2100/12/31", "", "～" & sT)
+    Else
+        GetString = IIf(sT = "2100/12/31", sF & "～", sF & "～" & sT)
+    End If
+
+End Function
+
+'テスト用：指定テーブルのフィールド名とデータ型をイミディエイトに書き出す
+
 Public Sub CheckFields(tableName As String)
-'テスト用：指定テーブルのフィールド名とデータ型を書き出す
 
     Dim db As DAO.Database: Set db = CurrentDb
     Dim tdf As DAO.TableDef: Set tdf = db.TableDefs(tableName)
@@ -40,8 +132,9 @@ Public Sub CheckFields(tableName As String)
     Next fld
 End Sub
 
+'テスト用：データ型（数値）を文字列として取得する
+
 Function FieldTypeName(fldType As Long) As String
-'データ型（数値）を文字列として取得する
     Dim tpn As String
     Select Case fldType
         Case dbBigInt:      tpn = "dbBigInt"
@@ -68,90 +161,4 @@ Function FieldTypeName(fldType As Long) As String
         Case Else:          tpn = "不明: " & fldType
     End Select
     FieldTypeName = tpn
-End Function
-
-Public Function HasRelatedRecord( _
-    ByVal tableName As String, _
-    ByVal FieldName As String, _
-    ByVal KeyValue As Variant) As Boolean
-'リレーションテーブルを調べる
-
-    Dim sWhere As String
-
-    If IsNull(KeyValue) Then
-        HasRelatedRecord = False
-        Exit Function
-    End If
-
-    If IsNumeric(KeyValue) Then
-        sWhere = "[" & FieldName & "]=" & KeyValue
-    Else
-        sWhere = "[" & FieldName & "]='" & Replace(KeyValue, "'", "''") & "'"
-    End If
-
-    HasRelatedRecord = (DCount("*", tableName, sWhere) > 0)
-
-End Function
-
-Public Function GetCkomokuRowSource(ByVal vDkomoku As Variant) As String
-'中項目コンボボックスのソース設定
-
-    If Nz(vDkomoku, "") = "" Then
-        GetCkomokuRowSource = _
-            "SELECT 中項目CD, 中項目 " & _
-            "FROM 中項目 " & _
-            "ORDER BY 中項目CD;"
-    Else
-        GetCkomokuRowSource = _
-            "SELECT 中項目CD, 中項目 " & _
-            "FROM 中項目 " & _
-            "WHERE 大項目CD = " & vDkomoku & " " & _
-            "ORDER BY 中項目CD;"
-    End If
-
-End Function
-
-Public Function GetID() As String
-'新規登録に用いるIDのランダム生成
-
-    Dim strID As String
-    Dim i As Long
-
-    Randomize
-    For i = 1 To 100
-        strID = CStr(Int((999999999 * Rnd) + 1))
-        If DCount("*", "MoneyForward", "ID='" & strID & "'") = 0 Then
-            Exit For
-        End If
-    Next i
-
-    GetID = strID
-
-End Function
-
-'----------------------------------------
-' 文字列エスケープ
-'----------------------------------------
-Public Function EscapeText(ByVal s As String) As String
-    EscapeText = Replace(s, "'", "''")
-End Function
-
-Public Function GetMinDate(val As Variant) As Date: GetMinDate = CDate(IIf(IsNull(val), "2000/01/01", val)): End Function
-'開始が未入力の場合、2000/01/01と仮に設定
-
-Public Function GetMaxDate(val As Variant) As Date: GetMaxDate = CDate(IIf(IsNull(val), "2100/12/31", val)): End Function
-'終了が未入力の場合、2100/12/31と仮に設定
-
-Public Function GetString(dFrom As Date, dTo As Date) As String
-'表示用日付範囲を生成（上の仮設定を見せないため）
-
-    Dim sF As String: sF = Format(dFrom, "yyyy/mm/dd")
-    Dim sT As String: sT = Format(dTo, "yyyy/mm/dd")
-
-    If sF = "2000/01/01" Then
-        GetString = IIf(sT = "2100/12/31", "", "～" & sT)
-    Else
-        GetString = IIf(sT = "2100/12/31", sF & "～", sF & "～" & sT)
-    End If
-
 End Function

@@ -1,11 +1,13 @@
 ﻿Attribute VB_Name = "modFormSelect"
 Option Compare Database
+Option Explicit
 
-Public Sub ApplyDiff(mstTbl As String, wkTbl As String, keyCD As String)
 'ワークテーブルから本テーブルへの更新
 
-    Dim ws As DAO.Workspace
-    Dim db As DAO.Database
+Public Sub ApplyDiff(mstTbl As String, wkTbl As String, keyCD As String)
+
+    Dim ws As DAO.Workspace: Set ws = DBEngine.Workspaces(0)
+    Dim db As DAO.Database: Set db = CurrentDb
     Dim tdf As DAO.TableDef
     Dim fld As Field
     Dim rs As DAO.Recordset
@@ -27,10 +29,9 @@ Public Sub ApplyDiff(mstTbl As String, wkTbl As String, keyCD As String)
         Exit Sub
     End If
 
-    Set ws = DBEngine.Workspaces(0)
-    Set db = CurrentDb
 
     '挿入時にカラム順のズレによる誤挿入を防ぐため、明示的にフィールド一覧を指定する
+
     fieldList = ""
     fieldSelect = ""
     Set tdf = db.TableDefs(mstTbl)
@@ -39,6 +40,7 @@ Public Sub ApplyDiff(mstTbl As String, wkTbl As String, keyCD As String)
         fieldSelect = fieldSelect & "[" & wkTbl & "].[" & fld.name & "], "
         If fld.name = keyCD Then keyFound = True
     Next
+
     If Not keyFound Then Err.Raise vbObjectError + 3, "clsDataSelector", "キー列が見つかりません: " & keyCD
     fieldList = Left(fieldList, Len(fieldList) - 2)
     fieldSelect = Left(fieldSelect, Len(fieldSelect) - 2)
@@ -133,9 +135,10 @@ ErrHandler:
 
 End Sub
 
-Public Function GetCategoryList(strB As String, Optional dKomokuCD As Variant = Null) As Variant
 '抽出テーブルに含まれる各項目CDのリストを取得
 'strBはフォームの一覧に表示する項目名、dKomokuCDはメニューで指定した抽出に用いる項目
+
+Public Function GetCategoryList(strB As String, Optional dKomokuCD As Variant = Null) As Variant
 
     Dim rs As DAO.Recordset
     Dim qdf As DAO.QueryDef
@@ -186,8 +189,9 @@ Public Function GetCategoryList(strB As String, Optional dKomokuCD As Variant = 
 
 End Function
 
-Public Sub CreateMeisai(CategoryCD As Long, strCD As String)
 '明細作成
+
+Public Sub CreateMeisai(CategoryCD As Long, strCD As String)
 
     Call tblClr("明細")
     Dim strSQL As String
@@ -205,8 +209,9 @@ Public Sub CreateMeisai(CategoryCD As Long, strCD As String)
 
 End Sub
 
-Private Function NormalizeColumnName(strCD As String) As String
 '明細用列名検証
+
+Private Function NormalizeColumnName(strCD As String) As String
 
     Select Case strCD
         Case "大項目CD", "中項目CD", "勘定科目CD"

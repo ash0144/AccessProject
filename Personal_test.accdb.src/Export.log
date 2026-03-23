@@ -5,7 +5,7 @@ VCS Version 4.1.2
 Full Path: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb
 Export Folder: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\
 Using Fast Save
-2026/03/22 23:57:27
+2026/03/23 11:16:25
 -------------------------------------
 Scanning for changes...
 No modified db connections found in this database.
@@ -15,126 +15,164 @@ No modified vbe references found in this database.
 No modified vbe forms found in this database.
 No modified proj properties found in this database.
 No modified saved specs found in this database.
-  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\modules\clsDataRegistry.cls
-  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\modules\clsDataSelector.cls
-  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\modules\clsPeriodManager.cls
 No modified commandbars found in this database.
 No modified shared images found in this database.
 No modified themes found in this database.
-No modified db properties found in this database.
 No modified imex specs found in this database.
-No modified tables found in this database.
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\tbldefs\カード.sql
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\tbldefs\カード.xml
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\tbldefs\コーヒー豆.sql
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\tbldefs\コーヒー豆.xml
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\tbldefs\スーパー.sql
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\tbldefs\スーパー.xml
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\tbldefs\プロフィール.sql
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\tbldefs\プロフィール.xml
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\tbldefs\仕様.sql
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\tbldefs\仕様.xml
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\tbldefs\使用場所.sql
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\tbldefs\使用場所.xml
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\tbldefs\収納場所_中分類.sql
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\tbldefs\収納場所_中分類.xml
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\tbldefs\収納場所_大分類.sql
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\tbldefs\収納場所_大分類.xml
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\tbldefs\収納場所_小分類.sql
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\tbldefs\収納場所_小分類.xml
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\tbldefs\品名.sql
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\tbldefs\品名.xml
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\tbldefs\寸法.sql
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\tbldefs\寸法.xml
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\tbldefs\振替.sql
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\tbldefs\振替.xml
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\tbldefs\支払分類.sql
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\tbldefs\支払分類.xml
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\tbldefs\支払方法.sql
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\tbldefs\支払方法.xml
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\tbldefs\用途.sql
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\tbldefs\用途.xml
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\tbldefs\金融機関.sql
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\tbldefs\金融機関.xml
 No modified queries found in this database.
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\forms\frmMenu.bas
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\forms\frmMenu.cls
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\forms\frmSPEC.bas
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\forms\frmSPEC.cls
 No modified macros found in this database.
 No modified reports found in this database.
 No modified table data found in this database.
 No modified table data macros found in this database.
 No modified relations found in this database.
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\relations\分類キャンプ用品.json
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\relations\収納場所_中分類収納場所_小分類.json
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\relations\収納場所_大分類収納場所_中分類.json
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\relations\収納場所_小分類品名.json
+  Removing orphaned file: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\relations\用途キャンプ用品.json
 No modified doc properties found in this database.
 No modified nav pane groups found in this database.
 No modified hidden attributes found in this database.
 -------------------------------------
 Exporting modules...          
   modTool
-  modFileDialog
-  clsFormFormat
+  clsMyButton
   modFormIO
   modFormSelect
-[5]
+[4]
+-------------------------------------
+Exporting db properties...    
+  Database Properties (DAO)
+[52]
+-------------------------------------
+Exporting tables...           
+  勘定科目
+    Sanitized in 0.003 seconds.
+  勘定科目 (SQL)
+  勘定分類
+    Sanitized in 0.001 seconds.
+  勘定分類 (SQL)
+  大項目
+    Sanitized in 0.001 seconds.
+  大項目 (SQL)
+  中項目
+    Sanitized in 0.001 seconds.
+  中項目 (SQL)
+[4]
 -------------------------------------
 Exporting forms...            
-  frmZenkomoku
-    Sanitized in 0.024 seconds.
-  frmKamokubetu
-    Sanitized in 0.016 seconds.
-  frmSinkoku
-    Sanitized in 0.023 seconds.
-  frmKomokubetu
-    Sanitized in 0.016 seconds.
-  frmSinput
-    Sanitized in 0.007 seconds.
-  frmKinput
-    Sanitized in 0.007 seconds.
-  frmMstKb
-    Sanitized in 0.005 seconds.
   frmKSmenu
-    Sanitized in 0.011 seconds.
-  frmMstDk
-    Sanitized in 0.005 seconds.
-  frmMstKk
-    Sanitized in 0.007 seconds.
-  frmMstCk
-    Sanitized in 0.007 seconds.
+    Sanitized in 0.012 seconds.
   frmEditMF
-    Sanitized in 0.009 seconds.
-[12]
+    Sanitized in 0.010 seconds.
+[2]
 -------------------------------------
-Done. (2.17 seconds)
+Done. (1.77 seconds)
 
 --------------------------------------------------
                 PERFORMANCE REPORTS
 --------------------------------------------------
 Category                      Count     Seconds
 --------------------------------------------------
-Forms                         12        1.43
-Modules                       5         0.22
-DB Properties                 0         0.10
-Tables                        0         0.08
-Relations                     0         0.04
+Forms                         2         0.84
+Modules                       4         0.24
+Tables                        4         0.17
+DB Properties                 52        0.16
 Doc Properties                0         0.04
-CommandBars                   0         0.02
-Nav Pane Groups               0         0.02
+CommandBars                   0         0.03
+Relations                     0         0.02
 IMEX Specs                    0         0.02
 DB Connections                0         0.02
+Nav Pane Groups               0         0.02
 VBE References                0         0.01
-Table Data Macros             0         0.01
 Hidden Attributes             0         0.01
 Queries                       0         0.01
 Proj Properties               0         0.01
 Themes                        0         0.01
+Table Data Macros             0         0.01
 VB Project                    0         0.01
-Project                       0         0.00
+Project                       0         0.01
 Shared Images                 0         0.00
 Table Data                    0         0.00
 VBE Forms                     0         0.00
+Saved Specs                   0         0.00
 Reports                       0         0.00
 Macros                        0         0.00
-Saved Specs                   0         0.00
 --------------------------------------------------
-TOTALS:                       17        2.07
+TOTALS:                       62        1.63
 --------------------------------------------------
 
 --------------------------------------------------
 Operations                    Count     Seconds
 --------------------------------------------------
-Read File Bytes               17        0.26
-App.SaveAsText()              12        0.25
-Convert to JSON               913       0.21
-Sanitize File                 12        0.16
-Scan DB Objects               1         0.15
+Convert to JSON               836       0.22
+Scan DB Objects               1         0.14
+Read File Bytes               10        0.12
 Clear Orphaned Files          16        0.09
-Read File DevMode             12        0.08
-Increment Progress            152       0.08
-Read File                     18        0.07
-Console Updates               3         0.04
-Check for linked table        60        0.03
-Export VBE Module             5         0.02
-Get File Property Hash        32        0.02
-Write File                    29        0.01
+Export VBE Module             4         0.08
+Increment Progress            139       0.08
+Write File                    17        0.06
+Read File                     11        0.05
+Console Updates               3         0.05
+App.SaveAsText()              2         0.04
+Sanitize File                 2         0.03
+Close Open Objects            1         0.02
+App.ExportXML()               4         0.02
+Check for linked table        28        0.02
+Delete File                   54        0.01
 Parse JSON                    1         0.01
-Delete File                   33        0.01
-Get VBA Hash                  37        0.01
-modFileAccess.VerifyPath      41        0.01
-Compute SHA256                123       0.01
-Quick Count Files             1         0.00
-Sanitize VBA Code             17        0.00
-Parse JSON ISO Date           148       0.00
+Read File DevMode             2         0.01
+Get File Property Hash        22        0.01
+Save Table SQL                4         0.01
+Get VBA Hash                  26        0.01
+Quick Count Files             1         0.01
+Compute SHA256                81        0.00
+Format XML                    4         0.00
+modFileAccess.VerifyPath      23        0.00
+Sanitize XML                  4         0.00
 Quick Count Objects           1         0.00
-Get Modified Date             34        0.00
-Close Open Objects            1         0.00
-modFileAccess.GetUncPath      2         0.00
+Parse JSON ISO Date           150       0.00
+Sanitize VBA Code             6         0.00
+Get Modified Date             25        0.00
+modFileAccess.GetUncPath      3         0.00
 --------------------------------------------------
-Other Operations                        0.64
+Other Operations                        0.67
 --------------------------------------------------
 
 
