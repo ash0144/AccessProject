@@ -70,7 +70,7 @@ Public Function GetCkomokuRowSource(ByVal vDkomoku As Variant) As String
 
 End Function
 
-'新規登録に用いるIDのランダム生成
+'MoneyForwardテーブル専用のIDランダム生成（新規登録用）
 
 Public Function GetID() As String
 

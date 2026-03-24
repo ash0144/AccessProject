@@ -12,12 +12,14 @@ Option Explicit
 
 Private pForm As Form
 
-' 初期化時にフォームをセット
+'初期化時にフォームをセット
 Public Sub Init(frm As Form)
     Set pForm = frm
 End Sub
 
-' 【検証ロジック】エラーがあればメッセージを返し、True/Falseで結果を戻す
+'【検証ロジック】エラーがあればメッセージを返し、True/Falseで結果を戻す
+'対象コントロールのTagは、「フィールド名,ルール」
+
 Public Function IsValid() As Boolean
     Dim ctl As Control
     Dim errMsg As String
@@ -26,14 +28,14 @@ Public Function IsValid() As Boolean
         ' タグに "Required" が含まれていて空欄の場合
         If InStr(ctl.Tag, "Required") > 0 Then
             If IsNull(ctl.Value) Or ctl.Value = "" Then
-                errMsg = errMsg & "・" & ctl.name & " は必須項目です" & vbCrLf
+                errMsg = errMsg & "・" & Split(ctl.Tag, ",")(0) & " は必須項目です" & vbCrLf
             End If
         End If
 
         ' タグに "IsDate" があり、値が入っているが日付でない場合
-        If InStr(ctl.Tag, "IsDate") > 0 And Not IsNull(ctl.Value) Then
+        If InStr(ctl.Tag, "IsDate") > 0 Then
             If Not IsDate(ctl.Value) Then
-                errMsg = errMsg & "・" & ctl.name & " は日付形式で入力してください" & vbCrLf
+                errMsg = errMsg & "・" & Split(ctl.Tag, ",")(0) & " は日付形式で入力してください" & vbCrLf
             End If
         End If
     Next ctl
@@ -46,25 +48,44 @@ Public Function IsValid() As Boolean
     End If
 End Function
 
-' 【登録ロジック】
-Public Sub Register(TableName As String)
+'【登録ロジック】
+'対象コントロールのTagは、「フィールド名,ルール」
+
+Public Sub Register(tblN As String)
 
     Dim db As DAO.Database: Set db = CurrentDb
     Dim rs As DAO.Recordset
     Dim ctl As Control
     Dim fldN As String
+    Dim ckomokuCD As Long, dkomokuCD As Long
 
-    Set rs = db.OpenRecordset(TableName, dbOpenDynaset)
+    Set rs = db.OpenRecordset(tblN, dbOpenDynaset)
 
     rs.AddNew
-    For Each ctl In frm.Controls
-        '対象コントロールのTagは、「フィールド名,ルール」
-        fldN = Split(ctl.Tag, ",")(0)
+    For Each ctl In pForm.Controls
         ' Tagプロパティにフィールド名が入っているコントロールのみ対象
         If ctl.Tag <> "" Then
-            rs.Fields(fldN).Value = ctl.Value
+            fldN = Split(ctl.Tag, ",")(0)
+            Select Case fldN
+                Case "勘定科目"
+                    ckomokuCD = DLookup("中項目CD", "勘定科目", "勘定科目CD=" & ctl.Value)
+                    rs!中項目CD = ckomokuCD
+                    rs!中項目 = DLookup("中項目", "中項目", "中項目CD=" & ckomokuCD)
+                    dkomokuCD = DLookup("大項目CD", "中項目", "中項目CD=" & ckomokuCD)
+                    rs!大項目 = DLookup("大項目", "大項目", "大項目CD=" & dkomokuCD)
+                Case "中項目"
+                    ckomokuCD = DLookup("中項目CD", "中項目", "中項目='" & ctl.Value & "'")
+                    rs!中項目CD = ckomokuCD
+                    rs!中項目 = ctl.Value
+                Case "大項目"
+                    rs!大項目 = ctl.Column(1)
+                Case "ID"
+                    rs!ID = GetID
+                Case Else
+                    rs.Fields(fldN).Value = ctl.Value
+            End Select
         End If
     Next ctl
     rs.Update: rs.Close
-    MsgBox "登録を実行します"
+    MsgBox "登録が完了しました"
 End Sub

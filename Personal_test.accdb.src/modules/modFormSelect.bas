@@ -137,7 +137,7 @@ End Sub
 '抽出テーブルに含まれる各項目CDのリストを取得
 'strBはフォームの一覧に表示する項目名、dKomokuCDはメニューで指定した抽出に用いる項目
 
-Public Function GetCategoryList(strB As String, Optional dKomokuCD As Variant = Null) As Variant
+Public Function GetCategoryList(strB As String, Optional dkomokuCD As Variant = Null) As Variant
 
     Dim rs As DAO.Recordset
     Dim qdf As DAO.QueryDef
@@ -152,7 +152,7 @@ Public Function GetCategoryList(strB As String, Optional dKomokuCD As Variant = 
             strSQL = "SELECT DISTINCT 大項目CD FROM 抽出テーブル ORDER BY 大項目CD;"
             strCD = "大項目CD"
         Case "Komokubetu"
-            If IsNull(dKomokuCD) Then Err.Raise vbObjectError + 2, "clsDataSelector", "大項目CDが指定されていません。"
+            If IsNull(dkomokuCD) Then Err.Raise vbObjectError + 2, "clsDataSelector", "大項目CDが指定されていません。"
             strSQL = "SELECT DISTINCT 中項目CD FROM 抽出テーブル WHERE 大項目CD=[pCD] ORDER BY 中項目CD;"
             strCD = "中項目CD"
             needParam = True
@@ -160,7 +160,7 @@ Public Function GetCategoryList(strB As String, Optional dKomokuCD As Variant = 
             strSQL = "SELECT DISTINCT 勘定科目CD FROM 抽出テーブル ORDER BY 勘定科目CD;"
             strCD = "勘定科目CD"
         Case "Kamokubetu"
-            If IsNull(dKomokuCD) Then Err.Raise vbObjectError + 2, "clsDataSelector", "勘定科目CDが指定されていません。"
+            If IsNull(dkomokuCD) Then Err.Raise vbObjectError + 2, "clsDataSelector", "勘定科目CDが指定されていません。"
             strSQL = "SELECT DISTINCT 中項目CD FROM 抽出テーブル WHERE 勘定科目CD=[pCD] ORDER BY 中項目CD;"
             strCD = "中項目CD"
             needParam = True
@@ -169,7 +169,7 @@ Public Function GetCategoryList(strB As String, Optional dKomokuCD As Variant = 
     End Select
 
     Set qdf = CurrentDb.CreateQueryDef("", strSQL)
-    If needParam Then qdf.Parameters("pCD").Value = dKomokuCD
+    If needParam Then qdf.Parameters("pCD").Value = dkomokuCD
     Set rs = qdf.OpenRecordset()
 
     If rs.EOF Then

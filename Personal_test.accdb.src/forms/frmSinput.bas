@@ -3,6 +3,7 @@ VersionRequired =20
 Begin Form
     RecordSelectors = NotDefault
     NavigationButtons = NotDefault
+    CloseButton = NotDefault
     DividingLines = NotDefault
     AllowDesignChanges = NotDefault
     DefaultView =0
@@ -117,7 +118,7 @@ Begin Form
             GridlineShade =65.0
         End
         Begin FormHeader
-            Height =737
+            Height =907
             Name ="フォームヘッダー"
             AlternateBackThemeColorIndex =1
             AlternateBackShade =95.0
@@ -128,18 +129,18 @@ Begin Form
                     OverlapFlags =85
                     TextAlign =1
                     TextFontFamily =50
-                    Left =228
-                    Top =168
+                    Left =288
+                    Top =288
                     Width =4488
                     Height =456
                     FontSize =18
                     Name ="lblTitle"
-                    Caption ="新規登録(確定申告分類)"
+                    Caption ="新規登録 (確定申告分類)"
                     GroupTable =1
-                    LayoutCachedLeft =228
-                    LayoutCachedTop =168
-                    LayoutCachedWidth =4716
-                    LayoutCachedHeight =624
+                    LayoutCachedLeft =288
+                    LayoutCachedTop =288
+                    LayoutCachedWidth =4776
+                    LayoutCachedHeight =744
                     LayoutGroup =1
                     ThemeFontIndex =0
                     BorderThemeColorIndex =2
@@ -151,7 +152,7 @@ Begin Form
             End
         End
         Begin Section
-            Height =4705
+            Height =5159
             Name ="詳細"
             AlternateBackThemeColorIndex =1
             AlternateBackShade =95.0
@@ -287,7 +288,8 @@ Begin Form
                     Width =3402
                     TabIndex =6
                     Name ="txtFurikae"
-                    Tag ="振替,NA"
+                    DefaultValue ="0"
+                    Tag ="振替,Required"
 
                     LayoutCachedLeft =2265
                     LayoutCachedTop =3060
@@ -346,8 +348,8 @@ Begin Form
                 End
                 Begin CommandButton
                     OverlapFlags =85
-                    Left =3405
-                    Top =3975
+                    Left =3458
+                    Top =3911
                     Width =2268
                     Height =567
                     TabIndex =8
@@ -355,10 +357,10 @@ Begin Form
                     Caption ="確定"
                     OnClick ="[Event Procedure]"
 
-                    LayoutCachedLeft =3405
-                    LayoutCachedTop =3975
-                    LayoutCachedWidth =5673
-                    LayoutCachedHeight =4542
+                    LayoutCachedLeft =3458
+                    LayoutCachedTop =3911
+                    LayoutCachedWidth =5726
+                    LayoutCachedHeight =4478
                 End
                 Begin ComboBox
                     OverlapFlags =85
@@ -441,22 +443,14 @@ Begin Form
                         End
                     End
                 End
-            End
-        End
-        Begin FormFooter
-            Height =793
-            Name ="フォームフッター"
-            AlternateBackThemeColorIndex =1
-            AlternateBackShade =95.0
-            BackThemeColorIndex =1
-            Begin
                 Begin CommandButton
                     OverlapFlags =85
                     TextFontFamily =50
                     Left =5102
-                    Top =56
+                    Top =4592
                     Width =567
                     Height =567
+                    TabIndex =9
                     Name ="cmdClose"
                     OnClick ="[Event Procedure]"
                     ImageData = Begin
@@ -497,11 +491,36 @@ Begin Form
                     End
 
                     LayoutCachedLeft =5102
-                    LayoutCachedTop =56
+                    LayoutCachedTop =4592
                     LayoutCachedWidth =5669
-                    LayoutCachedHeight =623
+                    LayoutCachedHeight =5159
+                End
+                Begin TextBox
+                    Visible = NotDefault
+                    OverlapFlags =85
+                    TextFontFamily =50
+                    Left =1190
+                    Top =4081
+                    Width =633
+                    Height =252
+                    TabIndex =10
+                    Name ="txtKeisan"
+                    DefaultValue ="1"
+                    Tag ="計算対象,Required"
+
+                    LayoutCachedLeft =1190
+                    LayoutCachedTop =4081
+                    LayoutCachedWidth =1823
+                    LayoutCachedHeight =4333
                 End
             End
+        End
+        Begin FormFooter
+            Height =0
+            Name ="フォームフッター"
+            AlternateBackThemeColorIndex =1
+            AlternateBackShade =95.0
+            BackThemeColorIndex =1
         End
     End
 End

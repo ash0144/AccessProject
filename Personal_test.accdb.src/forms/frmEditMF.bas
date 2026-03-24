@@ -12,7 +12,7 @@ Begin Form
     GridY =10
     Width =19994
     DatasheetFontHeight =11
-    ItemSuffix =90
+    ItemSuffix =93
     Right =14172
     Bottom =11568
     OnUnload ="[Event Procedure]"
@@ -378,6 +378,7 @@ Begin Form
                     Top =1704
                     Width =1137
                     Height =567
+                    FontWeight =600
                     TabIndex =6
                     Name ="cmdEdit"
                     Caption ="編集"
@@ -400,6 +401,7 @@ Begin Form
                     Top =1704
                     Width =1137
                     Height =567
+                    FontWeight =600
                     TabIndex =7
                     ForeColor =1643706
                     Name ="cmdDelete"
@@ -597,7 +599,7 @@ Begin Form
             End
         End
         Begin FormFooter
-            Height =1133
+            Height =850
             Name ="フォームフッター"
             AlternateBackThemeColorIndex =1
             AlternateBackShade =95.0
@@ -605,31 +607,81 @@ Begin Form
             Begin
                 Begin CommandButton
                     OverlapFlags =85
-                    Left =8674
-                    Top =283
+                    Left =19275
+                    Top =113
+                    Width =567
                     Height =567
                     Name ="cmdClose"
                     Caption ="閉じる"
                     OnClick ="[Event Procedure]"
+                    ImageData = Begin
+                        0x2800000010000000100000000100200000000000000000000000000000000000 ,
+                        0x000000000000000000000000000000000000000082c2ea0982c2ea4b82c2ea90 ,
+                        0x82c2eade00000000000000000000000000000000000000000000000000000000 ,
+                        0x000000000000000082c2ea2182c2ea7582c2eab782c2eaf982c2eaff82c2eaff ,
+                        0x82c2eaff00000000000000000000000000000000000000000000000000000000 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff000000000000000000000000 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaffffffffffffffffffffffffff82c2eaff000000000000000000000000 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaffffffffffffffffffffffffa500000000000000000000000000000000 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaffffffffffffffffc000000000b17d4a90b17d4affb17d4af0b17d4a36 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaffffffffedffffff30b17d4a87b17d4affb17d4af0b17d4a3600000000 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaffffffffffd7ecf8ff82c2eaff ,
+                        0x82c2eaffffffff30b17d4a81b17d4affb17d4affb17d4affb17d4affb17d4aff ,
+                        0xb17d4affb17d4aff82c2eaff82c2eaff82c2eaffdceef9ffc4e2f5ff82c2eaff ,
+                        0x82c2eaffffffff27b17d4a7eb17d4affb17d4affb17d4affb17d4affb17d4aff ,
+                        0xb17d4affb17d4aff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaffffffffe4ffffff27b17d4a84b17d4affb17d4af0b17d4a3900000000 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaffffffffffffffffbd00000000b17d4a8db17d4affb17d4af0b17d4a39 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaffffffffffffffffffffffffa500000000000000000000000000000000 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaffffffffffffffffffffffffff82c2eaff000000000000000000000000 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff000000000000000000000000 ,
+                        0x000000000000000082c2ea2182c2ea6f82c2eab782c2eaf982c2eaff82c2eaff ,
+                        0x82c2eaff00000000000000000000000000000000000000000000000000000000 ,
+                        0x000000000000000000000000000000000000000082c2ea0982c2ea4e82c2ea96 ,
+                        0x82c2eae400000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000
+                    End
 
-                    LayoutCachedLeft =8674
-                    LayoutCachedTop =283
-                    LayoutCachedWidth =10375
-                    LayoutCachedHeight =850
+                    LayoutCachedLeft =19275
+                    LayoutCachedTop =113
+                    LayoutCachedWidth =19842
+                    LayoutCachedHeight =680
                     Overlaps =1
                 End
                 Begin TextBox
                     OldBorderStyle =0
                     OverlapFlags =85
-                    Left =566
+                    Left =2318
                     Top =170
-                    Width =7881
+                    Width =6129
                     TabIndex =1
                     Name ="txtSelInfo"
 
-                    LayoutCachedLeft =566
+                    LayoutCachedLeft =2318
                     LayoutCachedTop =170
                     LayoutCachedWidth =8447
+                    LayoutCachedHeight =422
+                End
+                Begin Label
+                    OverlapFlags =85
+                    Left =566
+                    Top =170
+                    Width =1548
+                    Height =252
+                    Name ="ラベル92"
+                    Caption ="選択中レコード："
+                    LayoutCachedLeft =566
+                    LayoutCachedTop =170
+                    LayoutCachedWidth =2114
                     LayoutCachedHeight =422
                 End
             End

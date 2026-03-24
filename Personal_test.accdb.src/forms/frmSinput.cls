@@ -28,7 +28,7 @@ End Sub
 
 Private Sub ClearControls()
     Dim ctl As Variant
-    For Each ctl In Array(Me!txtHizuke, Me!txtNaiyo, Me!txtKingaku, Me!cmbKamoku, Me!txtMemo)
+    For Each ctl In Array(Me!txtHizuke, Me!txtNaiyo, Me!txtKingaku, Me!cmbKamoku, Me!txtMemo, Me!txtKinyu)
         ctl.Value = Null
     Next ctl
 End Sub

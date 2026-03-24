@@ -46,7 +46,7 @@ End Function
 '抽出テーブルへのインサート
 'optBは家計簿/確定申告の分類、dKomokuCDは抽出に用いる大項目CD/勘定科目CD
 
-Public Sub ToPickUpTable(dFrom As Date, dTo As Date, optB As Integer, Optional dKomokuCD As Variant = Null)
+Public Sub ToPickUpTable(dFrom As Date, dTo As Date, optB As Integer, Optional dkomokuCD As Variant = Null)
 
     Dim db As DAO.Database: Set db = CurrentDb
     Dim qdf As DAO.QueryDef
@@ -60,20 +60,20 @@ Public Sub ToPickUpTable(dFrom As Date, dTo As Date, optB As Integer, Optional d
                  "FROM MoneyForward AS M " & _
                  "INNER JOIN (大項目 AS D INNER JOIN 中項目 AS C ON D.大項目CD = C.大項目CD) ON M.中項目 = C.中項目 " & _
                  "WHERE (日付 Between [pFrom] And [pTo]) AND (計算対象=1) AND (C.家計簿=True) "
-        If Not IsNull(dKomokuCD) Then strSQL = strSQL & "AND (C.大項目CD = [pCD]) "
+        If Not IsNull(dkomokuCD) Then strSQL = strSQL & "AND (C.大項目CD = [pCD]) "
     Else
         strSQL = "INSERT INTO 抽出テーブル ( 日付, 内容, [金額（円）], 保有金融機関, 中項目CD, 中項目, 勘定科目CD, 勘定科目, 勘定分類CD, ID ) " & _
                  "SELECT 日付, 内容, [金額（円）], 保有金融機関, M.中項目CD, M.中項目, K.勘定科目CD, K.勘定科目, K.勘定分類CD, ID " & _
                  "FROM MoneyForward AS M " & _
                  "INNER JOIN (勘定科目 AS K INNER JOIN 中項目 AS C ON K.中項目CD = C.中項目CD) ON M.中項目CD = K.中項目CD " & _
                  "WHERE (日付 Between [pFrom] And [pTo]) AND (計算対象=1) AND (C.確定申告=True) "
-        If Not IsNull(dKomokuCD) Then strSQL = strSQL & "AND (C.勘定科目CD = [pCD]) "
+        If Not IsNull(dkomokuCD) Then strSQL = strSQL & "AND (C.勘定科目CD = [pCD]) "
     End If
 
     Set qdf = db.CreateQueryDef("", strSQL)
     qdf.Parameters("pFrom").Value = dFrom
     qdf.Parameters("pTo").Value = dTo
-    If Not IsNull(dKomokuCD) Then qdf.Parameters("pCD").Value = CLng(dKomokuCD)
+    If Not IsNull(dkomokuCD) Then qdf.Parameters("pCD").Value = CLng(dkomokuCD)
 
     qdf.Execute dbFailOnError
 
@@ -96,53 +96,3 @@ Public Sub LoadWorkTable(fromTable As String, toTable As String)
     Set db = Nothing
 
 End Sub
-
-'新規登録（手入力）
-'登録画面の確定ボタンで呼び出される
-
-Public Function RegisterManualEntry( _
-    hizuke As Variant, _
-    naiyo As Variant, _
-    kingaku As Variant, _
-    dKomokuCD As Variant, _
-    cKomokuName As Variant, _
-    memo As Variant, _
-    Optional setSubCD As Boolean = True) As Boolean ' 引数を追加
-
-    On Error GoTo Err_Handler
-    Dim db As DAO.Database: Set db = CurrentDb
-    Dim rs As DAO.Recordset
-    Dim strID As String, i As Integer
-
-    If IsNull(hizuke) Or IsNull(naiyo) Or IsNull(kingaku) Then Exit Function
-
-    Set rs = db.OpenRecordset("MoneyForward", dbOpenDynaset)
-    rs.AddNew
-        rs!計算対象 = 1
-        rs!日付 = hizuke
-        rs!内容 = naiyo
-        rs![金額（円）] = IIf(dKomokuCD = 1, kingaku, -kingaku)
-        rs!保有金融機関 = "財布"
-        rs!大項目 = Nz(DLookup("大項目", "大項目", "大項目CD=" & dKomokuCD), "")
-        rs!中項目 = cKomokuName
-        rs!メモ = memo
-        rs!振替 = 0
-
-        ' frmKinputの時はセットし、frmSinputの時はスキップする制御
-        If setSubCD Then
-            rs!中項目CD = Nz(DLookup("中項目CD", "中項目", "中項目='" & cKomokuName & "'"), 0)
-        End If
-
-        rs!ID = GetID
-    rs.Update
-
-    rs.Close: Set rs = Nothing
-    RegisterManualEntry = True
-    Exit Function
-
-Err_Handler:
-    MsgBox "登録エラー: " & Err.Description, vbCritical
-    If Not rs Is Nothing Then rs.Close
-    RegisterManualEntry = False
-
-End Function
