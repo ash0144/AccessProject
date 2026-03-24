@@ -52,12 +52,22 @@ End Function
 '対象コントロールのTagは、「フィールド名,ルール」
 
 Public Sub Register(tblN As String)
+    On Error GoTo ErrorHandler
 
-    Dim db As DAO.Database: Set db = CurrentDb
+    Dim ws As DAO.Workspace
+    Dim db As DAO.Database
     Dim rs As DAO.Recordset
     Dim ctl As Control
     Dim fldN As String
-    Dim ckomokuCD As Long, dkomokuCD As Long
+    ' DLookupがNullを返す可能性があるため、VariantにするかNzを使用する必要がある
+    Dim ckomokuCD As Variant, dkomokuCD As Variant
+    Dim inTrans As Boolean
+
+    Set ws = DBEngine.Workspaces(0)
+    Set db = CurrentDb
+
+    ws.BeginTrans
+    inTrans = True
 
     Set rs = db.OpenRecordset(tblN, dbOpenDynaset)
 
@@ -68,14 +78,20 @@ Public Sub Register(tblN As String)
             fldN = Split(ctl.Tag, ",")(0)
             Select Case fldN
                 Case "勘定科目"
-                    ckomokuCD = DLookup("中項目CD", "勘定科目", "勘定科目CD=" & ctl.Value)
-                    rs!中項目CD = ckomokuCD
-                    rs!中項目 = DLookup("中項目", "中項目", "中項目CD=" & ckomokuCD)
-                    dkomokuCD = DLookup("大項目CD", "中項目", "中項目CD=" & ckomokuCD)
-                    rs!大項目 = DLookup("大項目", "大項目", "大項目CD=" & dkomokuCD)
+                    ' Nz関数でNull回避。値がない場合は0などをセットして後続のエラーを防ぐか、条件分岐する
+                    ckomokuCD = Nz(DLookup("中項目CD", "勘定科目", "勘定科目CD=" & Nz(ctl.Value, 0)), 0)
+                    rs!中項目CD = CLng(ckomokuCD)
+
+                    ' 中項目CDが取得できた場合のみ後続を検索
+                    If ckomokuCD <> 0 Then
+                        rs!中項目 = DLookup("中項目", "中項目", "中項目CD=" & ckomokuCD)
+                        dkomokuCD = Nz(DLookup("大項目CD", "中項目", "中項目CD=" & ckomokuCD), 0)
+                        rs!大項目 = DLookup("大項目", "大項目", "大項目CD=" & dkomokuCD)
+                    End If
+
                 Case "中項目"
-                    ckomokuCD = DLookup("中項目CD", "中項目", "中項目='" & ctl.Value & "'")
-                    rs!中項目CD = ckomokuCD
+                    ckomokuCD = Nz(DLookup("中項目CD", "中項目", "中項目='" & Replace(Nz(ctl.Value, ""), "'", "''") & "'"), 0)
+                    rs!中項目CD = CLng(ckomokuCD)
                     rs!中項目 = ctl.Value
                 Case "大項目"
                     rs!大項目 = ctl.Column(1)
@@ -87,5 +103,23 @@ Public Sub Register(tblN As String)
         End If
     Next ctl
     rs.Update: rs.Close
-    MsgBox "登録が完了しました"
+
+    ws.CommitTrans
+    inTrans = False
+
+    ' 成功メッセージはUI（フォーム）側で出すため、ここでは何もしない
+    Exit Sub
+
+ErrorHandler:
+    ' クリーンアップ処理でErr情報が消える可能性があるため退避する
+    Dim lngErrNum As Long: lngErrNum = Err.Number
+    Dim strErrDesc As String: strErrDesc = Err.Description
+    Dim strErrSource As String: strErrSource = Err.Source
+
+    If inTrans Then
+        ws.Rollback
+    End If
+
+    ' 呼び出し元（フォーム）にエラーを通知する
+    Err.Raise lngErrNum, strErrSource, strErrDesc
 End Sub

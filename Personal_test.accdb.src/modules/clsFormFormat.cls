@@ -213,8 +213,8 @@ Public Sub ConfirmEdit()
     End With
 
     '新規入力があった場合、計算対象とIDを自動入力
-    strSQL = "UPDATE MoneyForwardWk SET MoneyForwardWk.計算対象 = 1, MoneyForwardWk.ID = [tmpID] " & _
-            "WHERE (MoneyForwardWk.計算対象 IS NULL) AND (MoneyForwardWk.ID IS NULL OR MoneyForwardWk.ID = '');"
+    strSQL = "UPDATE [" & WorkTblN & "] SET [" & WorkTblN & "].計算対象 = 1, [" & WorkTblN & "].ID = [tmpID] " & _
+            "WHERE ([" & WorkTblN & "].計算対象 IS NULL) AND ([" & WorkTblN & "].ID IS NULL OR [" & WorkTblN & "].ID = '');"
 
     Set qdf = CurrentDb.CreateQueryDef("", strSQL)
     qdf.Parameters("tmpID").Value = GetID

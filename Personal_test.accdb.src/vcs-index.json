@@ -6,7 +6,7 @@
   "Items": {
     "MergeBuildDate": null,
     "FullBuildDate": "2026-03-07T06:45:55.000Z",
-    "ExportDate": "2026-03-24T09:58:24.000Z",
+    "ExportDate": "2026-03-24T15:03:21.000Z",
     "FullExportDate": "2026-03-07T02:45:49.000Z",
     "OptionsHash": "1e652c7",
     "LastMergedCommit": "",
@@ -56,12 +56,12 @@
           "FilePropertiesHash": "0febb09"
         },
         "frmKinput.bas": {
-          "FileHash": "befca79",
-          "ExportDate": "2026-03-24T09:57:55.000Z",
+          "FileHash": "9fe7de0",
+          "ExportDate": "2026-03-24T15:03:21.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "c8dfaf9",
+          "FilePropertiesHash": "4b1c41f",
           "ImportDate": "2026-03-07T06:45:52.000Z",
-          "OtherHash": "194e653"
+          "OtherHash": "9ffdabc"
         },
         "frmKomokubetu.bas": {
           "FileHash": "3ad66bc",
@@ -150,11 +150,11 @@
         },
         "frmSinput.bas": {
           "FileHash": "c982d04",
-          "ExportDate": "2026-03-24T09:57:55.000Z",
+          "ExportDate": "2026-03-24T15:03:21.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "b88cd69",
+          "FilePropertiesHash": "40e6da2",
           "ImportDate": "2026-03-07T06:45:52.000Z",
-          "OtherHash": "831a33d"
+          "OtherHash": "aa72aa4"
         },
         "frmSPEC.bas": {
           "FileHash": "cc970f0",
@@ -226,11 +226,11 @@
           "OtherHash": "dc2e947"
         },
         "clsFormFormat.cls": {
-          "FileHash": "ec8bc26",
-          "OtherHash": "c7d26e6",
-          "ExportDate": "2026-03-23T17:12:17.000Z",
+          "FileHash": "e42f26e",
+          "OtherHash": "8ca2be0",
+          "ExportDate": "2026-03-24T15:03:20.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "9e9a85e"
+          "FilePropertiesHash": "2e7c0d1"
         },
         "clsMyButton.cls": {
           "FileHash": "07a6e1d",
@@ -249,11 +249,11 @@
           "OtherHash": "715a4c5"
         },
         "clsRegister.cls": {
-          "FileHash": "c2882d1",
-          "OtherHash": "b2b6e16",
-          "ExportDate": "2026-03-24T09:57:54.000Z",
+          "FileHash": "0c5256c",
+          "OtherHash": "daf1264",
+          "ExportDate": "2026-03-24T15:03:20.000Z",
           "SourceModified": null,
-          "FilePropertiesHash": "1c3cf10"
+          "FilePropertiesHash": "8d90c69"
         },
         "ExpImp.bas": {
           "FileHash": "15aa79c",

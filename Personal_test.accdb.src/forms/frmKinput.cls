@@ -17,6 +17,7 @@ End Sub
 
 ' 登録ボタン
 Private Sub cmdEnter_Click()
+    On Error GoTo ErrHandler
     If MsgBox("上記を登録します。よろしいですか？", vbYesNo + vbQuestion, "確認") = vbNo Then Exit Sub
 
     Dim reg As New clsRegister
@@ -26,11 +27,17 @@ Private Sub cmdEnter_Click()
     ' 検証してOKなら登録実行
     If reg.IsValid Then
         reg.Register "MoneyForward"
+        MsgBox "登録が完了しました。", vbInformation
+        ClearControls
     Else
         Exit Sub
     End If
 
-    ClearControls
+ErrHandler:
+    ' クラスから通知されたエラーをここで表示する
+    MsgBox "システムエラーが発生しました。" & vbCrLf & _
+           "内容: " & Err.Description, vbCritical
+
 End Sub
 
 ' 入力欄のクリア処理
