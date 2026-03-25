@@ -14,6 +14,6 @@ End Sub
 Private Sub cmdEnter_Click()
 
     Me.Requery
-    Call ApplyDiff("中項目", "中項目Wk", "中項目CD")
+    Call ApplyDiff("中項目", "中項目Wk", "中項目CD", True)
 
 End Sub

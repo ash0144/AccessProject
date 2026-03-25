@@ -199,27 +199,11 @@ Public Sub ConfirmEdit()
     Dim strSQL As String
     Dim qdf As DAO.QueryDef
 
-    Debug.Print "=== clsFormFormat.ConfirmEdit START ==="
-    Debug.Print "frmMain.Name       = " & frmMain.name
-    Debug.Print "frmMain.MasterTblN = " & frmMain.MasterTblN
-    Debug.Print "frmMain.WorkTblN   = " & frmMain.WorkTblN
-
-    If Not frmMain.PendingState Then Exit Sub
-
     With SubFrm
         If .Dirty Then .Dirty = False
         .Requery
         .AllowEdits = False
     End With
-
-    '新規入力があった場合、計算対象とIDを自動入力
-    strSQL = "UPDATE [" & WorkTblN & "] SET [" & WorkTblN & "].計算対象 = 1, [" & WorkTblN & "].ID = [tmpID] " & _
-            "WHERE ([" & WorkTblN & "].計算対象 IS NULL) AND ([" & WorkTblN & "].ID IS NULL OR [" & WorkTblN & "].ID = '');"
-
-    Set qdf = CurrentDb.CreateQueryDef("", strSQL)
-    qdf.Parameters("tmpID").Value = GetID
-    qdf.Execute dbFailOnError
-    Set qdf = Nothing
 
     If frmMain.PendingState Then
         Call ApplyDiff(frmMain.MasterTblN, frmMain.WorkTblN, strKeyFldN)
@@ -229,8 +213,6 @@ Public Sub ConfirmEdit()
 
     SetButtonMode False
     ShowCurrentRecord
-
-    Debug.Print "=== clsFormFormat.ConfirmEdit END ==="
 
 End Sub
 

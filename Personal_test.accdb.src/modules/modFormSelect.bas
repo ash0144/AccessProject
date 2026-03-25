@@ -3,8 +3,10 @@ Option Compare Database
 Option Explicit
 
 'ワークテーブルから本テーブルへの更新
+'メインテーブルでは新規登録を行わない（別建ての単票で行う）ことに注意
 
-Public Sub ApplyDiff(mstTbl As String, wkTbl As String, keyCD As String)
+Public Sub ApplyDiff(mstTbl As String, wkTbl As String, keyCD As String, _
+                     Optional AllowAdd As Boolean = False)
 
     Dim ws As DAO.Workspace: Set ws = DBEngine.Workspaces(0)
     Dim db As DAO.Database: Set db = CurrentDb
@@ -23,6 +25,7 @@ Public Sub ApplyDiff(mstTbl As String, wkTbl As String, keyCD As String)
     Dim cntIns As Long
     Dim cntDel As Long
     Dim keyFound As Boolean
+    Dim msg As String
 
     If MsgBox("表示内容で更新します" & vbCrLf & "よろしいですか？", _
               vbQuestion + vbYesNo + vbDefaultButton2) = vbNo Then
@@ -35,19 +38,23 @@ Public Sub ApplyDiff(mstTbl As String, wkTbl As String, keyCD As String)
     fieldSelect = ""
     Set tdf = db.TableDefs(mstTbl)
     For Each fld In tdf.Fields
-        fieldList = fieldList & "[" & fld.name & "], "
-        fieldSelect = fieldSelect & "[" & wkTbl & "].[" & fld.name & "], "
+        If AllowAdd Then
+            fieldList = fieldList & "[" & fld.name & "], "
+            fieldSelect = fieldSelect & "[" & wkTbl & "].[" & fld.name & "], "
+        End If
         If fld.name = keyCD Then keyFound = True
     Next
 
     If Not keyFound Then Err.Raise vbObjectError + 3, "clsDataSelector", "キー列が見つかりません: " & keyCD
-    fieldList = Left(fieldList, Len(fieldList) - 2)
-    fieldSelect = Left(fieldSelect, Len(fieldSelect) - 2)
 
-    sqlIns = _
-    "INSERT INTO [" & mstTbl & "] (" & fieldList & ") " & _
-    "SELECT " & fieldSelect & " FROM [" & wkTbl & "] " & _
-    "WHERE [" & wkTbl & "].[" & keyCD & "] NOT IN (SELECT [" & keyCD & "] FROM [" & mstTbl & "]);"
+    If AllowAdd Then
+        fieldList = Left(fieldList, Len(fieldList) - 2)
+        fieldSelect = Left(fieldSelect, Len(fieldSelect) - 2)
+        sqlIns = _
+        "INSERT INTO [" & mstTbl & "] (" & fieldList & ") " & _
+        "SELECT " & fieldSelect & " FROM [" & wkTbl & "] " & _
+        "WHERE [" & wkTbl & "].[" & keyCD & "] NOT IN (SELECT [" & keyCD & "] FROM [" & mstTbl & "]);"
+    End If
 
     sqlDel = _
     "DELETE FROM [" & mstTbl & "] " & _
@@ -106,20 +113,32 @@ On Error GoTo ErrHandler
         cntUpd = db.RecordsAffected
     End If
 
-    db.Execute sqlIns, dbFailOnError
-    cntIns = db.RecordsAffected
+    If AllowAdd Then
+        db.Execute sqlIns, dbFailOnError
+        cntIns = db.RecordsAffected
+    End If
 
-    db.Execute sqlDel, dbFailOnError
-    cntDel = db.RecordsAffected
+    If DCount("*", "[" & wkTbl & "]") > 0 Then
+        db.Execute sqlDel, dbFailOnError
+        cntDel = db.RecordsAffected
+    Else
+        Err.Raise 999, , "ワークテーブルが空です。処理を中断しました"
+    End If
 
     ws.CommitTrans
 
-    MsgBox _
-        "反映完了" & vbCrLf & vbCrLf & _
-        "更新: " & cntUpd & "件" & vbCrLf & _
-        "追加: " & cntIns & "件" & vbCrLf & _
-        "削除: " & cntDel & "件", _
-        vbInformation
+    msg = "反映完了" & vbCrLf & vbCrLf & _
+          "更新: " & cntUpd & "件"
+
+    If AllowAdd Then
+        msg = msg & vbCrLf & "追加: " & cntIns & "件"
+    Else
+        msg = msg & "追加: (スキップ)"
+    End If
+
+    msg = msg & vbCrLf & "削除: " & cntDel & "件"
+
+    MsgBox msg, vbInformation
 
     Set db = Nothing
     Set ws = Nothing

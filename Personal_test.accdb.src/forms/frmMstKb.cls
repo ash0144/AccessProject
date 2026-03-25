@@ -14,6 +14,6 @@ End Sub
 Private Sub cmdEnter_Click()
 
     Me.Requery
-    Call ApplyDiff("勘定分類", "勘定分類Wk", "勘定分類CD")
+    Call ApplyDiff("勘定分類", "勘定分類Wk", "勘定分類CD", True)
 
 End Sub

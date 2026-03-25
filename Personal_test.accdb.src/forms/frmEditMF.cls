@@ -46,7 +46,6 @@ Public Sub InitializeForm()
     blnFormInitialized = True
     Me.PendingState = False
 
-    Debug.Print "=== InitializeForm END ==="
 End Sub
 
 Private Sub cmdClose_Click()
@@ -66,13 +65,6 @@ Private Sub cmdClose_Click()
 
     DoCmd.Close acForm, Me.name
 
-End Sub
-
-'----------------------------------------
-' Load時は何もしない
-'----------------------------------------
-Private Sub Form_Load()
-    Debug.Print "Form_Load : " & Me.name
 End Sub
 
 '----------------------------------------

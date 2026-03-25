@@ -21,7 +21,6 @@ Begin Form
     End
     RecordSource ="MoneyForwardWk"
     DatasheetFontName ="ＭＳ Ｐゴシック"
-    OnLoad ="[Event Procedure]"
     FilterOnLoad =0
     ShowPageMargins =0
     DisplayOnSharePointSite =1
