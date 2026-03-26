@@ -27,7 +27,7 @@ End Sub
 Private Sub cmdEdit_Click()
 '編集画面の表示
 
-    LoadWorkTable "MoneyForward", "MoneyForwardWk"
+    LoadWorkTable "MoneyForward", "MoneyForwardWk", True
     DoCmd.OpenForm "frmEditMF"
 
     Forms!frmEditMF.InitializeForm

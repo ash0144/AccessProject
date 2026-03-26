@@ -2,7 +2,7 @@
 Option Compare Database
 Option Explicit
 
-Dim strSQL As String
+Dim strSql As String
 
 Private Const C_DELIMITER   As String = ","
 

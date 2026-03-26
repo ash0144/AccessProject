@@ -49,6 +49,7 @@ Public Function IsValid() As Boolean
 End Function
 
 '【登録ロジック】
+'新規登録は単票フォームで行う
 '対象コントロールのTagは、「フィールド名,ルール」
 
 Public Sub Register(tblN As String)
@@ -62,9 +63,12 @@ Public Sub Register(tblN As String)
     ' DLookupがNullを返す可能性があるため、VariantにするかNzを使用する必要がある
     Dim ckomokuCD As Variant, dkomokuCD As Variant
     Dim inTrans As Boolean
+    Dim strSql As String
 
     Set ws = DBEngine.Workspaces(0)
     Set db = CurrentDb
+
+
 
     ws.BeginTrans
     inTrans = True

@@ -29,9 +29,8 @@ Private Sub cmdEnter_Click()
         reg.Register "MoneyForward"
         MsgBox "登録が完了しました。", vbInformation
         ClearControls
-    Else
-        Exit Sub
     End If
+    Exit Sub
 
 ErrHandler:
     ' クラスから通知されたエラーをここで表示する

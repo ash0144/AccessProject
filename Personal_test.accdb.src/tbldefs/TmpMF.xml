@@ -11,8 +11,7 @@
   <xsd:element name="TmpMF">
     <xsd:annotation>
       <xsd:appinfo>
-        <od:index index-name="MoneyForward中項目CD" index-key="中項目CD " primary="no" unique="no" clustered="no" order="asc"></od:index>
-        <od:index index-name="PrimaryKey" index-key="ID " primary="yes" unique="yes" clustered="no" order="asc"></od:index>
+        <od:index index-name="ID" index-key="ID " primary="no" unique="no" clustered="no" order="asc"></od:index>
         <od:tableProperty name="Orientation" type="2" value="0"></od:tableProperty>
         <od:tableProperty name="OrderByOn" type="1" value="0"></od:tableProperty>
         <od:tableProperty name="DefaultView" type="2" value="2"></od:tableProperty>
@@ -34,9 +33,10 @@
     </xsd:annotation>
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element name="計算対象" minOccurs="0" od:jetType="longinteger" od:sqlSType="int" type="xsd:int">
+        <xsd:element name="計算対象" minOccurs="0" od:jetType="double" od:sqlSType="float" type="xsd:double">
           <xsd:annotation>
             <xsd:appinfo>
+              <od:fieldProperty name="Format" type="10" value="General Number"></od:fieldProperty>
               <od:fieldProperty name="ColumnWidth" type="3" value="-1"></od:fieldProperty>
               <od:fieldProperty name="ColumnOrder" type="3" value="0"></od:fieldProperty>
               <od:fieldProperty name="ColumnHidden" type="1" value="0"></od:fieldProperty>
@@ -50,29 +50,36 @@
             </xsd:appinfo>
           </xsd:annotation>
         </xsd:element>
-        <xsd:element name="日付" minOccurs="0" od:jetType="datetime" od:sqlSType="datetime" type="xsd:dateTime">
+        <xsd:element name="日付" minOccurs="0" od:jetType="text" od:sqlSType="nvarchar">
           <xsd:annotation>
             <xsd:appinfo>
-              <od:fieldProperty name="Format" type="10" value="Short Date"></od:fieldProperty>
+              <od:fieldProperty name="Format" type="10" value="@"></od:fieldProperty>
               <od:fieldProperty name="ColumnWidth" type="3" value="-1"></od:fieldProperty>
               <od:fieldProperty name="ColumnOrder" type="3" value="0"></od:fieldProperty>
               <od:fieldProperty name="ColumnHidden" type="1" value="0"></od:fieldProperty>
               <od:fieldProperty name="Required" type="1" value="0"></od:fieldProperty>
-              <od:fieldProperty name="IMEMode" type="2" value="2"></od:fieldProperty>
+              <od:fieldProperty name="AllowZeroLength" type="1" value="1"></od:fieldProperty>
+              <od:fieldProperty name="DisplayControl" type="3" value="109"></od:fieldProperty>
+              <od:fieldProperty name="IMEMode" type="2" value="1"></od:fieldProperty>
               <od:fieldProperty name="IMESentenceMode" type="2" value="0"></od:fieldProperty>
+              <od:fieldProperty name="UnicodeCompression" type="1" value="0"></od:fieldProperty>
               <od:fieldProperty name="TextAlign" type="2" value="0"></od:fieldProperty>
               <od:fieldProperty name="AggregateType" type="4" value="-1"></od:fieldProperty>
-              <od:fieldProperty name="ShowDatePicker" type="3" value="1"></od:fieldProperty>
               <od:fieldProperty name="ResultType" type="2" value="0"></od:fieldProperty>
               <od:fieldProperty name="CurrencyLCID" type="4" value="0"></od:fieldProperty>
             </xsd:appinfo>
           </xsd:annotation>
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:maxLength value="255"></xsd:maxLength>
+            </xsd:restriction>
+          </xsd:simpleType>
         </xsd:element>
         <xsd:element name="内容" minOccurs="0" od:jetType="text" od:sqlSType="nvarchar">
           <xsd:annotation>
             <xsd:appinfo>
               <od:fieldProperty name="Format" type="10" value="@"></od:fieldProperty>
-              <od:fieldProperty name="ColumnWidth" type="3" value="4776"></od:fieldProperty>
+              <od:fieldProperty name="ColumnWidth" type="3" value="-1"></od:fieldProperty>
               <od:fieldProperty name="ColumnOrder" type="3" value="0"></od:fieldProperty>
               <od:fieldProperty name="ColumnHidden" type="1" value="0"></od:fieldProperty>
               <od:fieldProperty name="Required" type="1" value="0"></od:fieldProperty>
@@ -210,9 +217,10 @@
             </xsd:restriction>
           </xsd:simpleType>
         </xsd:element>
-        <xsd:element name="振替" minOccurs="0" od:jetType="longinteger" od:sqlSType="int" type="xsd:int">
+        <xsd:element name="振替" minOccurs="0" od:jetType="double" od:sqlSType="float" type="xsd:double">
           <xsd:annotation>
             <xsd:appinfo>
+              <od:fieldProperty name="Format" type="10" value="General Number"></od:fieldProperty>
               <od:fieldProperty name="ColumnWidth" type="3" value="-1"></od:fieldProperty>
               <od:fieldProperty name="ColumnOrder" type="3" value="0"></od:fieldProperty>
               <od:fieldProperty name="ColumnHidden" type="1" value="0"></od:fieldProperty>
@@ -226,14 +234,14 @@
             </xsd:appinfo>
           </xsd:annotation>
         </xsd:element>
-        <xsd:element name="ID" minOccurs="1" od:jetType="text" od:sqlSType="nvarchar" od:nonNullable="yes">
+        <xsd:element name="ID" minOccurs="0" od:jetType="text" od:sqlSType="nvarchar">
           <xsd:annotation>
             <xsd:appinfo>
               <od:fieldProperty name="Format" type="10" value="@"></od:fieldProperty>
-              <od:fieldProperty name="ColumnWidth" type="3" value="5715"></od:fieldProperty>
+              <od:fieldProperty name="ColumnWidth" type="3" value="-1"></od:fieldProperty>
               <od:fieldProperty name="ColumnOrder" type="3" value="0"></od:fieldProperty>
               <od:fieldProperty name="ColumnHidden" type="1" value="0"></od:fieldProperty>
-              <od:fieldProperty name="Required" type="1" value="1"></od:fieldProperty>
+              <od:fieldProperty name="Required" type="1" value="0"></od:fieldProperty>
               <od:fieldProperty name="AllowZeroLength" type="1" value="1"></od:fieldProperty>
               <od:fieldProperty name="DisplayControl" type="3" value="109"></od:fieldProperty>
               <od:fieldProperty name="IMEMode" type="2" value="1"></od:fieldProperty>
@@ -250,23 +258,6 @@
               <xsd:maxLength value="255"></xsd:maxLength>
             </xsd:restriction>
           </xsd:simpleType>
-        </xsd:element>
-        <xsd:element name="中項目CD" minOccurs="0" od:jetType="longinteger" od:sqlSType="int" type="xsd:int">
-          <xsd:annotation>
-            <xsd:appinfo>
-              <od:fieldProperty name="ColumnWidth" type="3" value="-1"></od:fieldProperty>
-              <od:fieldProperty name="ColumnOrder" type="3" value="0"></od:fieldProperty>
-              <od:fieldProperty name="ColumnHidden" type="1" value="0"></od:fieldProperty>
-              <od:fieldProperty name="DecimalPlaces" type="2" value="255"></od:fieldProperty>
-              <od:fieldProperty name="DefaultValue" type="12" value="0"></od:fieldProperty>
-              <od:fieldProperty name="Required" type="1" value="0"></od:fieldProperty>
-              <od:fieldProperty name="DisplayControl" type="3" value="109"></od:fieldProperty>
-              <od:fieldProperty name="TextAlign" type="2" value="0"></od:fieldProperty>
-              <od:fieldProperty name="AggregateType" type="4" value="-1"></od:fieldProperty>
-              <od:fieldProperty name="ResultType" type="2" value="0"></od:fieldProperty>
-              <od:fieldProperty name="CurrencyLCID" type="4" value="0"></od:fieldProperty>
-            </xsd:appinfo>
-          </xsd:annotation>
         </xsd:element>
       </xsd:sequence>
     </xsd:complexType>

@@ -2,12 +2,12 @@
 Option Compare Database
 Option Explicit
 
-Private strSQL As String
+Private strSql As String
 
 Public Sub tblClr(tgtTbl As String)
 
-strSQL = "DELETE * FROM [" & tgtTbl & "];"
-Call SQLrun(strSQL)
+strSql = "DELETE * FROM [" & tgtTbl & "];"
+Call SQLrun(strSql)
 
 End Sub
 
@@ -19,10 +19,10 @@ DoCmd.SetWarnings True
 
 End Sub
 
-Public Sub QUERYrun(tgtQL As String)
+Public Sub QUERYrun(tgtSQL As String)
 
 DoCmd.SetWarnings False
-DoCmd.OpenQuery tgtQL
+DoCmd.OpenQuery tgtSQL
 DoCmd.SetWarnings True
 
 End Sub

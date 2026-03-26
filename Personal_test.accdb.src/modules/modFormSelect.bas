@@ -6,7 +6,7 @@ Option Explicit
 'メインテーブルでは新規登録を行わない（別建ての単票で行う）ことに注意
 
 Public Sub ApplyDiff(mstTbl As String, wkTbl As String, keyCD As String, _
-                     Optional AllowAdd As Boolean = False)
+                     Optional AllowAdd As Boolean = False, Optional fromView As Boolean = False)
 
     Dim ws As DAO.Workspace: Set ws = DBEngine.Workspaces(0)
     Dim db As DAO.Database: Set db = CurrentDb
@@ -26,10 +26,18 @@ Public Sub ApplyDiff(mstTbl As String, wkTbl As String, keyCD As String, _
     Dim cntDel As Long
     Dim keyFound As Boolean
     Dim msg As String
+    Dim strSql As String
 
     If MsgBox("表示内容で更新します" & vbCrLf & "よろしいですか？", _
               vbQuestion + vbYesNo + vbDefaultButton2) = vbNo Then
         Exit Sub
+    End If
+
+    If fromView Then
+        strSql = "UPDATE [" & wkTbl & "] INNER JOIN 中項目 ON [" & wkTbl & "].中項目CD = 中項目.中項目CD " & _
+        "SET [" & wkTbl & "].[金額（円）] = -[金額（円）] " & _
+        "WHERE 中項目.大項目CD<>1;"
+        db.Execute strSql, dbFailOnError
     End If
 
     '挿入時にカラム順のズレによる誤挿入を防ぐため、明示的にフィールド一覧を指定する
@@ -160,7 +168,7 @@ Public Function GetCategoryList(strB As String, Optional dkomokuCD As Variant = 
 
     Dim rs As DAO.Recordset
     Dim qdf As DAO.QueryDef
-    Dim strSQL As String
+    Dim strSql As String
     Dim strCD As String
     Dim result() As Long
     Dim i As Integer
@@ -168,26 +176,26 @@ Public Function GetCategoryList(strB As String, Optional dkomokuCD As Variant = 
 
     Select Case strB
         Case "Zenkomoku"
-            strSQL = "SELECT DISTINCT 大項目CD FROM 抽出テーブル ORDER BY 大項目CD;"
+            strSql = "SELECT DISTINCT 大項目CD FROM 抽出テーブル ORDER BY 大項目CD;"
             strCD = "大項目CD"
         Case "Komokubetu"
             If IsNull(dkomokuCD) Then Err.Raise vbObjectError + 2, "clsDataSelector", "大項目CDが指定されていません。"
-            strSQL = "SELECT DISTINCT 中項目CD FROM 抽出テーブル WHERE 大項目CD=[pCD] ORDER BY 中項目CD;"
+            strSql = "SELECT DISTINCT 中項目CD FROM 抽出テーブル WHERE 大項目CD=[pCD] ORDER BY 中項目CD;"
             strCD = "中項目CD"
             needParam = True
         Case "Sinkoku"
-            strSQL = "SELECT DISTINCT 勘定科目CD FROM 抽出テーブル ORDER BY 勘定科目CD;"
+            strSql = "SELECT DISTINCT 勘定科目CD FROM 抽出テーブル ORDER BY 勘定科目CD;"
             strCD = "勘定科目CD"
         Case "Kamokubetu"
             If IsNull(dkomokuCD) Then Err.Raise vbObjectError + 2, "clsDataSelector", "勘定科目CDが指定されていません。"
-            strSQL = "SELECT DISTINCT 中項目CD FROM 抽出テーブル WHERE 勘定科目CD=[pCD] ORDER BY 中項目CD;"
+            strSql = "SELECT DISTINCT 中項目CD FROM 抽出テーブル WHERE 勘定科目CD=[pCD] ORDER BY 中項目CD;"
             strCD = "中項目CD"
             needParam = True
         Case Else
             Err.Raise vbObjectError + 1, "clsDataSelector", "許可されていない区分です。"
     End Select
 
-    Set qdf = CurrentDb.CreateQueryDef("", strSQL)
+    Set qdf = CurrentDb.CreateQueryDef("", strSql)
     If needParam Then qdf.Parameters("pCD").Value = dkomokuCD
     Set rs = qdf.OpenRecordset()
 
@@ -212,14 +220,14 @@ End Function
 Public Sub CreateMeisai(CategoryCD As Long, strCD As String)
 
     Call tblClr("明細")
-    Dim strSQL As String
+    Dim strSql As String
     Dim colName As String
     Dim qdf As DAO.QueryDef
 
     colName = NormalizeColumnName(strCD)
 
-    strSQL = "INSERT INTO 明細 SELECT * FROM 抽出テーブル WHERE [" & colName & "] = [pValue];"
-    Set qdf = CurrentDb.CreateQueryDef("", strSQL)
+    strSql = "INSERT INTO 明細 SELECT * FROM 抽出テーブル WHERE [" & colName & "] = [pValue];"
+    Set qdf = CurrentDb.CreateQueryDef("", strSql)
     qdf.Parameters("pValue").Value = CategoryCD
     qdf.Execute dbFailOnError
 

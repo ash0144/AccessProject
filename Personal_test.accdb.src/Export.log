@@ -5,7 +5,7 @@ VCS Version 4.1.2
 Full Path: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb
 Export Folder: C:\Documents\AccPrg\Personal\AccessProject\Personal_test.accdb.src\
 Using Fast Save
-2026/03/25 16:24:46
+2026/03/27 0:29:01
 -------------------------------------
 Scanning for changes...
 No modified db connections found in this database.
@@ -20,7 +20,6 @@ No modified shared images found in this database.
 No modified themes found in this database.
 No modified db properties found in this database.
 No modified imex specs found in this database.
-No modified tables found in this database.
 No modified queries found in this database.
 No modified macros found in this database.
 No modified reports found in this database.
@@ -32,41 +31,47 @@ No modified nav pane groups found in this database.
 No modified hidden attributes found in this database.
 -------------------------------------
 Exporting modules...          
+  modTool
+  clsRegister
+  modFileDialog
   clsFormFormat
+  modFormIO
   modFormSelect
+[6]
+-------------------------------------
+Exporting tables...           
+  MoneyForward
+    Sanitized in 0.003 seconds.
+  MoneyForward (SQL)
+  TmpMF
+    Sanitized in 0.002 seconds.
+  TmpMF (SQL)
 [2]
 -------------------------------------
 Exporting forms...            
   frmKinput
     Sanitized in 0.009 seconds.
-  frmMstKb
-    Sanitized in 0.005 seconds.
-  frmMstDk
-    Sanitized in 0.005 seconds.
-  frmMstCk
-    Sanitized in 0.008 seconds.
-  frmMstKk
-    Sanitized in 0.007 seconds.
+  frmKSmenu
+    Sanitized in 0.011 seconds.
   frmEditMF
     Sanitized in 0.010 seconds.
-[6]
+[3]
 -------------------------------------
-Done. (1.65 seconds)
+Done. (1.83 seconds)
 
 --------------------------------------------------
                 PERFORMANCE REPORTS
 --------------------------------------------------
 Category                      Count     Seconds
 --------------------------------------------------
-Forms                         6         1.04
-Modules                       2         0.13
+Forms                         3         0.87
+Modules                       6         0.27
+Tables                        2         0.12
 DB Properties                 0         0.10
-Tables                        0         0.05
-CommandBars                   0         0.03
-Doc Properties                0         0.03
+Doc Properties                0         0.04
 Relations                     0         0.02
-IMEX Specs                    0         0.02
 Nav Pane Groups               0         0.02
+IMEX Specs                    0         0.02
 DB Connections                0         0.02
 VBE References                0         0.01
 Hidden Attributes             0         0.01
@@ -74,49 +79,54 @@ Queries                       0         0.01
 Themes                        0         0.01
 Proj Properties               0         0.01
 Table Data Macros             0         0.01
+CommandBars                   0         0.01
 VB Project                    0         0.01
-Project                       0         0.00
 Shared Images                 0         0.00
+Project                       0         0.00
 Table Data                    0         0.00
 VBE Forms                     0         0.00
-Saved Specs                   0         0.00
 Macros                        0         0.00
+Saved Specs                   0         0.00
 Reports                       0         0.00
 --------------------------------------------------
-TOTALS:                       8         1.53
+TOTALS:                       11        1.55
 --------------------------------------------------
 
 --------------------------------------------------
 Operations                    Count     Seconds
 --------------------------------------------------
-Convert to JSON               746       0.18
-Scan DB Objects               1         0.14
-Read File Bytes               8         0.13
-App.SaveAsText()              6         0.11
-Increment Progress            95        0.09
+Convert to JSON               695       0.18
+Parse JSON ISO Date           151       0.17
+Read File Bytes               11        0.16
+Scan DB Objects               1         0.12
+Increment Progress            101       0.11
+Read File                     12        0.08
 Clear Orphaned Files          16        0.07
 Console Updates               3         0.06
-Sanitize File                 6         0.05
-Read File DevMode             6         0.04
-Read File                     9         0.03
+App.SaveAsText()              3         0.06
+Sanitize File                 3         0.04
+Read File DevMode             3         0.02
+Export VBE Module             6         0.02
+App.ExportXML()               2         0.02
 Check for linked table        30        0.02
-Parse JSON                    1         0.01
-Get File Property Hash        16        0.01
-Export VBE Module             2         0.01
-Write File                    14        0.01
-Get VBA Hash                  25        0.01
-Delete File                   15        0.01
-Quick Count Files             1         0.00
-Compute SHA256                75        0.00
-modFileAccess.VerifyPath      20        0.00
-Parse JSON ISO Date           151       0.00
+Parse JSON                    1         0.02
+Get File Property Hash        22        0.01
+Quick Count Files             1         0.01
+Get VBA Hash                  29        0.01
+Write File                    16        0.01
+Delete File                   15        0.00
+modFileAccess.VerifyPath      21        0.00
+Sanitize VBA Code             9         0.00
+Save Table SQL                2         0.00
+Compute SHA256                85        0.00
+Sanitize XML                  2         0.00
 Quick Count Objects           1         0.00
-Sanitize VBA Code             8         0.00
+Format XML                    2         0.00
+Get Modified Date             24        0.00
 Close Open Objects            1         0.00
-Get Modified Date             16        0.00
 modFileAccess.GetUncPath      2         0.00
 --------------------------------------------------
-Other Operations                        0.67
+Other Operations                        0.66
 --------------------------------------------------
 
 

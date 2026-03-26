@@ -51,8 +51,17 @@ End Sub
 Private Sub cmdClose_Click()
 
     Dim ret As VbMsgBoxResult
+    Dim hasUnconfirmed As Boolean
 
-    If Me.PendingState Then
+    hasUnconfirmed = Me.PendingState
+
+    If Not hasUnconfirmed Then
+        If Me.subList.Form.Dirty Then
+            hasUnconfirmed = True
+        End If
+    End If
+
+    If hasUnconfirmed Then
         ret = MsgBox( _
             "未確定の変更があります。" & vbCrLf & _
             "このまま閉じると、本テーブルには反映されません。" & vbCrLf & vbCrLf & _
@@ -61,20 +70,12 @@ Private Sub cmdClose_Click()
             "未確定変更")
 
         If ret = vbNo Then Exit Sub
+
+        FormF.ResetEditState
+        Me.PendingState = False
     End If
 
     DoCmd.Close acForm, Me.name
-
-End Sub
-
-'----------------------------------------
-' 終了時
-'----------------------------------------
-Private Sub Form_Unload(Cancel As Integer)
-
-    If blnFormInitialized Then
-        FormF.OnUnload
-    End If
 
 End Sub
 

@@ -83,16 +83,17 @@ Public Sub OnLoad()
     ShowCurrentRecord
 End Sub
 
-'----------------------------------------
-' 閉じるとき
-'----------------------------------------
-Public Sub OnUnload()
+'編集途中のデータを破棄して表示モードに戻す
+Public Sub ResetEditState()
     On Error Resume Next
 
     With SubFrm
         If .Dirty Then .Undo
         .AllowEdits = False
     End With
+
+    SetButtonMode False
+    ShowCurrentRecord
 End Sub
 
 '----------------------------------------
@@ -196,7 +197,7 @@ End Sub
 ' 確定
 '----------------------------------------
 Public Sub ConfirmEdit()
-    Dim strSQL As String
+    Dim strSql As String
     Dim qdf As DAO.QueryDef
 
     With SubFrm
@@ -206,7 +207,11 @@ Public Sub ConfirmEdit()
     End With
 
     If frmMain.PendingState Then
-        Call ApplyDiff(frmMain.MasterTblN, frmMain.WorkTblN, strKeyFldN)
+        If frmMain.name = "frmEditMF" Then
+            Call ApplyDiff(frmMain.MasterTblN, frmMain.WorkTblN, strKeyFldN, , True)
+        Else
+            Call ApplyDiff(frmMain.MasterTblN, frmMain.WorkTblN, strKeyFldN)
+        End If
     End If
 
     frmMain.PendingState = False   ' ←ここがポイント
@@ -221,7 +226,7 @@ End Sub
 '----------------------------------------
 Public Sub DeleteCurrent()
     Dim msg As String
-    Dim strSQL As String
+    Dim strSql As String
 
     If SubFrm.NewRecord Then Exit Sub
 
@@ -247,15 +252,15 @@ Public Sub DeleteCurrent()
     frmMain.Controls(strSubCtrN).SetFocus
     SubFrm.Controls(str1stFocusCtrN).SetFocus
 
-    strSQL = "DELETE FROM [" & WorkTblN & "] WHERE [" & strKeyFldN & "] = "
+    strSql = "DELETE FROM [" & WorkTblN & "] WHERE [" & strKeyFldN & "] = "
 
     If strKeyFldN = "ID" Then
-        strSQL = strSQL & "'" & SubFrm.Controls(strKeyFldN) & "';"
+        strSql = strSql & "'" & SubFrm.Controls(strKeyFldN) & "';"
     Else
-        strSQL = strSQL & SubFrm.Controls(strKeyFldN) & ";"
+        strSql = strSql & SubFrm.Controls(strKeyFldN) & ";"
     End If
 
-    CurrentDb.Execute strSQL, dbFailOnError
+    CurrentDb.Execute strSql, dbFailOnError
 
     SubFrm.Requery
 
