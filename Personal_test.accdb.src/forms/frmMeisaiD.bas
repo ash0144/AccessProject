@@ -18,10 +18,10 @@ Begin Form
     Right =25575
     Bottom =13620
     RecSrcDt = Begin
-        0x0a6abd75523ce640
+        0xc3bdf7359583e640
     End
-    RecordSource ="SELECT 明細.中項目, Sum(明細.金額（円）) AS 金額（円）の合計 FROM 明細 GROUP BY 明細.中項目, 明細.中項目CD ORDER"
-        " BY 明細.中項目CD; "
+    RecordSource ="SELECT 明細.中項目, Sum(明細.[金額]) AS 金額（円）の合計 FROM 明細 GROUP BY 明細.中項目, 明細.中項目CD ORDER "
+        "BY 明細.中項目CD; "
     DatasheetFontName ="ＭＳ Ｐゴシック"
     FilterOnLoad =0
     ShowPageMargins =0
@@ -79,7 +79,7 @@ Begin Form
             BackTint =20.0
             Begin
                 Begin Label
-                    OverlapFlags =85
+                    OverlapFlags =93
                     TextFontFamily =50
                     Width =4536
                     Height =270
@@ -94,7 +94,7 @@ Begin Form
                     ForeTint =75.0
                 End
                 Begin Label
-                    OverlapFlags =85
+                    OverlapFlags =87
                     TextFontFamily =50
                     Left =4540
                     Width =1701
@@ -120,7 +120,7 @@ Begin Form
             BackThemeColorIndex =1
             Begin
                 Begin TextBox
-                    OverlapFlags =85
+                    OverlapFlags =93
                     Left =4540
                     Top =57
                     ColumnWidth =2820
@@ -136,7 +136,7 @@ Begin Form
                     CurrencySymbol ="¥"
                 End
                 Begin TextBox
-                    OverlapFlags =85
+                    OverlapFlags =87
                     IMEMode =1
                     Top =57
                     Width =4536

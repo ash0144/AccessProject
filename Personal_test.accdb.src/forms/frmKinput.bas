@@ -334,7 +334,7 @@ Begin Form
                 End
                 Begin CommandButton
                     OverlapFlags =85
-                    Left =3401
+                    Left =2664
                     Top =4138
                     Width =2268
                     Height =567
@@ -343,9 +343,9 @@ Begin Form
                     Caption ="確定"
                     OnClick ="[Event Procedure]"
 
-                    LayoutCachedLeft =3401
+                    LayoutCachedLeft =2664
                     LayoutCachedTop =4138
-                    LayoutCachedWidth =5669
+                    LayoutCachedWidth =4932
                     LayoutCachedHeight =4705
                 End
                 Begin ComboBox
@@ -473,7 +473,7 @@ Begin Form
                     OverlapFlags =85
                     TextFontFamily =50
                     Left =5102
-                    Top =4818
+                    Top =4138
                     Width =567
                     Height =567
                     TabIndex =10
@@ -517,9 +517,9 @@ Begin Form
                     End
 
                     LayoutCachedLeft =5102
-                    LayoutCachedTop =4818
+                    LayoutCachedTop =4138
                     LayoutCachedWidth =5669
-                    LayoutCachedHeight =5385
+                    LayoutCachedHeight =4705
                 End
                 Begin TextBox
                     OverlapFlags =85

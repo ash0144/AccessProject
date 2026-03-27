@@ -18,9 +18,9 @@ Begin Form
     Right =25575
     Bottom =13620
     RecSrcDt = Begin
-        0xbd0c762c313ce640
+        0x7182703a9583e640
     End
-    RecordSource ="SELECT 明細.日付, 明細.内容, 明細.金額（円）, 明細.保有金融機関 FROM 明細 ORDER BY 明細.日付 DESC; "
+    RecordSource ="SELECT 明細.日付, 明細.内容, 明細.[金額], 明細.保有金融機関 FROM 明細 ORDER BY 明細.日付 DESC; "
     DatasheetFontName ="ＭＳ Ｐゴシック"
     FilterOnLoad =0
     ShowPageMargins =0
@@ -176,7 +176,7 @@ Begin Form
                     Top =57
                     TabIndex =2
                     Name ="金額（円）"
-                    ControlSource ="金額（円）"
+                    ControlSource ="金額"
                     Format ="¥#,##0;-¥#,##0"
 
                     LayoutCachedLeft =10725

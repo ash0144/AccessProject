@@ -11,7 +11,7 @@ Begin Form
     PictureAlignment =2
     DatasheetGridlinesBehavior =3
     GridY =10
-    Width =8333
+    Width =7937
     DatasheetFontHeight =11
     ItemSuffix =37
     Right =14172
@@ -165,7 +165,7 @@ Begin Form
             GridlineShade =65.0
         End
         Begin Section
-            Height =10767
+            Height =10488
             Name ="詳細"
             AlternateBackThemeColorIndex =1
             AlternateBackShade =95.0
@@ -309,7 +309,7 @@ Begin Form
                     OverlapFlags =85
                     TextFontFamily =50
                     Left =6804
-                    Top =10200
+                    Top =9744
                     Width =567
                     Height =567
                     TabIndex =5
@@ -353,9 +353,9 @@ Begin Form
                     End
 
                     LayoutCachedLeft =6804
-                    LayoutCachedTop =10200
+                    LayoutCachedTop =9744
                     LayoutCachedWidth =7371
-                    LayoutCachedHeight =10767
+                    LayoutCachedHeight =10311
                 End
                 Begin OptionGroup
                     OverlapFlags =85

@@ -152,7 +152,7 @@ Begin Form
             End
         End
         Begin Section
-            Height =5159
+            Height =4818
             Name ="詳細"
             AlternateBackThemeColorIndex =1
             AlternateBackShade =95.0
@@ -317,8 +317,8 @@ Begin Form
                 End
                 Begin CommandButton
                     OverlapFlags =85
-                    Left =3458
-                    Top =3911
+                    Left =2664
+                    Top =3968
                     Width =2268
                     Height =567
                     TabIndex =7
@@ -326,10 +326,10 @@ Begin Form
                     Caption ="確定"
                     OnClick ="[Event Procedure]"
 
-                    LayoutCachedLeft =3458
-                    LayoutCachedTop =3911
-                    LayoutCachedWidth =5726
-                    LayoutCachedHeight =4478
+                    LayoutCachedLeft =2664
+                    LayoutCachedTop =3968
+                    LayoutCachedWidth =4932
+                    LayoutCachedHeight =4535
                 End
                 Begin ComboBox
                     OverlapFlags =85
@@ -416,7 +416,7 @@ Begin Form
                     OverlapFlags =85
                     TextFontFamily =50
                     Left =5102
-                    Top =4592
+                    Top =3968
                     Width =567
                     Height =567
                     TabIndex =8
@@ -460,9 +460,9 @@ Begin Form
                     End
 
                     LayoutCachedLeft =5102
-                    LayoutCachedTop =4592
+                    LayoutCachedTop =3968
                     LayoutCachedWidth =5669
-                    LayoutCachedHeight =5159
+                    LayoutCachedHeight =4535
                 End
                 Begin TextBox
                     OverlapFlags =85

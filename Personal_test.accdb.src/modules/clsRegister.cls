@@ -77,6 +77,7 @@ Public Sub Register(tblN As String)
 
         lngDkomoku = rs!大項目CD
         rs.Close: Set rs = Nothing
+
         If lngDkomoku <> 1 Then
             pForm.Controls("txtKingaku") = -Abs(pForm.Controls("txtKingakuView"))
         Else
@@ -94,10 +95,7 @@ Public Sub Register(tblN As String)
     inTrans = True
 
     Set rs = db.OpenRecordset(tblN, dbOpenDynaset)
-
     rs.AddNew
-
-
     For Each ctl In pForm.Controls
         ' Tagプロパティにフィールド名が入っているコントロールのみ対象
         If ctl.Tag <> "" Then
