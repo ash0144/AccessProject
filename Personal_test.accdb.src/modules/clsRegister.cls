@@ -64,11 +64,31 @@ Public Sub Register(tblN As String)
     Dim ckomokuCD As Variant, dkomokuCD As Variant
     Dim inTrans As Boolean
     Dim strSql As String
+    Dim lngDkomoku As Long
 
     Set ws = DBEngine.Workspaces(0)
     Set db = CurrentDb
 
+    If pForm.name = "frmSinput" Then
+        strSql = "SELECT C.大項目CD FROM 勘定科目 AS K " & _
+                 "INNER JOIN 中項目 AS C ON K.中項目CD = C.中項目CD " & _
+                 "WHERE K.勘定科目CD = " & pForm.Controls("cmbKamoku") & ";"
+        Set rs = db.OpenRecordset(strSql)
 
+        lngDkomoku = rs!大項目CD
+        rs.Close: Set rs = Nothing
+        If lngDkomoku <> 1 Then
+            pForm.Controls("txtKingaku") = -Abs(pForm.Controls("txtKingakuView"))
+        Else
+            pForm.Controls("txtKingaku") = Abs(pForm.Controls("txtKingakuView"))
+        End If
+    Else
+        If pForm.Controls("cmbDkomoku") <> 1 Then
+            pForm.Controls("txtKingaku") = -Abs(pForm.Controls("txtKingakuView"))
+        Else
+            pForm.Controls("txtKingaku") = Abs(pForm.Controls("txtKingakuView"))
+        End If
+    End If
 
     ws.BeginTrans
     inTrans = True
@@ -76,6 +96,8 @@ Public Sub Register(tblN As String)
     Set rs = db.OpenRecordset(tblN, dbOpenDynaset)
 
     rs.AddNew
+
+
     For Each ctl In pForm.Controls
         ' Tagプロパティにフィールド名が入っているコントロールのみ対象
         If ctl.Tag <> "" Then
@@ -101,12 +123,14 @@ Public Sub Register(tblN As String)
                     rs!大項目 = ctl.Column(1)
                 Case "ID"
                     rs!ID = GetID
+                Case "View"
+                    '表示だけの金額のTagはView,Required → 何もしない
                 Case Else
-                    rs.Fields(fldN).Value = ctl.Value
+                    rs.Fields("[" & fldN & "]").Value = ctl.Value
             End Select
         End If
     Next ctl
-    rs.Update: rs.Close
+    rs.Update
 
     ws.CommitTrans
     inTrans = False

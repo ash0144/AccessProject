@@ -93,7 +93,7 @@
             </xsd:restriction>
           </xsd:simpleType>
         </xsd:element>
-        <xsd:element name="金額_xFF08_円_xFF09_" minOccurs="0" od:jetType="double" od:sqlSType="float" type="xsd:double">
+        <xsd:element name="金額" minOccurs="0" od:jetType="double" od:sqlSType="float" type="xsd:double">
           <xsd:annotation>
             <xsd:appinfo>
               <od:fieldProperty name="Format" type="10" value="General Number"></od:fieldProperty>

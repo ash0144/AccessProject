@@ -231,7 +231,7 @@ Begin Form
                     Height =284
                     TabIndex =2
                     Name ="txtPrice"
-                    ControlSource ="金額（円）"
+                    ControlSource ="金額"
                     Format ="General Number"
 
                     LayoutCachedLeft =5102

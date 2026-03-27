@@ -1,7 +1,7 @@
 ﻿SELECT
   MoneyForward.日付,
   MoneyForward.内容,
-  MoneyForward.金額（円）,
+  MoneyForward.金額,
   MoneyForward.保有金融機関,
   MoneyForward.中項目CD,
   中項目.勘定科目CD,

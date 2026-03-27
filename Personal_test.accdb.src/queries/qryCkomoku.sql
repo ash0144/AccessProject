@@ -5,6 +5,6 @@ FROM
 WHERE
   (
     (
-      (抽出テーブル.大項目CD)= [forms]![frmKSmenu_output]![cmbDkomoku]
+      (抽出テーブル.大項目CD)= [forms]![frmKSmenu]![cmbDkomoku]
     )
   );

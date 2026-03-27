@@ -76,7 +76,7 @@
             </xsd:restriction>
           </xsd:simpleType>
         </xsd:element>
-        <xsd:element name="金額_xFF08_円_xFF09_" minOccurs="0" od:jetType="longinteger" od:sqlSType="int" type="xsd:int">
+        <xsd:element name="金額" minOccurs="0" od:jetType="longinteger" od:sqlSType="int" type="xsd:int">
           <xsd:annotation>
             <xsd:appinfo>
               <od:fieldProperty name="ColumnWidth" type="3" value="-1"></od:fieldProperty>

@@ -35,7 +35,7 @@ Public Sub ApplyDiff(mstTbl As String, wkTbl As String, keyCD As String, _
 
     If fromView Then
         strSql = "UPDATE [" & wkTbl & "] INNER JOIN 中項目 ON [" & wkTbl & "].中項目CD = 中項目.中項目CD " & _
-        "SET [" & wkTbl & "].[金額（円）] = -[金額（円）] " & _
+        "SET [" & wkTbl & "].[金額] = -[金額] " & _
         "WHERE 中項目.大項目CD<>1;"
         db.Execute strSql, dbFailOnError
     End If

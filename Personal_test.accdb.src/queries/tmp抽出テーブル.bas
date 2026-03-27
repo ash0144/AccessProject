@@ -2,13 +2,13 @@
 Option =0
 Where ="(((中項目.確定申告)=True) AND ((MoneyForward.計算対象)=1))"
 Begin InputTables
-    Name ="MoneyForward"
     Name ="中項目"
+    Name ="MoneyForward"
 End
 Begin OutputColumns
     Expression ="MoneyForward.日付"
     Expression ="MoneyForward.内容"
-    Expression ="MoneyForward.金額（円）"
+    Expression ="MoneyForward.金額"
     Expression ="MoneyForward.保有金融機関"
     Expression ="MoneyForward.中項目CD"
     Expression ="中項目.勘定科目CD"
@@ -64,24 +64,15 @@ Begin
     State =0
     Left =0
     Top =0
-    Right =1705
-    Bottom =860
+    Right =1666
+    Bottom =985
     Left =-1
     Top =-1
-    Right =1685
-    Bottom =496
+    Right =1646
+    Bottom =475
     Left =0
     Top =0
     ColumnsShown =539
-    Begin
-        Left =37
-        Top =19
-        Right =229
-        Bottom =430
-        Top =0
-        Name ="MoneyForward"
-        Name =""
-    End
     Begin
         Left =777
         Top =96
@@ -89,6 +80,15 @@ Begin
         Bottom =355
         Top =0
         Name ="中項目"
+        Name =""
+    End
+    Begin
+        Left =37
+        Top =19
+        Right =229
+        Bottom =430
+        Top =0
+        Name ="MoneyForward"
         Name =""
     End
 End

@@ -22,9 +22,9 @@ Private Sub cmdEnter_Click()
         reg.Register "MoneyForward"
         MsgBox "登録が完了しました。", vbInformation
         ClearControls
-    Else
-        Exit Sub
     End If
+
+    Exit Sub
 
 ErrHandler:
     ' クラスから通知されたエラーをここで表示する
@@ -35,7 +35,7 @@ End Sub
 
 Private Sub ClearControls()
     Dim ctl As Variant
-    For Each ctl In Array(Me!txtHizuke, Me!txtNaiyo, Me!txtKingaku, Me!cmbKamoku, Me!txtMemo, Me!txtKinyu)
+    For Each ctl In Array(Me!txtHizuke, Me!txtNaiyo, Me!txtKingakuView, Me!txtKingaku, Me!cmbKamoku, Me!txtMemo, Me!txtKinyu)
         ctl.Value = Null
     Next ctl
 End Sub

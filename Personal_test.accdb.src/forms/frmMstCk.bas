@@ -1,6 +1,7 @@
 ﻿Version =20
 VersionRequired =20
 Begin Form
+    CloseButton = NotDefault
     DividingLines = NotDefault
     AllowDesignChanges = NotDefault
     TabularCharSet =128
@@ -140,7 +141,7 @@ Begin Form
             GridlineShade =65.0
         End
         Begin FormHeader
-            Height =1190
+            Height =819
             Name ="フォームヘッダー"
             AlternateBackThemeColorIndex =1
             AlternateBackShade =95.0
@@ -422,16 +423,53 @@ Begin Form
             Begin
                 Begin CommandButton
                     OverlapFlags =85
-                    Left =566
+                    Left =4308
                     Top =283
+                    Width =567
                     Height =567
                     Name ="cmdCancel"
                     Caption ="閉じる"
                     OnClick ="[Event Procedure]"
+                    ImageData = Begin
+                        0x2800000010000000100000000100200000000000000000000000000000000000 ,
+                        0x000000000000000000000000000000000000000082c2ea0982c2ea4b82c2ea90 ,
+                        0x82c2eade00000000000000000000000000000000000000000000000000000000 ,
+                        0x000000000000000082c2ea2182c2ea7582c2eab782c2eaf982c2eaff82c2eaff ,
+                        0x82c2eaff00000000000000000000000000000000000000000000000000000000 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff000000000000000000000000 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaffffffffffffffffffffffffff82c2eaff000000000000000000000000 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaffffffffffffffffffffffffa500000000000000000000000000000000 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaffffffffffffffffc000000000b17d4a90b17d4affb17d4af0b17d4a36 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaffffffffedffffff30b17d4a87b17d4affb17d4af0b17d4a3600000000 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaffffffffffd7ecf8ff82c2eaff ,
+                        0x82c2eaffffffff30b17d4a81b17d4affb17d4affb17d4affb17d4affb17d4aff ,
+                        0xb17d4affb17d4aff82c2eaff82c2eaff82c2eaffdceef9ffc4e2f5ff82c2eaff ,
+                        0x82c2eaffffffff27b17d4a7eb17d4affb17d4affb17d4affb17d4affb17d4aff ,
+                        0xb17d4affb17d4aff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaffffffffe4ffffff27b17d4a84b17d4affb17d4af0b17d4a3900000000 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaffffffffffffffffbd00000000b17d4a8db17d4affb17d4af0b17d4a39 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaffffffffffffffffffffffffa500000000000000000000000000000000 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaffffffffffffffffffffffffff82c2eaff000000000000000000000000 ,
+                        0x000000000000000082c2eaff82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff ,
+                        0x82c2eaff82c2eaff82c2eaff82c2eaff82c2eaff000000000000000000000000 ,
+                        0x000000000000000082c2ea2182c2ea6f82c2eab782c2eaf982c2eaff82c2eaff ,
+                        0x82c2eaff00000000000000000000000000000000000000000000000000000000 ,
+                        0x000000000000000000000000000000000000000082c2ea0982c2ea4e82c2ea96 ,
+                        0x82c2eae400000000000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000
+                    End
 
-                    LayoutCachedLeft =566
+                    LayoutCachedLeft =4308
                     LayoutCachedTop =283
-                    LayoutCachedWidth =2267
+                    LayoutCachedWidth =4875
                     LayoutCachedHeight =850
                     Overlaps =1
                 End

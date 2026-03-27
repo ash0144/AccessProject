@@ -17,7 +17,7 @@ Private Sub Form_Open(Cancel As Integer)
     Dim btnHandler As clsMyButton
 
     Me.txtRange = Me.OpenArgs
-    Me.txtGokei = DSum("金額（円）", "抽出テーブル")
+    Me.txtGokei = DSum("金額", "抽出テーブル")
 
     mainCDs = GetCategoryList("Sinkoku")
 
@@ -29,7 +29,7 @@ Private Sub Form_Open(Cancel As Integer)
         mCD = mainCDs(i)
         ' コントロールの初期設定
         Me("lblCkomoku" & i) = Nz(DLookup("勘定科目", "勘定科目", "勘定科目CD=" & mCD), "")
-        Me("txtCkomoku" & i) = Nz(DSum("金額（円）", "抽出テーブル", "勘定科目CD=" & mCD), "")
+        Me("txtCkomoku" & i) = Nz(DSum("金額", "抽出テーブル", "勘定科目CD=" & mCD), "")
         Me("cmdMeisai" & i).Visible = True
 
         ' --- ここでイベントを共通化 ---

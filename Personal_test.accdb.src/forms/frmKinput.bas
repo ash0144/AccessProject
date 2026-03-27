@@ -13,7 +13,7 @@ Begin Form
     GridY =10
     Width =6236
     DatasheetFontHeight =11
-    ItemSuffix =13
+    ItemSuffix =15
     Right =14172
     Bottom =11568
     RecSrcDt = Begin
@@ -221,33 +221,18 @@ Begin Form
                 Begin TextBox
                     OverlapFlags =85
                     IMEMode =2
-                    Left =2271
-                    Top =1250
-                    Width =3402
-                    TabIndex =2
+                    Left =566
+                    Top =4705
+                    Width =954
+                    TabIndex =11
                     Name ="txtKingaku"
                     Format ="General Number"
-                    Tag ="金額（円）,Required"
+                    Tag ="金額,NA"
 
-                    LayoutCachedLeft =2271
-                    LayoutCachedTop =1250
-                    LayoutCachedWidth =5673
-                    LayoutCachedHeight =1520
-                    Begin
-                        Begin Label
-                            OverlapFlags =85
-                            Left =570
-                            Top =1250
-                            Width =990
-                            Height =270
-                            Name ="ラベル2"
-                            Caption ="金額（円）"
-                            LayoutCachedLeft =570
-                            LayoutCachedTop =1250
-                            LayoutCachedWidth =1560
-                            LayoutCachedHeight =1520
-                        End
-                    End
+                    LayoutCachedLeft =566
+                    LayoutCachedTop =4705
+                    LayoutCachedWidth =1520
+                    LayoutCachedHeight =4975
                 End
                 Begin TextBox
                     OverlapFlags =85
@@ -256,7 +241,7 @@ Begin Form
                     Top =2721
                     Width =3402
                     Height =570
-                    TabIndex =5
+                    TabIndex =6
                     Name ="txtMemo"
                     Format ="@"
                     Tag ="メモ,NA"
@@ -287,7 +272,7 @@ Begin Form
                     Left =2265
                     Top =3384
                     Width =3402
-                    TabIndex =6
+                    TabIndex =8
                     Name ="txtFurikae"
                     DefaultValue ="0"
                     Tag ="振替,Required"
@@ -321,7 +306,7 @@ Begin Form
                     Top =3724
                     Width =3402
                     ColumnWidth =5715
-                    TabIndex =7
+                    TabIndex =9
                     Name ="txtID"
                     Format ="@"
                     Tag ="ID,NA"
@@ -353,7 +338,7 @@ Begin Form
                     Top =4138
                     Width =2268
                     Height =567
-                    TabIndex =8
+                    TabIndex =7
                     Name ="cmdEnter"
                     Caption ="確定"
                     OnClick ="[Event Procedure]"
@@ -451,7 +436,7 @@ Begin Form
                     Top =2381
                     Width =3402
                     Height =252
-                    TabIndex =9
+                    TabIndex =5
                     BoundColumn =1
                     Name ="txtKinyu"
                     RowSourceType ="Table/Query"
@@ -484,23 +469,6 @@ Begin Form
                         End
                     End
                 End
-                Begin TextBox
-                    Visible = NotDefault
-                    OverlapFlags =85
-                    Left =1870
-                    Top =4195
-                    Width =633
-                    Height =252
-                    TabIndex =10
-                    Name ="txtKeisan"
-                    DefaultValue ="1"
-                    Tag ="計算対象,Required"
-
-                    LayoutCachedLeft =1870
-                    LayoutCachedTop =4195
-                    LayoutCachedWidth =2503
-                    LayoutCachedHeight =4447
-                End
                 Begin CommandButton
                     OverlapFlags =85
                     TextFontFamily =50
@@ -508,7 +476,7 @@ Begin Form
                     Top =4818
                     Width =567
                     Height =567
-                    TabIndex =11
+                    TabIndex =10
                     Name ="cmdClose"
                     OnClick ="[Event Procedure]"
                     ImageData = Begin
@@ -552,6 +520,36 @@ Begin Form
                     LayoutCachedTop =4818
                     LayoutCachedWidth =5669
                     LayoutCachedHeight =5385
+                End
+                Begin TextBox
+                    OverlapFlags =85
+                    IMEMode =2
+                    Left =2267
+                    Top =1303
+                    Height =252
+                    TabIndex =2
+                    Name ="txtKingakuView"
+                    Tag ="View,Required"
+
+                    LayoutCachedLeft =2267
+                    LayoutCachedTop =1303
+                    LayoutCachedWidth =3968
+                    LayoutCachedHeight =1555
+                    Begin
+                        Begin Label
+                            OverlapFlags =85
+                            Left =566
+                            Top =1303
+                            Width =1008
+                            Height =252
+                            Name ="ラベル14"
+                            Caption ="金額（円）"
+                            LayoutCachedLeft =566
+                            LayoutCachedTop =1303
+                            LayoutCachedWidth =1574
+                            LayoutCachedHeight =1555
+                        End
+                    End
                 End
             End
         End

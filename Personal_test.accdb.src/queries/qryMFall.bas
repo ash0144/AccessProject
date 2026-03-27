@@ -17,12 +17,12 @@ Begin
     State =0
     Left =0
     Top =0
-    Right =1705
+    Right =1666
     Bottom =985
     Left =-1
     Top =-1
-    Right =1685
-    Bottom =684
+    Right =1646
+    Bottom =663
     Left =0
     Top =0
     ColumnsShown =771

@@ -23,7 +23,7 @@ Private Sub Form_Open(Cancel As Integer)
         strRange = args(1)
         Me.txtDkomoku = DLookup("大項目", "大項目", "大項目CD=" & lngDkomoku)
         Me.txtRange = args(1)
-        Me!txtGokei = DSum("金額（円）", "抽出テーブル", "大項目CD=" & lngDkomoku)
+        Me!txtGokei = DSum("金額", "抽出テーブル", "大項目CD=" & lngDkomoku)
     End If
 
 
@@ -38,7 +38,7 @@ Private Sub Form_Open(Cancel As Integer)
         sCD = subCDs(i)
         ' ラベルと金額のセット
         Me("lblCkomoku" & i) = Nz(DLookup("中項目", "中項目", "中項目CD=" & sCD), "")
-        Me("txtCkomoku" & i) = Nz(DSum("金額（円）", "抽出テーブル", "中項目CD=" & sCD), 0)
+        Me("txtCkomoku" & i) = Nz(DSum("金額", "抽出テーブル", "中項目CD=" & sCD), 0)
         Me("cmdMeisai" & i).Visible = True
 
         ' --- イベントの共通化登録 ---

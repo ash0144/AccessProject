@@ -1,6 +1,6 @@
 ﻿Operation =1
 Option =2
-Where ="(((抽出テーブル.大項目CD)=[forms]![frmKSmenu_output]![cmbDkomoku]))"
+Where ="(((抽出テーブル.大項目CD)=[forms]![frmKSmenu]![cmbDkomoku]))"
 Begin InputTables
     Name ="抽出テーブル"
 End
@@ -26,12 +26,12 @@ Begin
     State =0
     Left =0
     Top =0
-    Right =1705
+    Right =1666
     Bottom =985
     Left =-1
     Top =-1
-    Right =1685
-    Bottom =554
+    Right =1646
+    Bottom =533
     Left =0
     Top =0
     ColumnsShown =539

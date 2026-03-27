@@ -44,6 +44,7 @@ Private Sub ClearControls()
     Me!txtHizuke = Null
     Me!txtNaiyo = Null
     Me!txtKingaku = Null
+    Me!txtKingakuView = Null
     Me!cmbDkomoku = Null
     Me!cmbCkomoku = Null
     Me!txtMemo = Null

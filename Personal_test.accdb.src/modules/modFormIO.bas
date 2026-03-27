@@ -27,7 +27,7 @@ Public Function ImportMFData() As Boolean
         '一時テーブルから本番テーブルへ、存在する列だけを流し込む
         '[中項目CD] はこの時点では空のままでOK
         '計算対象=1 のみ取り込む仕様に変更(20260326)
-        db.Execute "INSERT INTO MoneyForward ( 計算対象, 日付, 内容, [金額（円）], 保有金融機関, 大項目, 中項目, メモ, 振替, ID ) " & _
+        db.Execute "INSERT INTO MoneyForward ( 計算対象, 日付, 内容, 金額, 保有金融機関, 大項目, 中項目, メモ, 振替, ID ) " & _
                    "SELECT 計算対象, 日付, 内容, [金額（円）], 保有金融機関, 大項目, 中項目, メモ, 振替, ID FROM TmpMF " & _
                    "WHERE 計算対象=1;", dbFailOnError
     Next i
@@ -56,15 +56,15 @@ Public Sub ToPickUpTable(dFrom As Date, dTo As Date, optB As Integer, Optional d
     tblClr "抽出テーブル"
 
     If optB = 1 Then
-        strSql = "INSERT INTO 抽出テーブル ( 日付, 内容, [金額（円）], 保有金融機関, 大項目, 中項目, 大項目CD, 中項目CD, ID ) " & _
-                 "SELECT 日付, 内容, [金額（円）], 保有金融機関, M.大項目, M.中項目, C.大項目CD, M.中項目CD, ID " & _
+        strSql = "INSERT INTO 抽出テーブル ( 日付, 内容, 金額, 保有金融機関, 大項目, 中項目, 大項目CD, 中項目CD, ID ) " & _
+                 "SELECT 日付, 内容, 金額, 保有金融機関, M.大項目, M.中項目, C.大項目CD, M.中項目CD, ID " & _
                  "FROM MoneyForward AS M " & _
                  "INNER JOIN (大項目 AS D INNER JOIN 中項目 AS C ON D.大項目CD = C.大項目CD) ON M.中項目 = C.中項目 " & _
                  "WHERE (日付 Between [pFrom] And [pTo]) AND (計算対象=1) AND (C.家計簿=True) "
         If Not IsNull(dkomokuCD) Then strSql = strSql & "AND (C.大項目CD = [pCD]) "
     Else
-        strSql = "INSERT INTO 抽出テーブル ( 日付, 内容, [金額（円）], 保有金融機関, 中項目CD, 中項目, 勘定科目CD, 勘定科目, 勘定分類CD, ID ) " & _
-                 "SELECT 日付, 内容, [金額（円）], 保有金融機関, M.中項目CD, M.中項目, K.勘定科目CD, K.勘定科目, K.勘定分類CD, ID " & _
+        strSql = "INSERT INTO 抽出テーブル ( 日付, 内容, 金額, 保有金融機関, 中項目CD, 中項目, 勘定科目CD, 勘定科目, 勘定分類CD, ID ) " & _
+                 "SELECT 日付, 内容, 金額, 保有金融機関, M.中項目CD, M.中項目, K.勘定科目CD, K.勘定科目, K.勘定分類CD, ID " & _
                  "FROM MoneyForward AS M " & _
                  "INNER JOIN (勘定科目 AS K INNER JOIN 中項目 AS C ON K.中項目CD = C.中項目CD) ON M.中項目CD = K.中項目CD " & _
                  "WHERE (日付 Between [pFrom] And [pTo]) AND (計算対象=1) AND (C.確定申告=True) "
@@ -96,9 +96,9 @@ Public Sub LoadWorkTable(fromTable As String, toTable As String, Optional viewMo
 
     'viewMode=Trueの場合はワークテーブルを表示用とし、マイナスを表示しない
     If viewMode Then
-        strSql = "UPDATE [" & toTable & "] SET [金額（円）] = Abs([金額（円）]);"
+        strSql = "UPDATE [" & toTable & "] SET [金額] = Abs([金額]);"
+        db.Execute strSql, dbFailOnError
     End If
-    db.Execute strSql, dbFailOnError
 
     Set db = Nothing
 
