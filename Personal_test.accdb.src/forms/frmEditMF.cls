@@ -5,7 +5,7 @@ Attribute VB_Exposed = False
 Option Compare Database
 Option Explicit
 
-Private FormF As New clsFormFormat
+Private insEdit As New clsEdit
 
 Private blnFormInitialized As Boolean
 Private strMasterTblN As String
@@ -40,8 +40,8 @@ End Property
 '----------------------------------------
 Public Sub InitializeForm()
 
-    FormF.SetupItemForm Me
-    FormF.OnLoad
+    insEdit.SetupItemForm Me
+    insEdit.OnLoad
 
     blnFormInitialized = True
     Me.PendingState = False
@@ -71,7 +71,7 @@ Private Sub cmdClose_Click()
 
         If ret = vbNo Then Exit Sub
 
-        FormF.ResetEditState
+        insEdit.ResetEditState
         Me.PendingState = False
     End If
 
@@ -80,29 +80,32 @@ Private Sub cmdClose_Click()
 End Sub
 
 Private Sub cmdSearch_Click()
-    FormF.Search
+    insEdit.Search
 End Sub
 
 Private Sub cmdClear_Click()
-    FormF.ClearSearch
+    insEdit.ClearSearch
 End Sub
 
 Private Sub cmbDkomoku_AfterUpdate()
-    FormF.DkomokuAfterUpdate
+    insEdit.DkomokuAfterUpdate
 End Sub
 
 Private Sub cmdEdit_Click()
-    FormF.EditCurrent
+    insEdit.EditCurrent
 End Sub
 
 Private Sub cmdDelete_Click()
-    FormF.DeleteCurrent
+    insEdit.DeleteCurrent
 End Sub
 
 Private Sub cmdConfirm_Click()
-    FormF.ConfirmEdit
+    insEdit.ConfirmEdit
+
+    '金額の＋－入れ替えを行っているので念のため
+    Me!subList.Requery
 End Sub
 
 Public Sub RefreshSelectedInfo()
-    FormF.ShowCurrentRecord
+    insEdit.ShowCurrentRecord
 End Sub

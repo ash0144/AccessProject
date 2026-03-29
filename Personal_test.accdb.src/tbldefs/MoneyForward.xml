@@ -13,7 +13,7 @@
       <xsd:appinfo>
         <od:index index-name="PrimaryKey" index-key="ID " primary="yes" unique="yes" clustered="no" order="asc"></od:index>
         <od:tableProperty name="Orientation" type="2" value="0"></od:tableProperty>
-        <od:tableProperty name="OrderByOn" type="1" value="1"></od:tableProperty>
+        <od:tableProperty name="OrderByOn" type="1" value="0"></od:tableProperty>
         <od:tableProperty name="DefaultView" type="2" value="2"></od:tableProperty>
         <od:tableProperty name="DisplayViewsOnSharePointSite" type="2" value="1"></od:tableProperty>
         <od:tableProperty name="TotalsRow" type="1" value="0"></od:tableProperty>
@@ -29,7 +29,6 @@
         <od:tableProperty name="ReadOnlyWhenDisconnected" type="1" value="0"></od:tableProperty>
         <od:tableProperty name="DatasheetGridlinesThemeColorIndex" type="4" value="-1"></od:tableProperty>
         <od:tableProperty name="DatasheetForeThemeColorIndex" type="4" value="-1"></od:tableProperty>
-        <od:tableProperty name="OrderBy" type="12" value="[MoneyForward].[日付] DESC"></od:tableProperty>
       </xsd:appinfo>
     </xsd:annotation>
     <xsd:complexType>
@@ -38,7 +37,7 @@
           <xsd:annotation>
             <xsd:appinfo>
               <od:fieldProperty name="ColumnWidth" type="3" value="-1"></od:fieldProperty>
-              <od:fieldProperty name="ColumnOrder" type="3" value="1"></od:fieldProperty>
+              <od:fieldProperty name="ColumnOrder" type="3" value="0"></od:fieldProperty>
               <od:fieldProperty name="ColumnHidden" type="1" value="0"></od:fieldProperty>
               <od:fieldProperty name="DecimalPlaces" type="2" value="255"></od:fieldProperty>
               <od:fieldProperty name="Required" type="1" value="0"></od:fieldProperty>
@@ -72,7 +71,7 @@
           <xsd:annotation>
             <xsd:appinfo>
               <od:fieldProperty name="Format" type="10" value="@"></od:fieldProperty>
-              <od:fieldProperty name="ColumnWidth" type="3" value="4776"></od:fieldProperty>
+              <od:fieldProperty name="ColumnWidth" type="3" value="3996"></od:fieldProperty>
               <od:fieldProperty name="ColumnOrder" type="3" value="0"></od:fieldProperty>
               <od:fieldProperty name="ColumnHidden" type="1" value="0"></od:fieldProperty>
               <od:fieldProperty name="Required" type="1" value="0"></od:fieldProperty>
@@ -230,7 +229,7 @@
           <xsd:annotation>
             <xsd:appinfo>
               <od:fieldProperty name="Format" type="10" value="@"></od:fieldProperty>
-              <od:fieldProperty name="ColumnWidth" type="3" value="5715"></od:fieldProperty>
+              <od:fieldProperty name="ColumnWidth" type="3" value="1140"></od:fieldProperty>
               <od:fieldProperty name="ColumnOrder" type="3" value="0"></od:fieldProperty>
               <od:fieldProperty name="ColumnHidden" type="1" value="0"></od:fieldProperty>
               <od:fieldProperty name="Required" type="1" value="1"></od:fieldProperty>
